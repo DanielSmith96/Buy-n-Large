@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Космос — SARS.COM · Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--blue-dark:#0E2460;--blue-mid:#2351C0;--white:#fff;--gold:#c8a84b;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;color:#fff;background:#03060e;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(3,6,14,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}
+.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}
+.nm a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;}
+.nm a:hover,.nm a.active{color:#fff;}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1;margin-bottom:16px;}
+.fu{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fu.vis{opacity:1;transform:translateY(0);}
+/* Stars background */
+.stars{position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(26,58,140,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(212,26,26,0.08) 0%,transparent 50%);pointer-events:none;z-index:0;}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:32px;}
+.card:hover{border-color:rgba(212,26,26,0.3);background:rgba(255,255,255,0.06);}
+.sat-orbit{animation:orbit 20s linear infinite;}
+.sat-orbit2{animation:orbit 35s linear infinite reverse;}
+@keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+footer{background:#020408;padding:44px 40px 22px;margin-top:0;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:24px;flex-wrap:wrap;gap:16px;}
+.fb{max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2);flex-wrap:wrap;gap:8px;}
+@media(max-width:900px){.nm{display:none;}}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li>
+    <li><a href="bnl_ant.html">AnT</a></li>
+    <li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html" class="active">Космос</a></li>
+    <li><a href="bnl_news.html">Новости</a></li>
+    <li><a href="bnl_careers.html">Карьера</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section style="min-height:100vh;display:flex;align-items:center;padding:80px 40px;position:relative;overflow:hidden;">
+  <!-- Animated space scene -->
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;pointer-events:none;padding-right:60px;">
+    <svg width="580" height="580" viewBox="0 0 580 580" style="opacity:0.9;">
+      <!-- Earth -->
+      <circle cx="290" cy="290" r="140" fill="#1a3a6c"/>
+      <circle cx="290" cy="290" r="140" fill="none" stroke="rgba(35,81,192,0.3)" stroke-width="1"/>
+      <!-- Atmosphere glow -->
+      <circle cx="290" cy="290" r="148" fill="none" stroke="rgba(100,180,255,0.15)" stroke-width="8"/>
+      <!-- Continents rough -->
+      <ellipse cx="260" cy="270" rx="35" ry="28" fill="#2d5a1a" opacity="0.8"/>
+      <ellipse cx="310" cy="250" rx="22" ry="18" fill="#2d5a1a" opacity="0.7"/>
+      <ellipse cx="240" cy="310" rx="18" ry="14" fill="#2d5a1a" opacity="0.6"/>
+      <ellipse cx="320" cy="300" rx="28" ry="20" fill="#3a6a22" opacity="0.7"/>
+      <!-- Orbit ring 1 (SARS-1 LEO) -->
+      <ellipse cx="290" cy="290" rx="200" ry="60" fill="none" stroke="rgba(212,26,26,0.2)" stroke-width="1" transform="rotate(-20,290,290)"/>
+      <!-- Orbit ring 2 (SARS-2 MEO) -->
+      <ellipse cx="290" cy="290" rx="260" ry="78" fill="none" stroke="rgba(35,81,192,0.2)" stroke-width="1" transform="rotate(30,290,290)"/>
+      <!-- Orbit ring 3 (SARS-3) -->
+      <ellipse cx="290" cy="290" rx="240" ry="72" fill="none" stroke="rgba(200,168,75,0.15)" stroke-width="1" transform="rotate(80,290,290)"/>
+      <!-- Satellite 1 on orbit 1 (animated) -->
+      <g class="sat-orbit" style="transform-origin:290px 290px;">
+        <g transform="translate(490,265)">
+          <rect x="-12" y="-4" width="24" height="8" rx="2" fill="#D41A1A"/>
+          <rect x="-20" y="-2" width="8" height="4" rx="1" fill="#c8a84b" opacity="0.9"/>
+          <rect x="12" y="-2" width="8" height="4" rx="1" fill="#c8a84b" opacity="0.9"/>
+          <circle cx="0" cy="0" r="3" fill="#fff" opacity="0.8"/>
+        </g>
+      </g>
+      <!-- Satellite 2 -->
+      <g class="sat-orbit2" style="transform-origin:290px 290px;">
+        <g transform="translate(290,28)">
+          <rect x="-10" y="-3" width="20" height="6" rx="2" fill="#1A3A8C"/>
+          <rect x="-18" y="-2" width="7" height="4" rx="1" fill="#c8a84b" opacity="0.8"/>
+          <rect x="11" y="-2" width="7" height="4" rx="1" fill="#c8a84b" opacity="0.8"/>
+          <circle cx="0" cy="0" r="2.5" fill="#fff" opacity="0.7"/>
+        </g>
+      </g>
+      <!-- Signal beams from satellites -->
+      <line x1="490" y1="265" x2="290" y2="290" stroke="rgba(212,26,26,0.15)" stroke-width="1" stroke-dasharray="6,4"/>
+      <!-- Stars dots -->
+      <circle cx="50" cy="50" r="1.5" fill="white" opacity="0.6"/>
+      <circle cx="120" cy="30" r="1" fill="white" opacity="0.5"/>
+      <circle cx="520" cy="80" r="1.5" fill="white" opacity="0.7"/>
+      <circle cx="30" cy="200" r="1" fill="white" opacity="0.4"/>
+      <circle cx="550" cy="400" r="1.5" fill="white" opacity="0.5"/>
+      <circle cx="80" cy="480" r="1" fill="white" opacity="0.6"/>
+      <circle cx="460" cy="520" r="1" fill="white" opacity="0.4"/>
+      <circle cx="20" cy="380" r="1.5" fill="white" opacity="0.5"/>
+      <circle cx="540" cy="200" r="1" fill="white" opacity="0.6"/>
+      <circle cx="100" cy="140" r="1" fill="white" opacity="0.4"/>
+    </svg>
+  </div>
+  <div style="position:relative;z-index:2;max-width:600px;">
+    <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(212,26,26,0.7);letter-spacing:3px;margin-bottom:14px;">BNL SPACE DIVISION · SARS.COM</div>
+    <span class="stag">Космические технологии</span>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);line-height:.92;margin-bottom:16px;">BnL<br><span style="color:var(--red);">Space</span></h1>
+    <p style="font-size:17px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:36px;">От спутников связи до лунных миссий — космическое подразделение Buy N Large обеспечивает глобальную инфраструктуру 60G и прокладывает путь человечеству за пределы Земли.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:18px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:var(--red);">8 400+</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:3px;">Спутников SARS</div></div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:18px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:var(--red);">3</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:3px;">Орбиты покрытия</div></div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:18px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:var(--red);">1 Гбит</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:3px;">Скорость с орбиты</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SARS SATELLITES -->
+<section style="padding:90px 40px;position:relative;z-index:1;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:60px;">
+    <span class="stag">Спутниковая сеть</span>
+    <h2 class="stit">SARS.COM — три поколения</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.45);max-width:560px;margin:0 auto;line-height:1.7;">SARS (Satellite Advanced Relay System) — орбитальная группировка BnL. Три типа спутников на разных орбитах обеспечивают глобальное покрытие 60G.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="fu">
+    <!-- SARS-1 LEO -->
+    <div class="card">
+      <div style="margin-bottom:24px;display:flex;justify-content:center;">
+        <svg width="160" height="140" viewBox="0 0 160 140">
+          <!-- Main body -->
+          <rect x="52" y="44" width="56" height="52" rx="8" fill="#D41A1A"/>
+          <rect x="56" y="48" width="48" height="44" rx="6" fill="#c01515"/>
+          <!-- Solar panels -->
+          <rect x="4" y="56" width="44" height="28" rx="4" fill="#c8a84b"/>
+          <rect x="112" y="56" width="44" height="28" rx="4" fill="#c8a84b"/>
+          <line x1="4" y1="70" x2="48" y2="70" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+          <line x1="112" y1="70" x2="156" y2="70" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+          <line x1="14" y1="56" x2="14" y2="84" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+          <line x1="28" y1="56" x2="28" y2="84" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+          <line x1="42" y1="56" x2="42" y2="84" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+          <line x1="122" y1="56" x2="122" y2="84" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+          <line x1="136" y1="56" x2="136" y2="84" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+          <line x1="150" y1="56" x2="150" y2="84" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+          <!-- Antenna -->
+          <line x1="80" y1="44" x2="80" y2="24" stroke="#aaa" stroke-width="2"/>
+          <circle cx="80" cy="20" r="6" fill="none" stroke="#aaa" stroke-width="1.5"/>
+          <!-- Signal -->
+          <path d="M 80 110 Q 60 120 50 130" stroke="rgba(212,26,26,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4,2"/>
+          <path d="M 80 110 Q 100 120 110 130" stroke="rgba(212,26,26,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4,2"/>
+          <text x="80" y="138" font-family="Arial,sans-serif" font-size="9" fill="rgba(212,26,26,0.6)" text-anchor="middle">60G ↓</text>
+        </svg>
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;margin-bottom:6px;">SARS-1</div>
+      <div style="font-size:11px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">Низкая орбита · 550 км</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:18px;">Основной рабочий спутник сети. Низкая орбита обеспечивает минимальную задержку сигнала. 6 200 аппаратов в 72 плоскостях.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">КОЛИЧЕСТВО</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--red);">6 200</div></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">ЗАДЕРЖКА</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;">~20 мс</div></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">СКОРОСТЬ</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--red);">1 Гбит/с</div></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">ОРБИТА</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;">LEO 550 км</div></div>
+      </div>
+    </div>
+
+    <!-- SARS-2 MEO -->
+    <div class="card">
+      <div style="margin-bottom:24px;display:flex;justify-content:center;">
+        <svg width="160" height="140" viewBox="0 0 160 140">
+          <rect x="48" y="40" width="64" height="60" rx="10" fill="#1A3A8C"/>
+          <rect x="52" y="44" width="56" height="52" rx="7" fill="#0E2460"/>
+          <!-- Larger solar panels -->
+          <rect x="0" y="50" width="44" height="40" rx="5" fill="#c8a84b"/>
+          <rect x="116" y="50" width="44" height="40" rx="5" fill="#c8a84b"/>
+          <line x1="0" y1="70" x2="44" y2="70" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+          <line x1="116" y1="70" x2="160" y2="70" stroke="rgba(0,0,0,0.2)" stroke-width="1.5"/>
+          <!-- Antenna array -->
+          <line x1="80" y1="40" x2="80" y2="18" stroke="#607090" stroke-width="2.5"/>
+          <circle cx="80" cy="14" r="8" fill="none" stroke="#607090" stroke-width="2"/>
+          <line x1="68" y1="40" x2="62" y2="22" stroke="#607090" stroke-width="1.5"/>
+          <line x1="92" y1="40" x2="98" y2="22" stroke="#607090" stroke-width="1.5"/>
+          <path d="M 80 100 Q 55 118 44 132" stroke="rgba(35,81,192,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+          <path d="M 80 100 Q 105 118 116 132" stroke="rgba(35,81,192,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+          <text x="80" y="138" font-family="Arial,sans-serif" font-size="9" fill="rgba(35,81,192,0.7)" text-anchor="middle">60G ↓</text>
+        </svg>
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;margin-bottom:6px;">SARS-2</div>
+      <div style="font-size:11px;color:#4a80ff;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">Средняя орбита · 8 000 км</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:18px;">Резервный уровень сети. Обеспечивает покрытие при перерывах в LEO-группировке. 1 600 аппаратов.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">КОЛИЧЕСТВО</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:#4a80ff;">1 600</div></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">ЗАДЕРЖКА</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;">~80 мс</div></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">СКОРОСТЬ</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:#4a80ff;">500 Мбит/с</div></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:2px;">ОРБИТА</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;">MEO 8 000 км</div></div>
+      </div>
+    </div>
+
+    <!-- SARS-3 GEO -->
+    <div class="card" style="border-color:rgba(200,168,75,0.2);">
+      <div style="margin-bottom:24px;display:flex;justify-content:center;">
+        <svg width="160" height="140" viewBox="0 0 160 140">
+          <!-- Large GEO satellite -->
+          <rect x="44" y="36" width="72" height="68" rx="12" fill="#1a1405"/>
+          <rect x="48" y="40" width="64" height="60" rx="9" fill="#120f03"/>
+          <!-- Gold frame/trim -->
+          <rect x="44" y="36" width="72" height="68" rx="12" fill="none" stroke="#c8a84b" stroke-width="1.5"/>
+          <!-- Huge solar panels -->
+          <rect x="-4" y="46" width="44" height="48" rx="6" fill="#c8a84b"/>
+          <rect x="120" y="46" width="44" height="48" rx="6" fill="#c8a84b"/>
+          <line x1="-4" y1="70" x2="40" y2="70" stroke="rgba(0,0,0,0.25)" stroke-width="2"/>
+          <line x1="120" y1="70" x2="164" y2="70" stroke="rgba(0,0,0,0.25)" stroke-width="2"/>
+          <!-- GEO dish -->
+          <ellipse cx="80" cy="30" rx="18" ry="10" fill="#c8a84b" opacity="0.4" stroke="#c8a84b" stroke-width="1"/>
+          <line x1="80" y1="36" x2="80" y2="40" stroke="#c8a84b" stroke-width="2"/>
+          <!-- Wide beam coverage -->
+          <path d="M 60 104 Q 20 120 10 136" stroke="rgba(200,168,75,0.4)" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <path d="M 100 104 Q 140 120 150 136" stroke="rgba(200,168,75,0.4)" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <path d="M 80 104 L 80 136" stroke="rgba(200,168,75,0.3)" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <text x="80" y="140" font-family="Arial,sans-serif" font-size="9" fill="rgba(200,168,75,0.7)" text-anchor="middle">Wide Coverage</text>
+        </svg>
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;margin-bottom:6px;color:var(--gold);">SARS-3</div>
+      <div style="font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;opacity:0.7;margin-bottom:14px;">Геостационарная · 35 786 км</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:18px;">Геостационарные спутники для глобального охвата. 600 аппаратов обеспечивают резервное покрытие полярных зон и дальних океанических маршрутов.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(200,168,75,0.4);margin-bottom:2px;">КОЛИЧЕСТВО</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--gold);">600</div></div>
+        <div style="background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(200,168,75,0.4);margin-bottom:2px;">ЗАДЕРЖКА</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;">~600 мс</div></div>
+        <div style="background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(200,168,75,0.4);margin-bottom:2px;">СКОРОСТЬ</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:var(--gold);">100 Мбит/с</div></div>
+        <div style="background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:6px;padding:10px;"><div style="font-size:9px;color:rgba(200,168,75,0.4);margin-bottom:2px;">ОРБИТА</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;">GEO 35 786 км</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ORBITAL STATION -->
+<section style="padding:90px 40px;position:relative;z-index:1;background:rgba(255,255,255,0.02);">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;">
+    <div class="fu">
+      <span class="stag">Орбитальная инфраструктура</span>
+      <h2 class="stit">BnL Orbital Station<br><span style="color:var(--red);">«Вершина»</span></h2>
+      <p style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:28px;">Орбитальная станция «Вершина» — корпоративная собственность BnL на высоте 450 км. Используется как узел ретрансляции сигнала 60G, технологическая лаборатория и стартовая площадка для лунных миссий.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+        <div style="display:flex;gap:12px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span><span style="font-size:14px;color:rgba(255,255,255,0.55);">Экипаж до <strong style="color:#fff;">12 человек</strong> постоянно</span></div>
+        <div style="display:flex;gap:12px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span><span style="font-size:14px;color:rgba(255,255,255,0.55);">Центральный ретранслятор сети SARS — усиливает сигнал между орбитальными уровнями</span></div>
+        <div style="display:flex;gap:12px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span><span style="font-size:14px;color:rgba(255,255,255,0.55);">Лаборатории производства <strong style="color:#fff;">AnT S</strong> в условиях микрогравитации</span></div>
+        <div style="display:flex;gap:12px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span><span style="font-size:14px;color:rgba(255,255,255,0.55);">Стыковочный узел для кораблей BnL Shuttle серии</span></div>
+        <div style="display:flex;gap:12px;"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span><span style="font-size:14px;color:rgba(255,255,255,0.55);">Туристические полёты — программа <strong style="color:#fff;">BnL Orbit Experience</strong></span></div>
+      </div>
+      <div style="background:rgba(212,26,26,0.08);border:1px solid rgba(212,26,26,0.2);border-radius:10px;padding:18px 22px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:8px;">BnL Orbit Experience</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:12px;">Туристические полёты на «Вершину» — 7 дней на орбите. Включают EVA-прогулку в открытом космосе.</p>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--red);">от $28 000 000</div>
+      </div>
+    </div>
+    <div class="fu" style="display:flex;justify-content:center;">
+      <!-- Orbital station SVG -->
+      <svg width="420" height="340" viewBox="0 0 420 340">
+        <!-- Stars -->
+        <circle cx="30" cy="40" r="1.5" fill="white" opacity="0.5"/>
+        <circle cx="380" cy="60" r="1" fill="white" opacity="0.4"/>
+        <circle cx="50" cy="300" r="1" fill="white" opacity="0.6"/>
+        <circle cx="390" cy="280" r="1.5" fill="white" opacity="0.3"/>
+        <circle cx="200" cy="20" r="1" fill="white" opacity="0.5"/>
+        <!-- Earth curve bottom -->
+        <ellipse cx="210" cy="380" rx="320" ry="120" fill="#1a3a6c" opacity="0.25"/>
+        <!-- Station hub -->
+        <rect x="170" y="130" width="80" height="80" rx="12" fill="#1a1a2e"/>
+        <rect x="174" y="134" width="72" height="72" rx="9" fill="#0f0f1e" stroke="#2351C0" stroke-width="0.5"/>
+        <!-- BnL logo on hub -->
+        <text x="210" y="175" font-family="Arial Black,sans-serif" font-size="12" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text>
+        <!-- Central connecting tube horizontal -->
+        <rect x="60" y="158" width="300" height="24" rx="6" fill="#151525"/>
+        <rect x="64" y="162" width="292" height="16" rx="4" fill="#0d0d1e" stroke="#1A3A8C" stroke-width="0.5"/>
+        <!-- Left module -->
+        <rect x="30" y="140" width="80" height="60" rx="10" fill="#0E2460"/>
+        <rect x="34" y="144" width="72" height="52" rx="7" fill="#071440"/>
+        <!-- Right module -->
+        <rect x="310" y="140" width="80" height="60" rx="10" fill="#0E2460"/>
+        <rect x="314" y="144" width="72" height="52" rx="7" fill="#071440"/>
+        <!-- Large solar arrays top -->
+        <rect x="60" y="60" width="280" height="50" rx="6" fill="#c8a84b" opacity="0.85"/>
+        <line x1="60" y1="85" x2="340" y2="85" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+        <line x1="110" y1="60" x2="110" y2="110" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="160" y1="60" x2="160" y2="110" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="210" y1="60" x2="210" y2="110" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="260" y1="60" x2="260" y2="110" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="310" y1="60" x2="310" y2="110" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <!-- Connecting strut top -->
+        <rect x="195" y="110" width="30" height="20" rx="3" fill="#111120"/>
+        <!-- Solar arrays bottom -->
+        <rect x="80" y="230" width="260" height="44" rx="6" fill="#c8a84b" opacity="0.7"/>
+        <line x1="80" y1="252" x2="340" y2="252" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+        <line x1="130" y1="230" x2="130" y2="274" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="180" y1="230" x2="180" y2="274" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="230" y1="230" x2="230" y2="274" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <line x1="280" y1="230" x2="280" y2="274" stroke="rgba(0,0,0,0.15)" stroke-width="1.5"/>
+        <rect x="195" y="210" width="30" height="20" rx="3" fill="#111120"/>
+        <!-- Docked shuttle -->
+        <rect x="190" y="280" width="40" height="50" rx="8" fill="#D41A1A"/>
+        <path d="M 190 295 L 178 310 L 178 320 L 190 320 Z" fill="#c01515"/>
+        <path d="M 230 295 L 242 310 L 242 320 L 230 320 Z" fill="#c01515"/>
+        <rect x="198" y="284" width="24" height="18" rx="3" fill="#a8d4f0" opacity="0.6"/>
+        <!-- Signal beacon -->
+        <circle cx="210" cy="130" r="4" fill="var(--red)" opacity="0.8"/>
+        <circle cx="210" cy="130" r="8" fill="none" stroke="var(--red)" stroke-width="1" opacity="0.4"/>
+        <circle cx="210" cy="130" r="14" fill="none" stroke="var(--red)" stroke-width="0.5" opacity="0.2"/>
+        <!-- Label -->
+        <text x="210" y="338" font-family="Arial,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="middle">БнЛ ОС «Вершина» · 450 км</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- LUNAR PROGRAM -->
+<section style="padding:90px 40px;position:relative;z-index:1;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:60px;">
+    <span class="stag">Лунная программа</span>
+    <h2 class="stit">BnL Luna</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.45);max-width:520px;margin:0 auto;line-height:1.7;">Buy N Large — первая корпорация, развернувшая коммерческую инфраструктуру на поверхности Луны.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="fu">
+    <div class="card" style="border-color:rgba(200,168,75,0.15);">
+      <div style="font-size:44px;margin-bottom:16px;">🌙</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--gold);margin-bottom:8px;">BnL Lunar Base «Crater-1»</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;">Постоянная база в кратере Шеклтон. Экипаж до 8 человек. Добыча гелия-3 для термоядерных реакторов BnL на Земле. Ретранслятор SARS.COM для дальнего космоса.</p>
+    </div>
+    <div class="card" style="border-color:rgba(200,168,75,0.15);">
+      <div style="font-size:44px;margin-bottom:16px;">🚀</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--gold);margin-bottom:8px;">BnL Shuttle «Восход»</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;">Многоразовый транспортный корабль Земля–Луна. Время полёта — 72 часа. Вмещает 6 пассажиров или 8 тонн груза. Запуски с космодромов в Енезоне и Adorcity.</p>
+    </div>
+    <div class="card" style="border-color:rgba(200,168,75,0.15);">
+      <div style="font-size:44px;margin-bottom:16px;">📡</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--gold);margin-bottom:8px;">Лунный ретранслятор SARS-L</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;">4 спутника на лунной орбите обеспечивают связь 60G на поверхности Луны. Скорость — до 100 Мбит/с. Задержка сигнала Земля–Луна — около 1.3 секунды.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fg">
+    <a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;"><a href="bnl_ant.html" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:13px;">AnT</a><a href="bnl_aurig.html" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:13px;">Aurig</a><a href="bnl_news.html" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:13px;">Новости</a><a href="bnl_careers.html" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:13px;">Карьера</a></div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large Corporation · Space Division · SARS.COM</span><span>8 400+ спутников на орбите</span></div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.06});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

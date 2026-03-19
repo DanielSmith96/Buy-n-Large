@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BnL Finance — Банк, Pay, BnLCoin</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--gold:#c8a84b;--ink:#06080f;--text:#111827;--tl:#4b5563;--gray:#e5e7eb;--light:#f4f6fb;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;color:var(--text);background:#fff;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,8,15,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:3px solid var(--gold);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}.nm a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;}.nm a:hover,.nm a.active{color:var(--gold);}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1;margin-bottom:16px;}
+.fu{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}.fu.vis{opacity:1;transform:translateY(0);}
+.hero{min-height:100vh;background:linear-gradient(160deg,#06080f 0%,#0a0d18 55%,#0d0a04 100%);display:flex;align-items:center;padding:80px 40px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 50%,rgba(200,168,75,0.08) 0%,transparent 60%);}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;position:relative;z-index:2;}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:50px 0;}
+.stat-box{text-align:center;padding:28px 16px;border-radius:12px;background:rgba(200,168,75,0.07);border:1px solid rgba(200,168,75,0.15);}
+.stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;line-height:1;margin-bottom:6px;color:var(--gold);}
+.stat-l{font-size:13px;color:rgba(255,255,255,0.4);}
+.coin-ticker{background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:12px;padding:24px 28px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.coin-price{font-family:'Share Tech Mono',monospace;font-size:36px;font-weight:700;color:var(--gold);}
+.coin-change{font-size:14px;font-weight:600;padding:6px 14px;border-radius:20px;background:rgba(22,163,74,0.15);color:#4ade80;}
+.coin-stats{display:flex;gap:24px;flex-wrap:wrap;}
+.coin-stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--gold);}
+.coin-stat-l{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;}
+.rates-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.07);}
+.rates-table th{background:var(--ink);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:14px 18px;text-align:left;}
+.rates-table td{padding:14px 18px;border-bottom:1px solid var(--gray);font-size:14px;}
+.rates-table tr:last-child td{border-bottom:none;}.rates-table tr:hover td{background:#f9fafb;}
+.rate-hl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--gold);}
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pay-card{background:#06080f;border:1px solid rgba(35,81,192,0.3);border-radius:14px;padding:28px;text-align:center;transition:all .25s;}
+.pay-card:hover{border-color:rgba(200,168,75,0.3);}
+.pay-icon{font-size:40px;margin-bottom:16px;}
+.pay-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:#fff;margin-bottom:8px;}
+.pay-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;}
+footer{background:#04091e;padding:44px 40px 22px;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:24px;flex-wrap:wrap;gap:16px;}
+.fb{max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);flex-wrap:wrap;gap:8px;}
+@media(max-width:900px){.nm{display:none;}.hero-inner,.pay-grid{grid-template-columns:1fr;}.stat-row{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li><li><a href="bnl_ant.html">AnT</a></li><li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li><li><a href="bnl_news.html">Новости</a></li><li><a href="bnl_careers.html">Карьера</a></li>
+    <li><a href="bnl_finance.html" class="active">Финансы</a></li><li><a href="bnl_investors.html">Инвесторам</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="stag">BnL Finance</span>
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,7vw,96px);color:#fff;line-height:.92;margin-bottom:14px;">Деньги<br>работают<br><span style="color:var(--gold);">на вас</span></h1>
+      <p style="font-size:17px;color:rgba(255,255,255,0.5);line-height:1.8;max-width:480px;margin-bottom:36px;">BnL Bank, BnL Pay, BnL Card и BnLCoin — единая финансовая экосистема для жизни, покупок и инвестиций. Интегрирована с AnT и сетью 60G.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="#bank" style="background:var(--gold);color:var(--ink);padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;">Открыть счёт</a>
+        <a href="#coin" style="background:transparent;border:1px solid rgba(200,168,75,0.4);color:var(--gold);padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;">BnLCoin ₦</a>
+      </div>
+    </div>
+    <div class="fu" style="display:flex;justify-content:center;">
+      <svg width="380" height="260" viewBox="0 0 380 260">
+        <defs>
+          <linearGradient id="cg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1404"/><stop offset="100%" style="stop-color:#0e0c04"/></linearGradient>
+          <linearGradient id="cg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#06080f"/><stop offset="100%" style="stop-color:#0d1428"/></linearGradient>
+        </defs>
+        <rect x="30" y="8" width="330" height="185" rx="16" fill="url(#cg2)" transform="rotate(-5,180,100)"/>
+        <rect x="32" y="10" width="326" height="181" rx="14" fill="none" stroke="rgba(35,81,192,0.4)" stroke-width="1" transform="rotate(-5,180,100)"/>
+        <rect x="0" y="20" width="360" height="210" rx="18" fill="url(#cg1)"/>
+        <rect x="2" y="22" width="356" height="206" rx="16" fill="none" stroke="rgba(200,168,75,0.5)" stroke-width="1"/>
+        <rect x="28" y="60" width="48" height="36" rx="6" fill="#c8a84b" opacity="0.9"/>
+        <line x1="28" y1="78" x2="76" y2="78" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+        <line x1="52" y1="60" x2="52" y2="96" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+        <text x="320" y="52" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="#c8a84b" text-anchor="end">BnL</text>
+        <text x="28" y="148" font-family="monospace" font-size="16" fill="rgba(200,168,75,0.8)" letter-spacing="2">4819  2600  ****  8147</text>
+        <text x="28" y="188" font-family="monospace" font-size="11" fill="rgba(200,168,75,0.6)" letter-spacing="1">HOLDER NAME</text>
+        <text x="28" y="204" font-family="monospace" font-size="11" fill="rgba(200,168,75,0.5)" letter-spacing="1">12/29</text>
+        <text x="316" y="200" font-family="Arial Black,sans-serif" font-weight="900" font-size="28" fill="rgba(200,168,75,0.2)" text-anchor="end">₦</text>
+        <path d="M 310 80 Q 322 90 322 102 Q 322 114 310 124" stroke="#c8a84b" stroke-width="2" fill="none" opacity="0.5"/>
+        <path d="M 300 85 Q 316 95 316 102 Q 316 109 300 119" stroke="#c8a84b" stroke-width="1.5" fill="none" opacity="0.35"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section style="padding:60px 40px;background:#06080f;">
+  <div class="container">
+    <div class="stat-row fu">
+      <div class="stat-box"><div class="stat-n">$2.1 трлн</div><div class="stat-l">Активы BnL Bank</div></div>
+      <div class="stat-box"><div class="stat-n">840 млн</div><div class="stat-l">Пользователей Pay</div></div>
+      <div class="stat-box"><div class="stat-n">14.2 USD</div><div class="stat-l">Курс BnLCoin</div></div>
+      <div class="stat-box"><div class="stat-n">193</div><div class="stat-l">Страны работы</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="bank" style="padding:90px 40px;background:#fff;">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;">
+    <div class="fu">
+      <span class="stag">BnL Bank</span>
+      <h2 class="stit">Банк, который<br>работает везде</h2>
+      <p style="font-size:15px;color:var(--tl);line-height:1.8;margin-bottom:28px;">Лицензированный банк в 193 странах. Вклады, кредиты, ипотека, корпоративное обслуживание. Полная интеграция с BnL Pay и BnLCoin.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:42px;height:42px;background:#fff8e8;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">💰</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:3px;">Вклады до 12% годовых</div><div style="font-size:13px;color:var(--tl);line-height:1.6;">В BnLCoin — до 12%. В фиатных валютах — до 7.5%. Ежемесячная капитализация.</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:42px;height:42px;background:#f0f4ff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏠</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:3px;">Ипотека от 3.9%</div><div style="font-size:13px;color:var(--tl);line-height:1.6;">Спец. условия для жителей городов BnL. Первоначальный взнос от 5%.</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:42px;height:42px;background:#fff0f0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">💳</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:3px;">Кредиты от 4.9%</div><div style="font-size:13px;color:var(--tl);line-height:1.6;">Одобрение за 4 минуты через AnT. Без справок для сотрудников BnL.</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:42px;height:42px;background:#f0fff4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🌍</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:3px;">Переводы без комиссии</div><div style="font-size:13px;color:var(--tl);line-height:1.6;">Межбанковские переводы через BnL Pay мгновенно и бесплатно.</div></div></div>
+      </div>
+    </div>
+    <div class="fu">
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;margin-bottom:20px;">Ставки BnL Bank</h3>
+      <table class="rates-table">
+        <thead><tr><th>Продукт</th><th>Ставка</th><th>Срок</th></tr></thead>
+        <tbody>
+          <tr><td>Вклад в BnLCoin</td><td><span class="rate-hl">до 12%</span></td><td>3–36 мес.</td></tr>
+          <tr><td>Вклад в RUB/USD/EUR</td><td><span class="rate-hl">до 7.5%</span></td><td>1–24 мес.</td></tr>
+          <tr><td>Потреб. кредит</td><td><span class="rate-hl">от 4.9%</span></td><td>до 7 лет</td></tr>
+          <tr><td>Кредит на Aurig</td><td><span class="rate-hl">от 2.9%</span></td><td>до 5 лет</td></tr>
+          <tr><td>Кредит на AnT</td><td><span class="rate-hl">от 0%</span></td><td>12 мес.</td></tr>
+          <tr><td>Ипотека</td><td><span class="rate-hl">от 3.9%</span></td><td>до 30 лет</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:20px;background:var(--light);border-radius:10px;padding:18px 22px;font-size:13px;color:var(--tl);line-height:1.7;"><strong>BnL Black</strong> — премиальный сервис для клиентов с балансом от 10 млн ₽. Персональный менеджер, карта BnL Black, приоритет 24/7.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="coin" style="padding:90px 40px;background:#06080f;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:50px;"><span class="stag">Криптовалюта</span><h2 class="stit" style="color:#fff;">BnLCoin <span style="color:var(--gold);">₦</span></h2></div>
+  <div class="fu">
+    <div class="coin-ticker">
+      <div><div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Текущий курс</div>
+        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;"><div class="coin-price">₦ 14.20 USD</div><div class="coin-change">▲ +2.3% за 24ч</div></div>
+      </div>
+      <div class="coin-stats">
+        <div><div class="coin-stat-n">$284 млрд</div><div class="coin-stat-l">Капитализация</div></div>
+        <div><div class="coin-stat-n">20 млрд ₦</div><div class="coin-stat-l">В обращении</div></div>
+        <div><div class="coin-stat-n">840 млн</div><div class="coin-stat-l">Кошельков</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:50px;" class="fu">
+    <div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:24px;">BnLCoin — официальная криптовалюта Buy N Large. Обязательное платёжное средство во всех корпоративных городах и принимается в 12 000+ BnSupermarket.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:14px;"><div style="width:40px;height:40px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">⚡</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#fff;margin-bottom:3px;">Транзакция за &lt;2 сек</div><div style="font-size:13px;color:rgba(255,255,255,0.45);">Через инфраструктуру 60G. Комиссия — 0.01 ₦.</div></div></div>
+        <div style="display:flex;gap:14px;"><div style="width:40px;height:40px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔒</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#fff;margin-bottom:3px;">Офлайн через FreeWire</div><div style="font-size:13px;color:rgba(255,255,255,0.45);">Оплата без интернета через mesh-сеть AnT FreeWire.</div></div></div>
+        <div style="display:flex;gap:14px;"><div style="width:40px;height:40px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📈</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#fff;margin-bottom:3px;">Вклады до 12% в BnLCoin</div><div style="font-size:13px;color:rgba(255,255,255,0.45);">Самая высокая ставка по криптовкладам на рынке.</div></div></div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(200,168,75,0.15);border-radius:14px;padding:24px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,0.5);letter-spacing:1px;margin-bottom:16px;">BnLCoin / USD · 12 месяцев</div>
+      <svg width="100%" height="140" viewBox="0 0 400 140" preserveAspectRatio="none">
+        <defs><linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#c8a84b;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#c8a84b;stop-opacity:0"/></linearGradient></defs>
+        <path d="M 0 110 L 40 105 L 80 98 L 110 102 L 140 88 L 170 80 L 200 70 L 220 74 L 250 55 L 280 42 L 310 32 L 340 24 L 370 16 L 400 12 L 400 140 L 0 140 Z" fill="url(#cf)"/>
+        <path d="M 0 110 L 40 105 L 80 98 L 110 102 L 140 88 L 170 80 L 200 70 L 220 74 L 250 55 L 280 42 L 310 32 L 340 24 L 370 16 L 400 12" stroke="#c8a84b" stroke-width="2" fill="none"/>
+        <circle cx="400" cy="12" r="4" fill="#c8a84b"/>
+      </svg>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);margin-top:8px;font-family:'Share Tech Mono',monospace;">
+        <span>Апр 2024</span><span>Июл</span><span>Окт</span><span>Янв 2025</span><span>Апр 2025</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section style="padding:90px 40px;background:#f9fafb;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:50px;"><span class="stag" style="background:var(--blue);color:#fff;">BnL Pay</span><h2 class="stit">Платёжная система<br>без границ и сигнала</h2></div>
+  <div class="pay-grid fu">
+    <div class="pay-card"><div class="pay-icon">📡</div><div class="pay-title">Офлайн через FreeWire</div><div class="pay-desc">Единственная система, работающая без интернета. Транзакции передаются через mesh-сеть AnT FreeWire.</div></div>
+    <div class="pay-card"><div class="pay-icon">⚡</div><div class="pay-title">Оплата за 0.8 сек</div><div class="pay-desc">Скорость обработки транзакции через 60G: менее одной секунды в любой точке мира.</div></div>
+    <div class="pay-card"><div class="pay-icon">🌍</div><div class="pay-title">193 страны</div><div class="pay-desc">BnLCoin принимается наравне с нацвалютой. Конвертация — автоматически, без комиссии.</div></div>
+    <div class="pay-card"><div class="pay-icon">🔐</div><div class="pay-title">Биометрия</div><div class="pay-desc">Транзакции свыше 500 ₦ требуют биометрического подтверждения через AnT.</div></div>
+    <div class="pay-card"><div class="pay-icon">💳</div><div class="pay-title">3% кэшбэк</div><div class="pay-desc">BnL Card: 3% в BnSupermarket, 1% везде. Начисляется в BnLCoin.</div></div>
+    <div class="pay-card"><div class="pay-icon">🛰️</div><div class="pay-title">Оплата с орбиты</div><div class="pay-desc">Через SARS.COM BnL Pay работает в океане, горах и на лунной базе Crater-1.</div></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fg"><a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;"><a href="bnl_investors.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Инвесторам</a><a href="bnl_legal.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Правовая база</a></div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large · BnL Finance Division</span><span>finance@buynlarge.com</span></div>
+</footer>
+<script>const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.07});document.querySelectorAll('.fu').forEach(el=>obs.observe(el));</script>
+</body>
+</html>

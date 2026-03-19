@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnT — Смартфоны Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--blue-dark:#0E2460;--blue-mid:#2351C0;--white:#fff;--gray:#e0e4ed;--light:#f4f6fb;--text:#111827;--tl:#4b5563;--gold:#c8a84b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;color:var(--text);background:#fff;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,14,40,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:3px solid var(--red);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}
+.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}
+.nm a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;}
+.nm a:hover,.nm a.active{background:var(--red);color:#fff;}
+.nm a.ant-active{background:rgba(212,26,26,0.2);color:#fff;border:1px solid rgba(212,26,26,0.4);}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(160deg,#080c18 0%,#0d1030 50%,#18080a 100%);display:flex;align-items:center;padding:80px 40px 60px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 100% 50%,rgba(212,26,26,0.08) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 0% 30%,rgba(26,58,140,0.1) 0%,transparent 60%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:50px 50px;}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2;width:100%;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,26,26,0.12);border:1px solid rgba(212,26,26,0.25);border-radius:4px;padding:5px 14px;margin-bottom:18px;}
+.hero-badge span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;color:rgba(212,26,26,0.8);letter-spacing:3px;text-transform:uppercase;}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(56px,7vw,96px);color:#fff;line-height:.95;margin-bottom:10px;}
+.hero h1 em{color:var(--red);font-style:normal;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:36px;max-width:480px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-red{background:var(--red);color:#fff;padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;transition:all .3s;box-shadow:0 4px 24px rgba(212,26,26,0.3);}
+.btn-red:hover{background:#ff2020;transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,0.7);padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.2);transition:all .3s;}
+.btn-ghost:hover{border-color:#fff;color:#fff;}
+
+/* Phones showcase in hero */
+.hero-phones{position:relative;height:480px;display:flex;align-items:flex-end;justify-content:center;gap:16px;}
+.hero-phone{transition:all .4s;cursor:pointer;}
+.hero-phone:hover{transform:translateY(-16px) scale(1.05);}
+.phone-label{text-align:center;margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:rgba(255,255,255,0.4);letter-spacing:1px;}
+
+/* SECTIONS */
+section{padding:90px 40px;}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(34px,5vw,54px);line-height:1;margin-bottom:16px;}
+.ssub{font-size:16px;color:var(--tl);line-height:1.7;max-width:580px;}
+
+/* TABS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:40px;}
+.tab{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.55);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;padding:9px 20px;border-radius:4px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+.tab:hover,.tab.on{background:var(--red);border-color:var(--red);color:#fff;}
+.tab.gold-tab{border-color:var(--gold);color:var(--gold);background:rgba(200,168,75,0.08);}
+.tab.gold-tab:hover,.tab.gold-tab.on{background:var(--gold);color:#080c14;border-color:var(--gold);}
+
+/* Phone panel */
+.panel{display:none;animation:fin .4s ease;}
+.panel.on{display:block;}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sub-btns{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
+.sub-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.65);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;padding:6px 18px;border-radius:20px;cursor:pointer;transition:all .2s;}
+.sub-btn.on,.sub-btn:hover{background:rgba(212,26,26,0.25);border-color:var(--red);color:#fff;}
+
+.pdisp{display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:44px;}
+.pdisp.hidden{display:none;}
+.psvg{display:flex;justify-content:center;}
+.pname{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:52px;color:#fff;line-height:1;margin-bottom:4px;}
+.pyear{font-size:12px;color:var(--red);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;}
+.pdesc{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:26px;}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.spec{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:12px 16px;}
+.sl{font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.sv{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#fff;}
+.sv.r{color:var(--red);}
+.tags{display:flex;flex-wrap:wrap;gap:7px;}
+.tag{background:rgba(212,26,26,0.13);border:1px solid rgba(212,26,26,0.28);color:rgba(255,255,255,0.75);font-size:12px;padding:4px 12px;border-radius:20px;}
+.tag.b{background:rgba(35,81,192,0.18);border-color:rgba(35,81,192,0.35);color:#80a8ff;}
+.tag.g{background:rgba(200,168,75,0.13);border-color:rgba(200,168,75,0.3);color:var(--gold);}
+
+/* COMPARISON */
+.ctbl{width:100%;border-collapse:collapse;background:#fff;min-width:960px;}
+.ctbl th{background:var(--blue-dark);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:13px 14px;text-align:center;border:1px solid rgba(255,255,255,0.08);}
+.ctbl th:first-child{text-align:left;background:#04091e;}
+.ctbl th.sc{background:#130f00;color:var(--gold);}
+.ctbl td{padding:11px 14px;border:1px solid #e8ecf4;font-size:13px;text-align:center;vertical-align:middle;}
+.ctbl td:first-child{text-align:left;font-weight:600;font-size:12px;color:#374151;background:#f8faff;}
+.ctbl tr:hover td{background:#f0f4ff;}
+.ctbl tr:hover td:first-child{background:#e8effe;}
+.ctbl td.sc{background:#faf8ef;color:#7a5f00;font-weight:600;}
+.ctbl tr:hover td.sc{background:#f5f0d0;}
+.grp td{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;color:var(--blue);text-transform:uppercase;background:#f1f5ff !important;}
+.ck{color:#16a34a;font-size:15px;}
+.cx{color:#dc2626;font-size:15px;}
+
+/* FREEWIRE */
+.fw-section{background:linear-gradient(160deg,#050a1a 0%,#0a1535 50%,#140505 100%);position:relative;overflow:hidden;}
+.fw-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(212,26,26,0.05) 0%,transparent 70%);}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(212,26,26,0.2);top:50%;left:50%;transform:translate(-50%,-50%);animation:xpand 3s ease-out infinite;}
+.ring:nth-child(1){width:60px;height:60px;animation-delay:0s;border-color:rgba(212,26,26,0.6);}
+.ring:nth-child(2){width:130px;height:130px;animation-delay:.5s;border-color:rgba(212,26,26,0.35);}
+.ring:nth-child(3){width:220px;height:220px;animation-delay:1s;border-color:rgba(212,26,26,0.18);}
+.ring:nth-child(4){width:320px;height:320px;animation-delay:1.5s;border-color:rgba(212,26,26,0.08);}
+.ring:nth-child(5){width:400px;height:400px;animation-delay:2s;border-color:rgba(212,26,26,0.04);}
+@keyframes xpand{0%{opacity:1;transform:translate(-50%,-50%) scale(.8)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+.rc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:10px;color:#fff;text-align:center;line-height:1.2;box-shadow:0 0 40px rgba(212,26,26,0.5);}
+
+/* ANT S */
+.s-section{background:#080c18;position:relative;overflow:hidden;}
+.s-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(200,168,75,0.05) 0%,transparent 70%);}
+.s-section::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+
+/* FADE */
+.fu{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease;}
+.fu.vis{opacity:1;transform:translateY(0);}
+
+/* FOOTER */
+footer{background:#04091e;color:rgba(255,255,255,0.5);padding:50px 40px 24px;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:28px;flex-wrap:wrap;gap:20px;}
+.fb{max-width:1200px;margin:20px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);flex-wrap:wrap;gap:10px;}
+
+@media(max-width:900px){.hero-inner,.pdisp{grid-template-columns:1fr;}.nm{display:none;}.hero-phones{height:260px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nl" href="buynlarge.html">
+    <svg width="38" height="38" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg>
+    <div class="nl-t">BUY <span>N</span> LARGE</div>
+  </a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li>
+    <li><a href="bnl_ant.html" class="active">AnT</a></li>
+    <li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li>
+    <li><a href="bnl_news.html">Новости</a></li>
+    <li><a href="bnl_careers.html">Карьера</a></li>
+    <li><a href="buynlarge.html#shop">Каталог</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span>Buy N Large · Электроника</span></div>
+      <h1>An<em>T</em><br>Смартфоны</h1>
+      <p class="hero-sub">Семь поколений. Одна экосистема. Все модели с 60G, аккумулятором от 10 000 мАч и поддержкой AnT FreeWire от 4+ линейки.</p>
+      <div class="hero-btns">
+        <a href="#lineup" class="btn-red">Смотреть линейку</a>
+        <a href="#comparison" class="btn-ghost">Сравнить модели</a>
+      </div>
+    </div>
+    <!-- Mini phone parade SVG -->
+    <div class="hero-phones fu">
+      <!-- AnT 1 with antenna -->
+      <div class="hero-phone" style="align-self:flex-end;">
+        <svg width="62" height="140" viewBox="0 0 62 140">
+          <rect x="8" y="20" width="46" height="110" rx="8" fill="#2a2a2a"/>
+          <rect x="12" y="24" width="38" height="102" rx="6" fill="#111"/>
+          <rect x="16" y="34" width="30" height="72" rx="3" fill="#0d2040"/>
+          <text x="31" y="72" font-family="Arial Black,sans-serif" font-size="6" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text>
+          <circle cx="31" cy="116" r="6" fill="#222"/>
+          <rect x="50" y="28" width="4" height="26" rx="2" fill="#3a3a3a"/>
+          <rect x="53" y="18" width="3" height="18" rx="1.5" fill="#c0c0c0"/>
+          <rect x="48" y="14" width="13" height="3" rx="1.5" fill="#c0c0c0"/>
+          <circle cx="48" cy="15" r="2.5" fill="#c0c0c0"/>
+          <circle cx="61" cy="15" r="2.5" fill="#c0c0c0"/>
+        </svg>
+        <div class="phone-label">AnT 1</div>
+      </div>
+      <!-- AnT 3 Sat -->
+      <div class="hero-phone" style="align-self:flex-end;">
+        <svg width="64" height="155" viewBox="0 0 64 155">
+          <rect x="6" y="15" width="48" height="130" rx="10" fill="#1a2030"/>
+          <rect x="10" y="19" width="40" height="122" rx="7" fill="#0d1520"/>
+          <rect x="14" y="30" width="32" height="92" rx="3" fill="#06111e"/>
+          <text x="30" y="78" font-family="Arial Black,sans-serif" font-size="6" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text>
+          <text x="30" y="96" font-family="Arial,sans-serif" font-size="10" fill="#D41A1A" text-anchor="middle">🛰</text>
+          <circle cx="30" cy="130" r="6" fill="#1a2030"/>
+          <rect x="51" y="24" width="4" height="24" rx="2" fill="#2a3860"/>
+          <rect x="54" y="14" width="3" height="16" rx="1.5" fill="#607090"/>
+          <rect x="49" y="10" width="13" height="3" rx="1.5" fill="#607090"/>
+          <circle cx="49" cy="11" r="2.5" fill="#607090"/>
+          <circle cx="62" cy="11" r="2.5" fill="#607090"/>
+          <path d="M 57 4 Q 66 4 66 11" stroke="#D41A1A" stroke-width="1.5" fill="none" opacity="0.7"/>
+        </svg>
+        <div class="phone-label">AnT 3 Sat</div>
+      </div>
+      <!-- AnT 5 Pro -->
+      <div class="hero-phone" style="align-self:flex-end;transform:scale(1.08);">
+        <svg width="70" height="175" viewBox="0 0 70 175">
+          <defs><linearGradient id="h5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2a2030"/><stop offset="100%" style="stop-color:#100a1a"/></linearGradient></defs>
+          <rect x="5" y="8" width="60" height="160" rx="16" fill="url(#h5)"/>
+          <rect x="9" y="12" width="52" height="152" rx="12" fill="#0c080f"/>
+          <rect x="14" y="24" width="42" height="122" rx="6" fill="#08030f"/>
+          <text x="35" y="92" font-family="Arial Black,sans-serif" font-size="7" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text>
+          <rect x="14" y="18" width="18" height="18" rx="5" fill="#181018" stroke="#231823" stroke-width="0.5"/>
+          <circle cx="21" cy="25" r="3.5" fill="#050508"/>
+          <circle cx="29" cy="25" r="3.5" fill="#050508"/>
+          <circle cx="21" cy="33" r="2.5" fill="#050508"/>
+          <circle cx="29" cy="33" r="2" fill="#D41A1A" opacity="0.9"/>
+        </svg>
+        <div class="phone-label" style="color:rgba(255,255,255,0.6);">AnT 5 Pro</div>
+      </div>
+      <!-- AnT 7 Pro -->
+      <div class="hero-phone" style="align-self:flex-end;transform:scale(1.15);">
+        <svg width="72" height="180" viewBox="0 0 72 180">
+          <defs><linearGradient id="h7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2a2830"/><stop offset="100%" style="stop-color:#100c14"/></linearGradient></defs>
+          <rect x="4" y="6" width="64" height="168" rx="20" fill="url(#h7)"/>
+          <rect x="8" y="10" width="56" height="160" rx="16" fill="#0a080c"/>
+          <rect x="13" y="22" width="46" height="132" rx="10" fill="#050308"/>
+          <text x="36" y="100" font-family="Arial Black,sans-serif" font-size="7" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text>
+          <rect x="57" y="14" width="5" height="8" rx="2.5" fill="#2a2830" style="transform-origin:60px 18px"/>
+          <rect x="13" y="18" width="22" height="20" rx="6" fill="#120e14" stroke="#1e1820" stroke-width="0.5"/>
+          <circle cx="21" cy="27" r="4" fill="#040206"/>
+          <circle cx="30" cy="27" r="4" fill="#040206"/>
+          <circle cx="21" cy="35" r="3" fill="#040206"/>
+          <circle cx="30" cy="35" r="3" fill="#040206"/>
+          <circle cx="26" cy="41" r="2" fill="#D41A1A" opacity="0.9"/>
+          <rect x="37" y="22" width="2.5" height="10" rx="1.2" fill="#D41A1A" opacity="0.5"/>
+        </svg>
+        <div class="phone-label" style="color:rgba(255,255,255,0.7);">AnT 7 Pro</div>
+      </div>
+      <!-- AnT S1 -->
+      <div class="hero-phone" style="align-self:flex-end;">
+        <svg width="66" height="165" viewBox="0 0 66 165">
+          <defs><linearGradient id="hs" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3a2c10"/><stop offset="100%" style="stop-color:#0e0c06"/></linearGradient></defs>
+          <rect x="4" y="6" width="58" height="154" rx="18" fill="#c8a84b" opacity="0.18"/>
+          <rect x="5" y="7" width="56" height="152" rx="17" fill="url(#hs)"/>
+          <rect x="9" y="11" width="48" height="144" rx="13" fill="#060401"/>
+          <text x="33" y="88" font-family="Arial Black,sans-serif" font-size="18" fill="#c8a84b" text-anchor="middle" font-weight="900" opacity="0.8">S</text>
+          <circle cx="33" cy="24" r="3" fill="#040302"/>
+          <circle cx="33" cy="24" r="4" fill="none" stroke="#c8a84b" stroke-width="0.5" opacity="0.4"/>
+          <rect x="9" y="17" width="22" height="22" rx="7" fill="#120e04" stroke="#c8a84b" stroke-width="0.4" opacity="0.5"/>
+          <circle cx="17" cy="26" r="4" fill="#060402" stroke="#c8a84b" stroke-width="0.4" opacity="0.6"/>
+          <circle cx="27" cy="26" r="4" fill="#060402" stroke="#c8a84b" stroke-width="0.4" opacity="0.6"/>
+          <circle cx="17" cy="35" r="3" fill="#060402" stroke="#c8a84b" stroke-width="0.4" opacity="0.6"/>
+          <circle cx="27" cy="35" r="3" fill="#c8a84b" opacity="0.7"/>
+        </svg>
+        <div class="phone-label" style="color:rgba(200,168,75,0.7);">AnT S1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINEUP -->
+<section id="lineup" style="background:#0a0f1e;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:60px;">
+    <span class="stag">Линейка AnT</span>
+    <h2 class="stit" style="color:#fff;">Все поколения смартфонов</h2>
+  </div>
+  <div class="tabs fu">
+    <button class="tab on" onclick="showP('p1',this)">AnT 1</button>
+    <button class="tab" onclick="showP('p2',this)">AnT 2</button>
+    <button class="tab" onclick="showP('p3',this)">AnT 3</button>
+    <button class="tab" onclick="showP('p4',this)">AnT 4</button>
+    <button class="tab" onclick="showP('p5',this)">AnT 5</button>
+    <button class="tab" onclick="showP('p6',this)">AnT 6</button>
+    <button class="tab" onclick="showP('p7',this)">AnT 7</button>
+    <button class="tab gold-tab" onclick="showP('pS',this)">AnT S ✦</button>
+  </div>
+
+  <!-- AnT 1 -->
+  <div class="panel on" id="p1">
+    <div class="pdisp">
+      <div class="psvg">
+        <svg width="200" height="360" viewBox="0 0 200 360">
+          <rect x="30" y="20" width="140" height="310" rx="18" fill="#2a2a2a"/>
+          <rect x="36" y="26" width="128" height="298" rx="14" fill="#1a1a1a"/>
+          <rect x="46" y="62" width="108" height="210" rx="6" fill="#0d2040"/>
+          <text x="100" y="174" font-family="Arial Black,sans-serif" font-size="20" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text>
+          <text x="100" y="196" font-family="Arial,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">AnT 1 · 2010</text>
+          <rect x="82" y="38" width="36" height="8" rx="4" fill="#333"/>
+          <circle cx="100" cy="300" r="12" fill="#333"/>
+          <rect x="162" y="62" width="8" height="60" rx="4" fill="#3a3a3a"/>
+          <rect x="166" y="22" width="5" height="48" rx="2.5" fill="#c0c0c0"/>
+          <rect x="156" y="17" width="26" height="5" rx="2.5" fill="#c0c0c0"/>
+          <circle cx="156" cy="19" r="4" fill="#c0c0c0"/>
+          <circle cx="182" cy="19" r="4" fill="#c0c0c0"/>
+          <path d="M 174 8 Q 192 8 192 19" stroke="#D41A1A" stroke-width="2" fill="none" opacity="0.7"/>
+          <path d="M 174 1 Q 200 1 200 19" stroke="#D41A1A" stroke-width="1.2" fill="none" opacity="0.4"/>
+          <rect x="26" y="100" width="4" height="36" rx="2" fill="#444"/>
+          <rect x="26" y="146" width="4" height="24" rx="2" fill="#444"/>
+        </svg>
+      </div>
+      <div>
+        <div class="pname">AnT 1</div>
+        <div class="pyear">Первое поколение · 2010</div>
+        <p class="pdesc">Первый смартфон Buy N Large. Массивный корпус с характерной перпендикулярной антенной с закруглёнными концами — фирменный знак первых поколений. Работает в сети 60G первого поколения. С него начался путь экосистемы AnT.</p>
+        <div class="specs">
+          <div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">10 000 мАч</div></div>
+          <div class="spec"><div class="sl">Дисплей</div><div class="sv">3.8" IPS</div></div>
+          <div class="spec"><div class="sl">Сеть</div><div class="sv">60G v1</div></div>
+          <div class="spec"><div class="sl">Антенна</div><div class="sv r">Внешняя</div></div>
+          <div class="spec"><div class="sl">Спутник SARS</div><div class="sv">✗ Нет</div></div>
+          <div class="spec"><div class="sl">FreeWire</div><div class="sv">✗ Нет</div></div>
+        </div>
+        <div class="tags"><span class="tag">60G</span><span class="tag b">Внешняя антенна</span><span class="tag">Иконический</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AnT 2 -->
+  <div class="panel" id="p2">
+    <div class="sub-btns">
+      <button class="sub-btn on" onclick="swSub(this,'s2a')">AnT 2</button>
+      <button class="sub-btn" onclick="swSub(this,'s2b')">AnT 2+</button>
+    </div>
+    <div class="pdisp" id="s2a">
+      <div class="psvg"><svg width="190" height="355" viewBox="0 0 190 355"><rect x="28" y="18" width="134" height="306" rx="16" fill="#2c2c2c"/><rect x="34" y="24" width="122" height="294" rx="12" fill="#181818"/><rect x="44" y="58" width="102" height="214" rx="5" fill="#0a1a35"/><text x="95" y="168" font-family="Arial Black,sans-serif" font-size="18" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="95" y="188" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)" text-anchor="middle">AnT 2</text><rect x="78" y="36" width="34" height="7" rx="3.5" fill="#333"/><circle cx="95" cy="308" r="11" fill="#333"/><rect x="152" y="58" width="7" height="55" rx="3.5" fill="#3a3a3a"/><rect x="156" y="22" width="4" height="42" rx="2" fill="#b8b8b8"/><rect x="148" y="17" width="20" height="5" rx="2.5" fill="#b8b8b8"/><circle cx="148" cy="19" r="3.5" fill="#b8b8b8"/><circle cx="168" cy="19" r="3.5" fill="#b8b8b8"/><rect x="24" y="94" width="4" height="32" rx="2" fill="#444"/><rect x="24" y="136" width="4" height="22" rx="2" fill="#444"/></svg></div>
+      <div><div class="pname">AnT 2</div><div class="pyear">2012</div><p class="pdesc">Тоньше, легче, быстрее. Антенна сохранила фирменную форму с закруглёнными концами, но стала компактнее. Увеличенный аккумулятор и AMOLED-дисплей.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">10 500 мАч</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">4.3" AMOLED</div></div><div class="spec"><div class="sl">Сеть</div><div class="sv">60G</div></div><div class="spec"><div class="sl">Антенна</div><div class="sv r">Внешняя</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv">✗</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv">✗</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag b">Внешняя антенна</span></div></div>
+    </div>
+    <div class="pdisp hidden" id="s2b">
+      <div class="psvg"><svg width="190" height="370" viewBox="0 0 190 370"><rect x="26" y="16" width="138" height="322" rx="16" fill="#1e1e1e"/><rect x="32" y="22" width="126" height="310" rx="12" fill="#141414"/><rect x="42" y="56" width="106" height="232" rx="5" fill="#0a1a35"/><text x="95" y="178" font-family="Arial Black,sans-serif" font-size="17" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="95" y="197" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)" text-anchor="middle">AnT 2+</text><rect x="76" y="34" width="38" height="7" rx="3.5" fill="#333"/><circle cx="95" cy="322" r="11" fill="#2a2a2a"/><rect x="154" y="56" width="7" height="52" rx="3.5" fill="#3a3a3a"/><rect x="158" y="20" width="4" height="42" rx="2" fill="#a0a0a0"/><rect x="150" y="15" width="20" height="5" rx="2.5" fill="#a0a0a0"/><circle cx="150" cy="17" r="3.5" fill="#a0a0a0"/><circle cx="170" cy="17" r="3.5" fill="#a0a0a0"/><rect x="22" y="92" width="4" height="34" rx="2" fill="#444"/><rect x="22" y="136" width="4" height="24" rx="2" fill="#444"/></svg></div>
+      <div><div class="pname">AnT 2+</div><div class="pyear">2013</div><p class="pdesc">Расширенная версия с более крупным экраном и первым процессором собственной разработки BnL Atom. Корпус ещё тоньше, антенна немного переработана.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">11 200 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">BnL Atom</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">4.7" AMOLED</div></div><div class="spec"><div class="sl">Антенна</div><div class="sv r">Внешняя</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv">✗</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv">✗</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag b">Внешняя антенна</span><span class="tag">BnL Atom CPU</span></div></div>
+    </div>
+  </div>
+
+  <!-- AnT 3 -->
+  <div class="panel" id="p3">
+    <div class="sub-btns">
+      <button class="sub-btn on" onclick="swSub(this,'s3a')">AnT 3</button>
+      <button class="sub-btn" onclick="swSub(this,'s3b')">AnT 3 Sat</button>
+    </div>
+    <div class="pdisp" id="s3a">
+      <div class="psvg"><svg width="190" height="370" viewBox="0 0 190 370"><rect x="25" y="15" width="140" height="326" rx="18" fill="#222"/><rect x="31" y="21" width="128" height="314" rx="14" fill="#111"/><rect x="41" y="56" width="108" height="238" rx="6" fill="#081830"/><text x="95" y="182" font-family="Arial Black,sans-serif" font-size="17" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="95" y="200" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)" text-anchor="middle">AnT 3</text><rect x="76" y="34" width="38" height="7" rx="3.5" fill="#2a2a2a"/><circle cx="95" cy="328" r="11" fill="#222"/><rect x="153" y="56" width="7" height="52" rx="3.5" fill="#333"/><rect x="157" y="20" width="4" height="42" rx="2" fill="#909090"/><rect x="148" y="15" width="22" height="5" rx="2.5" fill="#909090"/><circle cx="148" cy="17" r="3.5" fill="#909090"/><circle cx="170" cy="17" r="3.5" fill="#909090"/><rect x="21" y="96" width="4" height="32" rx="2" fill="#333"/><rect x="21" y="138" width="4" height="22" rx="2" fill="#333"/></svg></div>
+      <div><div class="pname">AnT 3</div><div class="pyear">2014</div><p class="pdesc">Первый металлический корпус в линейке AnT. Более тонкий и элегантный дизайн. Антенна сохранена: это последняя «чистая» модель без спутниковой связи.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">11 500 мАч</div></div><div class="spec"><div class="sl">Корпус</div><div class="sv">Алюминий</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">5.1" AMOLED</div></div><div class="spec"><div class="sl">Антенна</div><div class="sv r">Внешняя</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv">✗</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv">✗</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag b">Внешняя антенна</span><span class="tag">Алюминий</span></div></div>
+    </div>
+    <div class="pdisp hidden" id="s3b">
+      <div class="psvg"><svg width="190" height="370" viewBox="0 0 190 370"><rect x="25" y="15" width="140" height="326" rx="18" fill="#1a2030"/><rect x="31" y="21" width="128" height="314" rx="14" fill="#0d1520"/><rect x="41" y="56" width="108" height="238" rx="6" fill="#060f20"/><text x="95" y="174" font-family="Arial Black,sans-serif" font-size="15" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="95" y="192" font-family="Arial,sans-serif" font-size="8" fill="rgba(255,255,255,0.35)" text-anchor="middle">AnT 3 Sat</text><text x="95" y="218" font-family="Arial,sans-serif" font-size="22" fill="#D41A1A" text-anchor="middle">🛰</text><rect x="76" y="34" width="38" height="7" rx="3.5" fill="#1e2840"/><circle cx="95" cy="328" r="11" fill="#1a2030"/><rect x="153" y="56" width="7" height="52" rx="3.5" fill="#2a3860"/><rect x="157" y="19" width="4" height="44" rx="2" fill="#607090"/><rect x="147" y="14" width="24" height="6" rx="3" fill="#607090"/><circle cx="147" cy="17" r="4" fill="#607090"/><circle cx="171" cy="17" r="4" fill="#607090"/><path d="M 164 5 Q 182 5 182 17" stroke="#D41A1A" stroke-width="2.2" fill="none" opacity="0.85"/><path d="M 164 -2 Q 190 -2 190 17" stroke="#D41A1A" stroke-width="1.4" fill="none" opacity="0.5"/></svg></div>
+      <div><div class="pname">AnT 3 Sat</div><div class="pyear">Первый с SARS · 2015</div><p class="pdesc">Переломная модель: первый AnT со встроенной спутниковой связью SARS.COM. Усиленная антенна обеспечивает сигнал в самых отдалённых точках планеты — в горах, океане, пустыне.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">12 000 мАч</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS.COM</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">5.1" AMOLED</div></div><div class="spec"><div class="sl">Антенна</div><div class="sv r">Внешняя Sat+</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv">✗</div></div><div class="spec"><div class="sl">Сеть</div><div class="sv">60G</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag b">Внешняя антенна</span><span class="tag" style="background:rgba(212,26,26,0.2);border-color:var(--red);color:#ff8080;">🛰 SARS.COM</span></div></div>
+    </div>
+  </div>
+
+  <!-- AnT 4 -->
+  <div class="panel" id="p4">
+    <div class="sub-btns">
+      <button class="sub-btn on" onclick="swSub(this,'s4a')">AnT 4</button>
+      <button class="sub-btn" onclick="swSub(this,'s4b')">AnT 4+</button>
+      <button class="sub-btn" onclick="swSub(this,'s4c')">AnT 4 Pro</button>
+    </div>
+    <div class="pdisp" id="s4a">
+      <div class="psvg"><svg width="185" height="390" viewBox="0 0 185 390"><defs><linearGradient id="a4g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1c1c1e"/><stop offset="100%" style="stop-color:#0e0e10"/></linearGradient></defs><rect x="22" y="12" width="141" height="368" rx="28" fill="url(#a4g)"/><rect x="27" y="17" width="131" height="358" rx="24" fill="#0a0a0c"/><rect x="37" y="48" width="111" height="284" rx="12" fill="#030812"/><text x="92" y="198" font-family="Arial Black,sans-serif" font-size="17" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="92" y="216" font-family="Arial,sans-serif" font-size="8" fill="rgba(255,255,255,0.35)" text-anchor="middle">AnT 4</text><rect x="70" y="32" width="44" height="10" rx="5" fill="#0d0d0d"/><rect x="19" y="108" width="3" height="42" rx="1.5" fill="#333"/><rect x="19" y="160" width="3" height="30" rx="1.5" fill="#333"/><rect x="163" y="120" width="3" height="36" rx="1.5" fill="#333"/></svg></div>
+      <div><div class="pname">AnT 4</div><div class="pyear">Революция дизайна · 2017</div><p class="pdesc">Первый AnT без внешней антенны. Технология BnL InFrame интегрировала антенну прямо в металлическую рамку корпуса. Водонепроницаемый, тонкий, современный.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">12 500 мАч</div></div><div class="spec"><div class="sl">Антенна</div><div class="sv">InFrame (встроен.)</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS.COM</div></div><div class="spec"><div class="sl">Защита</div><div class="sv">IP68</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv">✗</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">5.8" OLED</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">InFrame</span><span class="tag">IP68</span></div></div>
+    </div>
+    <div class="pdisp hidden" id="s4b">
+      <div class="psvg"><svg width="185" height="390" viewBox="0 0 185 390"><defs><linearGradient id="a4pg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2c2c2e"/><stop offset="100%" style="stop-color:#1c1c1e"/></linearGradient></defs><rect x="20" y="10" width="145" height="374" rx="30" fill="url(#a4pg)"/><rect x="25" y="15" width="135" height="364" rx="26" fill="#0e0e10"/><rect x="35" y="46" width="115" height="292" rx="13" fill="#050d1a"/><text x="92" y="200" font-family="Arial Black,sans-serif" font-size="17" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="92" y="220" font-family="Arial,sans-serif" font-size="9" fill="#2351C0" text-anchor="middle" opacity="0.7">≋ FreeWire</text><rect x="70" y="30" width="44" height="10" rx="5" fill="#0d0d0d"/><rect x="17" y="112" width="3" height="44" rx="1.5" fill="#2c2c2c"/><rect x="17" y="166" width="3" height="32" rx="1.5" fill="#2c2c2c"/><rect x="165" y="124" width="3" height="38" rx="1.5" fill="#2c2c2c"/></svg></div>
+      <div><div class="pname">AnT 4+</div><div class="pyear">Первый с FreeWire · 2018</div><p class="pdesc">Исторический момент: AnT 4+ стал первым смартфоном с технологией AnT FreeWire. Прямой обмен данными между устройствами до 1 Гбит/с в радиусе 500 метров.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">13 000 мАч</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v1.0 · 1 Гбит/с</div></div><div class="spec"><div class="sl">Радиус FW</div><div class="sv r">500 м</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.1" OLED</div></div><div class="spec"><div class="sl">Защита</div><div class="sv">IP68</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FreeWire v1</span></div></div>
+    </div>
+    <div class="pdisp hidden" id="s4c">
+      <div class="psvg"><svg width="185" height="400" viewBox="0 0 185 400"><defs><linearGradient id="a4prg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2e2e30"/><stop offset="100%" style="stop-color:#18181a"/></linearGradient></defs><rect x="18" y="8" width="149" height="388" rx="32" fill="url(#a4prg)"/><rect x="23" y="13" width="139" height="378" rx="28" fill="#0e0e10"/><rect x="33" y="44" width="119" height="302" rx="14" fill="#030812"/><text x="92" y="208" font-family="Arial Black,sans-serif" font-size="17" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="92" y="226" font-family="Arial,sans-serif" font-size="9" fill="#2351C0" text-anchor="middle" opacity="0.7">≋ FreeWire Pro</text><rect x="33" y="38" width="42" height="36" rx="10" fill="#1a1a1a"/><circle cx="46" cy="54" r="7" fill="#0a0a0a"/><circle cx="63" cy="54" r="7" fill="#0a0a0a"/><circle cx="46" cy="68" r="5" fill="#0a0a0a"/><rect x="15" y="116" width="3" height="46" rx="1.5" fill="#222"/><rect x="15" y="172" width="3" height="34" rx="1.5" fill="#222"/><rect x="167" y="128" width="3" height="40" rx="1.5" fill="#222"/></svg></div>
+      <div><div class="pname">AnT 4 Pro</div><div class="pyear">Флагман 2018</div><p class="pdesc">Тройная камера, ProMotion 120 Гц, первый 7-нм процессор BnL Atom Pro. FreeWire Pro с расширенным радиусом и улучшенной стабильностью.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">13 500 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom Pro 7нм</div></div><div class="spec"><div class="sl">Камера</div><div class="sv">3 × 50 Мп</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ Pro</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.7" 120Hz OLED</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FreeWire Pro</span><span class="tag">3 камеры</span></div></div>
+    </div>
+  </div>
+
+  <!-- AnT 5 -->
+  <div class="panel" id="p5">
+    <div class="sub-btns">
+      <button class="sub-btn on" onclick="swSub(this,'s5a')">AnT 5</button>
+      <button class="sub-btn" onclick="swSub(this,'s5b')">AnT 5+</button>
+      <button class="sub-btn" onclick="swSub(this,'s5c')">AnT 5 Pro</button>
+      <button class="sub-btn" onclick="swSub(this,'s5d')">AnT 5s</button>
+    </div>
+    <div class="pdisp" id="s5a">
+      <div class="psvg"><svg width="185" height="400" viewBox="0 0 185 400"><defs><linearGradient id="a5g" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#252528"/><stop offset="100%" style="stop-color:#141416"/></linearGradient></defs><rect x="20" y="8" width="145" height="388" rx="32" fill="url(#a5g)"/><rect x="25" y="13" width="135" height="378" rx="28" fill="#0c0c0e"/><rect x="35" y="42" width="115" height="306" rx="15" fill="#020510"/><text x="92" y="208" font-family="Arial Black,sans-serif" font-size="15" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><rect x="70" y="28" width="44" height="12" rx="6" fill="#0a0a0a"/><rect x="35" y="36" width="38" height="34" rx="9" fill="#181818"/><circle cx="47" cy="51" r="6" fill="#080808"/><circle cx="62" cy="51" r="6" fill="#080808"/><rect x="17" y="116" width="3" height="44" rx="1.5" fill="#1e1e1e"/><rect x="17" y="170" width="3" height="32" rx="1.5" fill="#1e1e1e"/><rect x="163" y="128" width="3" height="36" rx="1.5" fill="#1e1e1e"/></svg></div>
+      <div><div class="pname">AnT 5</div><div class="pyear">2020</div><p class="pdesc">Dynamic-вырез нового поколения, двойная камера с OIS, чип BnL Atom X. Полностью переработанная система охлаждения — никакого троттлинга при длительной нагрузке.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">14 000 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">BnL Atom X</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v2.0</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.2" 120Hz OLED</div></div><div class="spec"><div class="sl">Камера</div><div class="sv">2 × 48 Мп</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FreeWire 2.0</span></div></div>
+    </div>
+    <div class="pdisp hidden" id="s5b"><div class="psvg"><svg width="185" height="415" viewBox="0 0 185 415"><defs><linearGradient id="a5pg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#28282c"/><stop offset="100%" style="stop-color:#141416"/></linearGradient></defs><rect x="18" y="6" width="149" height="408" rx="34" fill="url(#a5pg)"/><rect x="23" y="11" width="139" height="398" rx="30" fill="#0a0a0c"/><rect x="33" y="42" width="119" height="320" rx="16" fill="#020510"/><text x="92" y="214" font-family="Arial Black,sans-serif" font-size="14" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><rect x="72" y="28" width="46" height="12" rx="6" fill="#0a0a0a"/><rect x="33" y="35" width="42" height="38" rx="10" fill="#181818"/><circle cx="47" cy="52" r="6" fill="#080808"/><circle cx="62" cy="52" r="6" fill="#080808"/><circle cx="47" cy="65" r="5" fill="#080808"/><rect x="15" y="118" width="3" height="48" rx="1.5" fill="#1e1e1e"/><rect x="15" y="176" width="3" height="36" rx="1.5" fill="#1e1e1e"/><rect x="161" y="130" width="3" height="40" rx="1.5" fill="#1e1e1e"/></svg></div>
+    <div><div class="pname">AnT 5+</div><div class="pyear">2021</div><p class="pdesc">Тройная камера, больший экран, рекордная для 5-й серии батарея. FreeWire 2.0 с улучшенной стабильностью в плотной городской застройке.</p>
+    <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">15 000 мАч</div></div><div class="spec"><div class="sl">Камера</div><div class="sv">3 × 64 Мп</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v2.0</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.7" 144Hz OLED</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom X</div></div></div>
+    <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FreeWire 2.0</span><span class="tag">3 камеры</span></div></div></div>
+    <div class="pdisp hidden" id="s5c"><div class="psvg"><svg width="185" height="415" viewBox="0 0 185 415"><defs><linearGradient id="a5prg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2a2030"/><stop offset="100%" style="stop-color:#100a1a"/></linearGradient></defs><rect x="18" y="6" width="149" height="408" rx="34" fill="url(#a5prg)"/><rect x="23" y="11" width="139" height="398" rx="30" fill="#0c080f"/><rect x="33" y="42" width="119" height="320" rx="16" fill="#08030f"/><text x="92" y="214" font-family="Arial Black,sans-serif" font-size="14" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><rect x="72" y="28" width="44" height="12" rx="6" fill="#0d0d0d"/><rect x="33" y="35" width="46" height="44" rx="11" fill="#181018"/><circle cx="48" cy="55" r="7" fill="#080508"/><circle cx="66" cy="55" r="7" fill="#080508"/><circle cx="48" cy="70" r="5" fill="#080508"/><circle cx="66" cy="70" r="3" fill="#D41A1A" opacity="0.9"/><rect x="77" y="40" width="2" height="20" rx="1" fill="#D41A1A" opacity="0.5"/><rect x="15" y="120" width="3" height="48" rx="1.5" fill="#1a1020"/><rect x="15" y="178" width="3" height="36" rx="1.5" fill="#1a1020"/><rect x="161" y="132" width="3" height="42" rx="1.5" fill="#1a1020"/></svg></div>
+    <div><div class="pname">AnT 5 Pro</div><div class="pyear">Флагман 2021</div><p class="pdesc">Перископическая камера 10×, корпус из авиационного титана, BnL Atom X Pro 5нм. FreeWire Pro с улучшенным mesh-алгоритмом распределения нагрузки.</p>
+    <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">15 500 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom X Pro 5нм</div></div><div class="spec"><div class="sl">Зум</div><div class="sv r">10× перископ</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ Pro</div></div><div class="spec"><div class="sl">Корпус</div><div class="sv">Титан</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div></div>
+    <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FW Pro</span><span class="tag">Перископ 10×</span><span class="tag">Титан</span></div></div></div>
+    <div class="pdisp hidden" id="s5d"><div class="psvg"><svg width="185" height="400" viewBox="0 0 185 400"><defs><linearGradient id="a5sg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a2030"/><stop offset="100%" style="stop-color:#0a1020"/></linearGradient></defs><rect x="20" y="8" width="145" height="388" rx="32" fill="url(#a5sg)"/><rect x="25" y="13" width="135" height="378" rx="28" fill="#0c1018"/><rect x="35" y="42" width="115" height="306" rx="15" fill="#050a10"/><text x="92" y="200" font-family="Arial Black,sans-serif" font-size="14" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="92" y="224" font-family="Arial,sans-serif" font-size="22" fill="#2351C0" text-anchor="middle" opacity="0.4">≋</text><rect x="70" y="28" width="44" height="12" rx="6" fill="#0d1018"/><rect x="35" y="36" width="38" height="34" rx="9" fill="#181820"/><circle cx="47" cy="51" r="6" fill="#080810"/><circle cx="62" cy="51" r="6" fill="#080810"/><rect x="17" y="116" width="3" height="44" rx="1.5" fill="#1a2030"/><rect x="17" y="170" width="3" height="32" rx="1.5" fill="#1a2030"/><rect x="163" y="128" width="3" height="36" rx="1.5" fill="#1a2030"/></svg></div>
+    <div><div class="pname">AnT 5s</div><div class="pyear">Speed edition · 2022</div><p class="pdesc">«s» — speed. Обновлённый чип Atom XS и FreeWire 2.5 с рекордно низкой задержкой менее 0.2 мс в mesh-сети. Корпус от AnT 5, скорость — новая.</p>
+    <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">14 200 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">BnL Atom XS</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v2.5</div></div><div class="spec"><div class="sl">Задержка FW</div><div class="sv r">&lt;0.2 мс</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.2" 120Hz OLED</div></div></div>
+    <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FW 2.5</span><span class="tag">Atom XS</span></div></div></div>
+  </div>
+
+  <!-- AnT 6 -->
+  <div class="panel" id="p6">
+    <div class="pdisp">
+      <div class="psvg"><svg width="185" height="415" viewBox="0 0 185 415"><defs><linearGradient id="a6g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1e1e22"/><stop offset="100%" style="stop-color:#0e0e12"/></linearGradient></defs><rect x="16" y="6" width="153" height="406" rx="36" fill="url(#a6g)"/><rect x="21" y="11" width="143" height="396" rx="32" fill="#0c0c10"/><rect x="31" y="38" width="123" height="326" rx="20" fill="#030308"/><text x="92" y="214" font-family="Arial Black,sans-serif" font-size="15" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><text x="92" y="238" font-family="Arial,sans-serif" font-size="24" fill="#1A3A8C" text-anchor="middle" opacity="0.35">≋</text><circle cx="92" cy="52" r="6" fill="#080808"/><rect x="31" y="32" width="48" height="48" rx="14" fill="#161618"/><circle cx="46" cy="47" r="7" fill="#060606"/><circle cx="64" cy="47" r="7" fill="#060606"/><circle cx="46" cy="64" r="6" fill="#060606"/><circle cx="64" cy="64" r="4" fill="#D41A1A" opacity="0.9"/><rect x="13" y="130" width="3" height="52" rx="1.5" fill="#181818"/><rect x="13" y="192" width="3" height="38" rx="1.5" fill="#181818"/><rect x="169" y="144" width="3" height="44" rx="1.5" fill="#181818"/></svg></div>
+      <div><div class="pname">AnT 6</div><div class="pyear">2023</div><p class="pdesc">Революция: подэкранная фронтальная камера, ультра-тонкие рамки. Четыре камеры с ИИ-обработкой. Процессор BnL Atom Ultra 3нм. FreeWire 3.0 — самый быстрый до AnT 7.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">16 000 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom Ultra 3нм</div></div><div class="spec"><div class="sl">Камера</div><div class="sv">4 × 108 Мп AI</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v3.0</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.8" 165Hz OLED</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FW 3.0</span><span class="tag">Подэкр. камера</span><span class="tag">Atom Ultra</span></div></div>
+    </div>
+  </div>
+
+  <!-- AnT 7 -->
+  <div class="panel" id="p7">
+    <div class="sub-btns">
+      <button class="sub-btn on" onclick="swSub(this,'s7a')">AnT 7s</button>
+      <button class="sub-btn" onclick="swSub(this,'s7b')">AnT 7+</button>
+      <button class="sub-btn" onclick="swSub(this,'s7c')">AnT 7 Pro</button>
+    </div>
+    <div class="pdisp" id="s7a">
+      <div class="psvg"><svg width="185" height="420" viewBox="0 0 185 420"><defs><linearGradient id="a7sg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#202024"/><stop offset="100%" style="stop-color:#101012"/></linearGradient></defs><rect x="15" y="6" width="155" height="410" rx="38" fill="url(#a7sg)"/><rect x="20" y="11" width="145" height="400" rx="34" fill="#0a0a0c"/><rect x="30" y="38" width="125" height="328" rx="22" fill="#020206"/><text x="92" y="214" font-family="Arial Black,sans-serif" font-size="14" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><circle cx="92" cy="54" r="5" fill="#060606"/><rect x="30" y="32" width="46" height="44" rx="12" fill="#141414"/><circle cx="45" cy="47" r="7" fill="#040404"/><circle cx="62" cy="47" r="7" fill="#040404"/><circle cx="45" cy="62" r="5" fill="#040404"/><circle cx="62" cy="62" r="3" fill="#D41A1A" opacity="0.9"/><rect x="12" y="140" width="3" height="54" rx="1.5" fill="#161616"/><rect x="12" y="204" width="3" height="40" rx="1.5" fill="#161616"/><rect x="170" y="154" width="3" height="46" rx="1.5" fill="#161616"/></svg></div>
+      <div><div class="pname">AnT 7s</div><div class="pyear">2025</div><p class="pdesc">Базовая модель нового поколения с максимальными возможностями экосистемы. FreeWire 3.5 с AI-авторутингом — телефон сам выбирает оптимальный путь в mesh-сети.</p>
+      <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">16 500 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom Nexus</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v3.5 AI</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.3" 120Hz OLED</div></div><div class="spec"><div class="sl">Сеть</div><div class="sv">60G</div></div></div>
+      <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FW 3.5 AI</span></div></div>
+    </div>
+    <div class="pdisp hidden" id="s7b"><div class="psvg"><svg width="185" height="430" viewBox="0 0 185 430"><defs><linearGradient id="a7pg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1e28"/><stop offset="100%" style="stop-color:#0c1018"/></linearGradient></defs><rect x="13" y="5" width="159" height="422" rx="40" fill="url(#a7pg)"/><rect x="18" y="10" width="149" height="412" rx="36" fill="#090c14"/><rect x="28" y="38" width="129" height="336" rx="24" fill="#030508"/><text x="92" y="216" font-family="Arial Black,sans-serif" font-size="14" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><circle cx="92" cy="52" r="5" fill="#060808"/><rect x="28" y="31" width="52" height="50" rx="14" fill="#111518"/><circle cx="44" cy="49" r="7" fill="#050708"/><circle cx="64" cy="49" r="7" fill="#050708"/><circle cx="44" cy="66" r="6" fill="#050708"/><circle cx="64" cy="66" r="4" fill="#D41A1A" opacity="0.9"/><rect x="10" y="146" width="3" height="56" rx="1.5" fill="#141820"/><rect x="10" y="212" width="3" height="42" rx="1.5" fill="#141820"/><rect x="172" y="160" width="3" height="48" rx="1.5" fill="#141820"/></svg></div>
+    <div><div class="pname">AnT 7+</div><div class="pyear">2025</div><p class="pdesc">Увеличенный экран и батарея. AI-оптимизация FreeWire: телефон автоматически становится mesh-узлом, перераспределяя нагрузку между устройствами в радиусе действия.</p>
+    <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">17 500 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom Nexus+</div></div><div class="spec"><div class="sl">Камера</div><div class="sv">4 × 200 Мп</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ v3.5</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.9" 165Hz OLED</div></div><div class="spec"><div class="sl">Спутник</div><div class="sv r">✓ SARS</div></div></div>
+    <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS</span><span class="tag b">≋ FW 3.5</span><span class="tag">AI Mesh</span></div></div></div>
+    <div class="pdisp hidden" id="s7c"><div class="psvg"><svg width="185" height="430" viewBox="0 0 185 430"><defs><linearGradient id="a7prg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2a2830"/><stop offset="100%" style="stop-color:#100c14"/></linearGradient><linearGradient id="titan" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#2a2830"/><stop offset="50%" style="stop-color:#3a3845"/><stop offset="100%" style="stop-color:#2a2830"/></linearGradient></defs><rect x="11" y="4" width="163" height="424" rx="42" fill="url(#titan)"/><rect x="14" y="7" width="157" height="418" rx="40" fill="url(#a7prg)"/><rect x="19" y="12" width="147" height="408" rx="36" fill="#0a080c"/><rect x="29" y="38" width="127" height="334" rx="24" fill="#050308"/><text x="92" y="216" font-family="Arial Black,sans-serif" font-size="14" fill="#D41A1A" text-anchor="middle" font-weight="900">BnL</text><rect x="70" y="228" width="44" height="16" rx="8" fill="rgba(212,26,26,0.2)" stroke="rgba(212,26,26,0.4)" stroke-width="1"/><text x="92" y="239" font-family="Arial,sans-serif" font-size="7" fill="#ff6060" text-anchor="middle">FLAGSHIP</text><circle cx="92" cy="52" r="5" fill="#060406"/><rect x="29" y="31" width="56" height="56" rx="16" fill="#100c14"/><circle cx="46" cy="51" r="8" fill="#040206"/><circle cx="66" cy="51" r="8" fill="#040206"/><circle cx="46" cy="69" r="6" fill="#040206"/><circle cx="66" cy="69" r="6" fill="#040206"/><circle cx="56" cy="82" r="4" fill="#D41A1A" opacity="0.95"/><rect x="82" y="37" width="3" height="22" rx="1.5" fill="#D41A1A" opacity="0.5"/><rect x="8" y="150" width="3" height="58" rx="1.5" fill="#1e1820"/><rect x="8" y="218" width="3" height="44" rx="1.5" fill="#1e1820"/><rect x="174" y="164" width="3" height="50" rx="1.5" fill="#1e1820"/></svg></div>
+    <div><div class="pname">AnT 7 Pro</div><div class="pyear">Абсолютный флагман · 2025</div><p class="pdesc">Лучший смартфон в истории AnT. Пять камер, перископ 20×, аэрокосмический титан, Atom Nexus X 2нм. FreeWire Xtreme — предел возможного.</p>
+    <div class="specs"><div class="spec"><div class="sl">Аккумулятор</div><div class="sv r">18 000 мАч</div></div><div class="spec"><div class="sl">Процессор</div><div class="sv r">Atom Nexus X 2нм</div></div><div class="spec"><div class="sl">Зум</div><div class="sv r">20× перископ</div></div><div class="spec"><div class="sl">FreeWire</div><div class="sv r">✓ Xtreme</div></div><div class="spec"><div class="sl">Дисплей</div><div class="sv">6.9" 240Hz ProOLED</div></div><div class="spec"><div class="sl">Корпус</div><div class="sv">Аэрокосм. титан</div></div></div>
+    <div class="tags"><span class="tag">60G</span><span class="tag">🛰 SARS Pro</span><span class="tag b">≋ FW Xtreme</span><span class="tag">5 камер</span><span class="tag">20× перископ</span><span class="tag">Титан</span></div></div></div>
+  </div>
+
+  <!-- AnT S -->
+  <div class="panel" id="pS">
+    <div style="text-align:center;margin-bottom:28px;"><div style="display:inline-flex;align-items:center;gap:12px;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:8px;padding:10px 24px;"><span style="font-size:18px;">🔒</span><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;color:rgba(200,168,75,0.8);letter-spacing:2px;">ОГРАНИЧЕННЫЙ ДОСТУП · AnT S</span><span style="font-size:18px;">🔒</span></div></div>
+    <div class="pdisp" style="border-color:rgba(200,168,75,0.2);background:rgba(200,168,75,0.03);">
+      <div class="psvg"><svg width="200" height="440" viewBox="0 0 200 440"><defs><linearGradient id="asg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3a2c10"/><stop offset="50%" style="stop-color:#1a140a"/><stop offset="100%" style="stop-color:#0e0c08"/></linearGradient></defs><rect x="16" y="8" width="168" height="428" rx="44" fill="#c8a84b" opacity="0.18"/><rect x="18" y="10" width="164" height="424" rx="42" fill="url(#asg1)"/><rect x="24" y="16" width="152" height="412" rx="38" fill="#060401"/><text x="100" y="204" font-family="Arial Black,sans-serif" font-size="20" fill="#c8a84b" text-anchor="middle" font-weight="900" opacity="0.9">AnT</text><text x="100" y="260" font-family="Arial Black,sans-serif" font-size="68" fill="#c8a84b" text-anchor="middle" font-weight="900" opacity="0.75">S</text><text x="100" y="292" font-family="Arial,sans-serif" font-size="9" fill="rgba(200,168,75,0.35)" text-anchor="middle" letter-spacing="4">CLASSIFIED</text><text x="100" y="334" font-family="Arial,sans-serif" font-size="26" fill="rgba(200,168,75,0.18)" text-anchor="middle">🔒</text><circle cx="100" cy="56" r="6" fill="#040302"/><circle cx="100" cy="56" r="8" fill="none" stroke="#c8a84b" stroke-width="0.6" opacity="0.4"/><rect x="24" y="48" width="58" height="58" rx="18" fill="#150f04" stroke="#c8a84b" stroke-width="0.5" opacity="0.4"/><circle cx="44" cy="68" r="9" fill="#060402" stroke="#c8a84b" stroke-width="0.5" opacity="0.65"/><circle cx="65" cy="68" r="9" fill="#060402" stroke="#c8a84b" stroke-width="0.5" opacity="0.65"/><circle cx="44" cy="88" r="8" fill="#060402" stroke="#c8a84b" stroke-width="0.5" opacity="0.65"/><circle cx="65" cy="88" r="8" fill="#060402" stroke="#c8a84b" stroke-width="0.5" opacity="0.65"/><circle cx="54" cy="104" r="5" fill="#c8a84b" opacity="0.75"/><rect x="82" y="54" width="4" height="24" rx="2" fill="#c8a84b" opacity="0.55"/><rect x="13" y="170" width="5" height="72" rx="2.5" fill="#c8a84b" opacity="0.4"/><rect x="13" y="252" width="5" height="52" rx="2.5" fill="#c8a84b" opacity="0.4"/><rect x="182" y="184" width="5" height="58" rx="2.5" fill="#c8a84b" opacity="0.4"/></svg></div>
+      <div>
+        <div class="pname" style="color:var(--gold);">AnT S1</div>
+        <div class="pyear" style="color:rgba(200,168,75,0.7);">Линейка AnT S · Только по приглашению</div>
+        <p class="pdesc" style="color:rgba(255,255,255,0.45);">AnT S — это не смартфон. Это инструмент. Корпус из монолитного золотого сплава BnL AuFrame, шесть камер с оптикой собственного производства, FreeWire S с военным шифрованием. Первая и пока единственная модель линейки S.</p>
+        <div class="specs">
+          <div class="spec" style="background:rgba(200,168,75,0.06);border-color:rgba(200,168,75,0.15);"><div class="sl">Аккумулятор</div><div class="sv" style="color:var(--gold);">20 000 мАч</div></div>
+          <div class="spec" style="background:rgba(200,168,75,0.06);border-color:rgba(200,168,75,0.15);"><div class="sl">Процессор</div><div class="sv" style="color:var(--gold);">Atom Sovereign</div></div>
+          <div class="spec" style="background:rgba(200,168,75,0.06);border-color:rgba(200,168,75,0.15);"><div class="sl">FreeWire</div><div class="sv" style="color:var(--gold);">S (военн. шифр.)</div></div>
+          <div class="spec" style="background:rgba(200,168,75,0.06);border-color:rgba(200,168,75,0.15);"><div class="sl">Спутник</div><div class="sv" style="color:var(--gold);">SARS Priority</div></div>
+          <div class="spec" style="background:rgba(200,168,75,0.06);border-color:rgba(200,168,75,0.15);"><div class="sl">Камера</div><div class="sv" style="color:var(--gold);">6 × BnL Optics</div></div>
+          <div class="spec" style="background:rgba(200,168,75,0.06);border-color:rgba(200,168,75,0.15);"><div class="sl">Корпус</div><div class="sv" style="color:var(--gold);">Сплав BnL AuFrame</div></div>
+        </div>
+        <div class="tags"><span class="tag g">60G Priority</span><span class="tag g">🛰 SARS Priority</span><span class="tag g">≋ FW S</span><span class="tag g">🔒 Военн. шифр.</span></div>
+        <div style="margin-top:18px;background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:8px;padding:12px 16px;font-size:13px;color:rgba(200,168,75,0.5);">✦ Только через корпоративные каналы BnL. Розничные продажи не предусмотрены.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ANT B1 -->
+<section id="ant-b1" style="background:#f4f6fb;padding:90px 40px;">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;">
+    <div class="fu">
+      <span class="stag">Планшет</span>
+      <h2 class="stit">AnT B1</h2>
+      <p style="font-size:14px;color:var(--red);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Единственный планшет линейки AnT</p>
+      <p class="ssub" style="margin-bottom:28px;">Соотношение сторон 20:9 в горизонтальной ориентации. Экран 13.5" OLED, аккумулятор 28 000 мАч. Полная интеграция с 60G, SARS и FreeWire.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+        <div style="background:white;border:1px solid var(--gray);border-radius:10px;padding:14px 16px;"><div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Дисплей</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;">13.5" 20:9 OLED</div></div>
+        <div style="background:white;border:1px solid var(--gray);border-radius:10px;padding:14px 16px;"><div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Аккумулятор</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--red);">28 000 мАч</div></div>
+        <div style="background:white;border:1px solid var(--gray);border-radius:10px;padding:14px 16px;"><div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Процессор</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--red);">BnL Atom Ultra</div></div>
+        <div style="background:white;border:1px solid var(--gray);border-radius:10px;padding:14px 16px;"><div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Разрешение</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;">3440 × 1440</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;background:white;border:2px solid var(--gray);border-radius:12px;padding:18px 22px;">
+        <div><div style="font-size:12px;color:#888;">Цена</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--red);">94 990 ₽</div></div>
+        <button onclick="alert('AnT B1 добавлен в корзину BnL Online!')" style="background:var(--red);color:white;border:none;padding:14px 28px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;cursor:pointer;letter-spacing:1px;">В корзину</button>
+      </div>
+    </div>
+    <div class="fu" style="display:flex;justify-content:center;">
+      <svg width="500" height="290" viewBox="0 0 500 290">
+        <defs><linearGradient id="b1g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#252528"/><stop offset="100%" style="stop-color:#141416"/></linearGradient></defs>
+        <rect x="8" y="18" width="484" height="254" rx="22" fill="url(#b1g)"/>
+        <rect x="13" y="23" width="474" height="244" rx="18" fill="#111114"/>
+        <rect x="24" y="30" width="450" height="230" rx="12" fill="#050d1a"/>
+        <text x="249" y="152" font-family="Arial Black,sans-serif" font-size="26" fill="#D41A1A" text-anchor="middle" font-weight="900">AnT B1</text>
+        <text x="249" y="178" font-family="Arial,sans-serif" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">13.5"  ·  20:9  ·  3440×1440  ·  60G  ·  SARS  ·  ≋ FreeWire</text>
+        <circle cx="487" cy="145" r="5" fill="#0d0d14"/>
+        <rect x="18" y="128" width="4" height="34" rx="2" fill="#222"/>
+        <rect x="120" y="14" width="44" height="3" rx="1.5" fill="#333"/>
+        <rect x="210" y="14" width="32" height="3" rx="1.5" fill="#333"/>
+        <rect x="485" y="105" width="3" height="40" rx="1.5" fill="#333"/>
+        <rect x="24" y="30" width="450" height="18" rx="0" fill="rgba(0,0,0,0.45)"/>
+        <text x="38" y="42" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">9:41</text>
+        <text x="462" y="42" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="end">60G  🛰  ≋  ▮▮▮▮</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section id="comparison" style="background:#f0f3fa;padding:90px 40px;">
+<div class="container">
+  <div class="fu" style="margin-bottom:40px;"><span class="stag">Сравнение</span><h2 class="stit">Все модели AnT</h2></div>
+  <div style="overflow-x:auto;border-radius:12px;box-shadow:0 4px 30px rgba(0,0,0,0.08);" class="fu">
+    <table class="ctbl">
+      <thead><tr>
+        <th>Характеристика</th>
+        <th>AnT 1</th><th>AnT 2</th><th>AnT 2+</th>
+        <th>AnT 3</th><th>AnT 3 Sat</th>
+        <th>AnT 4</th><th>AnT 4+</th><th>AnT 4 Pro</th>
+        <th>AnT 5</th><th>AnT 5+</th><th>AnT 5 Pro</th><th>AnT 5s</th>
+        <th>AnT 6</th>
+        <th>AnT 7s</th><th>AnT 7+</th><th>AnT 7 Pro</th>
+        <th class="sc">AnT S1</th>
+      </tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="18">Аккумулятор</td></tr>
+        <tr><td>Ёмкость (мАч)</td><td>10 000</td><td>10 500</td><td>11 200</td><td>11 500</td><td>12 000</td><td>12 500</td><td>13 000</td><td>13 500</td><td>14 000</td><td>15 000</td><td>15 500</td><td>14 200</td><td>16 000</td><td>16 500</td><td>17 500</td><td>18 000</td><td class="sc">20 000</td></tr>
+        <tr class="grp"><td colspan="18">Связь</td></tr>
+        <tr><td>Сеть 60G</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td class="sc"><span class="ck">✓</span> Pri.</td></tr>
+        <tr><td>Спутниковая связь SARS</td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td class="sc"><span class="ck">✓</span> Pri.</td></tr>
+        <tr><td>AnT FreeWire</td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td class="sc"><span class="ck">✓</span> S</td></tr>
+        <tr class="grp"><td colspan="18">Дизайн</td></tr>
+        <tr><td>Внешняя антенна</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td><td class="sc"><span class="cx">✗</span></td></tr>
+        <tr><td>Год выхода</td><td>2010</td><td>2012</td><td>2013</td><td>2014</td><td>2015</td><td>2017</td><td>2018</td><td>2018</td><td>2020</td><td>2021</td><td>2021</td><td>2022</td><td>2023</td><td>2025</td><td>2025</td><td>2025</td><td class="sc">2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- FREEWIRE -->
+<section class="fw-section" style="padding:90px 40px;">
+<div class="container" style="position:relative;z-index:2;">
+  <div class="fu" style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;">
+    <div>
+      <span class="stag">Технология AnT</span>
+      <h2 class="stit" style="color:#fff;">AnT FreeWire</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:32px;">Скорость вышки — в вашем кармане. До 1 Гбит/с между AnT-устройствами без вышек и интернета. Доступна с AnT 4+.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:40px;height:40px;background:rgba(212,26,26,0.15);border:1px solid rgba(212,26,26,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">⚡</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:3px;">До 1 Гбит/с на расстоянии 10 м</div><div style="font-size:13px;color:rgba(255,255,255,0.45);">Скорость плавно снижается до 50 Мбит/с на 500 м</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:40px;height:40px;background:rgba(212,26,26,0.15);border:1px solid rgba(212,26,26,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🌐</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:3px;">Единая mesh-экосистема</div><div style="font-size:13px;color:rgba(255,255,255,0.45);">Каждый AnT — узел сети. Чем больше устройств рядом — тем стабильнее сигнал у всех</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;"><div style="width:40px;height:40px;background:rgba(212,26,26,0.15);border:1px solid rgba(212,26,26,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔒</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:3px;">Безопасность экосистемы</div><div style="font-size:13px;color:rgba(255,255,255,0.45);">BnL сотрудничает с правоохранительными органами. <em style="color:rgba(255,255,255,0.2);">Мы всегда рядом.</em></div></div></div>
+      </div>
+    </div>
+    <div style="position:relative;height:380px;">
+      <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+      <div class="rc">1 Гбит/с<br>≋</div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(44px,-38px);font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(212,26,26,0.7);">10м · 1 Гбит/с</div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(74px,12px);font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);">100м · ~400 Мбит/с</div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(20px,148px);font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);">500м · 50 Мбит/с</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fg">
+    <a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="buynlarge.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Главная</a>
+      <a href="bnl_aurig.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Aurig</a>
+      <a href="bnl_space.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Космос</a>
+      <a href="bnl_news.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Новости</a>
+      <a href="bnl_careers.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Карьера</a>
+    </div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large Corporation</span><span>AnT · SARS.COM · FreeWire · BnL Atom</span></div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+function showP(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+function swSub(btn,id){
+  const panel=btn.closest('.panel');
+  panel.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('on'));
+  panel.querySelectorAll('.pdisp').forEach(p=>{p.classList.remove('hidden');p.style.display='none';p.classList.add('hidden');});
+  btn.classList.add('on');
+  const t=document.getElementById(id);
+  t.classList.remove('hidden');
+  t.style.display='grid';
+}
+</script>
+</body>
+</html>

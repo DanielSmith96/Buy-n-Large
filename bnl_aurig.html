@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurig — Автомобили Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--blue-dark:#0E2460;--blue-mid:#2351C0;--gray:#e0e4ed;--light:#f4f6fb;--text:#111827;--tl:#4b5563;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Barlow',sans-serif;color:var(--text);background:#fff;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,14,40,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:3px solid #111;}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}
+.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}
+.nm a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;}
+.nm a:hover{background:var(--red);color:#fff;}
+.nm a.active{background:#111;color:#fff;border:1px solid #333;}
+.hero{min-height:100vh;background:linear-gradient(160deg,#080808 0%,#111 50%,#0a1020 100%);display:flex;align-items:center;padding:80px 40px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(212,26,26,0.12) 0%,transparent 60%);}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1;margin-bottom:16px;}
+.fu{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease;}
+.fu.vis{opacity:1;transform:translateY(0);}
+.spec-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+.spec-box{border-radius:10px;padding:18px 20px;text-align:center;}
+.spec-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;line-height:1;margin-bottom:4px;}
+.spec-lbl{font-size:12px;opacity:0.6;}
+.btn-blk{display:inline-block;background:#111;color:#fff;padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;transition:all .3s;cursor:pointer;border:none;}
+.btn-blk:hover{background:#222;transform:translateY(-2px);}
+.btn-red{display:inline-block;background:var(--red);color:#fff;padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;transition:all .3s;cursor:pointer;border:none;}
+.btn-red:hover{background:#ff2020;transform:translateY(-2px);}
+footer{background:#04091e;color:rgba(255,255,255,0.5);padding:44px 40px 22px;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:24px;flex-wrap:wrap;gap:16px;}
+.fb{max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);flex-wrap:wrap;gap:8px;}
+@media(max-width:900px){.nm{display:none;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li>
+    <li><a href="bnl_ant.html">AnT</a></li>
+    <li><a href="bnl_aurig.html" class="active">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li>
+    <li><a href="bnl_news.html">Новости</a></li>
+    <li><a href="bnl_careers.html">Карьера</a></li>
+    <li><a href="buynlarge.html#shop">Каталог</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:relative;z-index:2;width:100%;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+            <svg width="64" height="64" viewBox="0 0 72 72"><rect width="72" height="72" rx="16" fill="#fff"/><text x="36" y="48" font-family="Arial Black,sans-serif" font-weight="900" font-size="26" fill="#111" text-anchor="middle" letter-spacing="-1">Aurig</text></svg>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:50px;color:#fff;line-height:1;letter-spacing:2px;">AURIG</div><div style="font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:3px;text-transform:uppercase;">by Buy N Large</div></div>
+          </div>
+          <span class="stag">Автомобили BnL</span>
+          <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(44px,6vw,80px);color:#fff;line-height:.95;margin-bottom:14px;">Умный транспорт<br>нового поколения</h1>
+          <p style="font-size:17px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:36px;max-width:480px;">Электрические и автономные автомобили, интегрированные в экосистему BnL. Каждый Aurig — часть умной городской сети 60G.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="#e1" class="btn-red">Aurig E1</a>
+            <a href="#a1" class="btn-blk">Aurig A1</a>
+          </div>
+        </div>
+        <!-- Hero car scene SVG -->
+        <div style="display:flex;justify-content:center;">
+          <svg width="520" height="280" viewBox="0 0 520 280">
+            <!-- Road -->
+            <rect x="0" y="220" width="520" height="60" fill="#111"/>
+            <rect x="0" y="218" width="520" height="4" fill="#222"/>
+            <!-- Road markings -->
+            <rect x="40" y="247" width="60" height="4" fill="#444" rx="2"/>
+            <rect x="160" y="247" width="60" height="4" fill="#444" rx="2"/>
+            <rect x="280" y="247" width="60" height="4" fill="#444" rx="2"/>
+            <rect x="400" y="247" width="60" height="4" fill="#444" rx="2"/>
+            <!-- E1 car (red) -->
+            <path d="M 60 180 Q 60 148 90 142 L 140 132 Q 172 116 208 114 Q 244 112 274 118 L 304 128 Q 326 136 328 152 L 328 180 Z" fill="#D41A1A"/>
+            <path d="M 138 142 Q 162 118 208 114 Q 243 110 278 126 L 284 142 Z" fill="#c01515"/>
+            <path d="M 146 141 Q 164 122 206 116 L 206 140 Z" fill="#a8d4f0" opacity="0.7"/>
+            <path d="M 210 113 L 278 118 L 280 140 L 210 140 Z" fill="#a8d4f0" opacity="0.7"/>
+            <circle cx="115" cy="186" r="22" fill="#111"/><circle cx="115" cy="186" r="14" fill="#2a2a2a"/><circle cx="115" cy="186" r="5" fill="#D41A1A"/>
+            <circle cx="280" cy="186" r="22" fill="#111"/><circle cx="280" cy="186" r="14" fill="#2a2a2a"/><circle cx="280" cy="186" r="5" fill="#D41A1A"/>
+            <rect x="62" y="161" width="8" height="12" rx="2" fill="#222"/>
+            <ellipse cx="328" cy="164" rx="5" ry="8" fill="#fff" opacity="0.9"/>
+            <!-- A1 car (blue, background) -->
+            <path d="M 310 195 Q 310 175 332 170 L 368 162 Q 395 152 420 150 Q 448 148 468 154 L 488 162 Q 502 168 504 178 L 504 195 Z" fill="#1A3A8C" opacity="0.9"/>
+            <path d="M 366 162 Q 385 150 420 149 Q 447 147 470 158 L 474 162 Z" fill="#c8e8ff" opacity="0.3"/>
+            <ellipse cx="405" cy="153" rx="12" ry="5" fill="#0a1840" stroke="#2351C0" stroke-width="0.8"/>
+            <circle cx="405" cy="151" r="3.5" fill="#D41A1A" opacity="0.9"/>
+            <circle cx="350" cy="200" r="16" fill="#111"/><circle cx="350" cy="200" r="9" fill="#1a2a60"/><circle cx="350" cy="200" r="3.5" fill="#2351C0"/>
+            <circle cx="486" cy="200" r="16" fill="#111"/><circle cx="486" cy="200" r="9" fill="#1a2a60"/><circle cx="486" cy="200" r="3.5" fill="#2351C0"/>
+            <!-- 60G signal from A1 -->
+            <path d="M 404 140 Q 420 130 430 140" stroke="#2351C0" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="3,2"/>
+            <path d="M 404 132 Q 424 120 436 132" stroke="#2351C0" stroke-width="1" fill="none" opacity="0.3" stroke-dasharray="3,2"/>
+            <!-- Labels -->
+            <text x="194" y="208" font-family="Arial Black,sans-serif" font-size="10" fill="rgba(255,255,255,0.5)" text-anchor="middle">Aurig E1</text>
+            <text x="420" y="215" font-family="Arial Black,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)" text-anchor="middle">Aurig A1</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AURIG E1 -->
+<section id="e1" style="background:#fff;padding:90px 40px;">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;">
+    <div class="fu">
+      <span class="stag">Городской электрокар</span>
+      <h2 class="stit">Aurig E1</h2>
+      <p style="font-size:16px;color:var(--tl);line-height:1.8;margin-bottom:28px;">Компактный городской электромобиль. Проектировался с нуля как часть экосистемы BnL — навигация через 60G, FreeWire для связи с другими Aurig рядом. Нулевые выбросы, максимальный комфорт.</p>
+      <div class="spec-row">
+        <div class="spec-box" style="background:#fff0f0;border:1px solid #fdd;"><div class="spec-num" style="color:var(--red);">520</div><div class="spec-lbl">км запас хода</div></div>
+        <div class="spec-box" style="background:#fff0f0;border:1px solid #fdd;"><div class="spec-num" style="color:var(--red);">3.8с</div><div class="spec-lbl">0–100 км/ч</div></div>
+        <div class="spec-box" style="background:#fff0f0;border:1px solid #fdd;"><div class="spec-num" style="color:var(--red);">220</div><div class="spec-lbl">кВт мощность</div></div>
+      </div>
+      <div style="background:var(--light);border-radius:12px;padding:22px 26px;margin-bottom:24px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:14px;">Ключевые особенности</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--tl);"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span>60G Connected — реальная навигация с нулевой задержкой</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--tl);"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span>AnT FreeWire — обмен данными с соседними Aurig</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--tl);"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span>Зарядка на станциях BnL по всему миру</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--tl);"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span>Парковка в городах Adorcity и Подораевск — бесплатная</div>
+          <div style="display:flex;gap:10px;font-size:14px;color:var(--tl);"><span style="color:var(--red);font-weight:700;flex-shrink:0;">→</span>IP67 — защита от дождя и временного погружения</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+        <div><div style="font-size:13px;color:#888;">Цена от</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;color:var(--red);">2 400 000 ₽</div></div>
+        <button onclick="alert('Заявка на Aurig E1 принята. Менеджер BnL свяжется в течение 24 часов.')" class="btn-red">Оставить заявку</button>
+      </div>
+    </div>
+    <div class="fu" style="display:flex;justify-content:center;align-items:center;">
+      <svg width="460" height="260" viewBox="0 0 460 260">
+        <defs><linearGradient id="e1g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#D41A1A"/><stop offset="100%" style="stop-color:#8a0f0f"/></linearGradient></defs>
+        <rect x="0" y="220" width="460" height="40" fill="#f0f0f0"/>
+        <path d="M 28 185 Q 28 155 58 148 L 110 136 Q 144 118 182 116 Q 218 114 250 120 L 282 132 Q 308 142 312 158 L 318 185 Z" fill="url(#e1g)"/>
+        <path d="M 108 148 Q 134 122 182 116 Q 217 112 254 128 L 260 148 Z" fill="#c01515"/>
+        <path d="M 116 147 Q 136 124 180 117 L 180 146 Z" fill="#a8d4f0" opacity="0.8"/>
+        <path d="M 184 115 L 256 120 L 258 146 L 184 146 Z" fill="#a8d4f0" opacity="0.8"/>
+        <circle cx="88" cy="192" r="24" fill="#222"/><circle cx="88" cy="192" r="15" fill="#333"/><circle cx="88" cy="192" r="6" fill="#D41A1A"/>
+        <circle cx="260" cy="192" r="24" fill="#222"/><circle cx="260" cy="192" r="15" fill="#333"/><circle cx="260" cy="192" r="6" fill="#D41A1A"/>
+        <rect x="30" y="168" width="8" height="12" rx="2" fill="#222"/>
+        <ellipse cx="316" cy="168" rx="5" ry="9" fill="#fff" opacity="0.9"/>
+        <ellipse cx="31" cy="172" rx="4" ry="6" fill="#ffa" opacity="0.7"/>
+        <!-- Charge port -->
+        <rect x="34" y="175" width="9" height="11" rx="2" fill="#1a1a1a"/>
+        <!-- BnL badge -->
+        <rect x="152" y="168" width="46" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+        <text x="175" y="180" font-family="Arial Black,sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="900">Aurig E1</text>
+        <!-- 60G / FreeWire indicators -->
+        <text x="174" y="108" font-family="Arial,sans-serif" font-size="11" fill="#D41A1A" text-anchor="middle" opacity="0.7">60G  ≋</text>
+        <path d="M 174 100 Q 195 88 200 100" stroke="#D41A1A" stroke-width="1.5" fill="none" opacity="0.5" stroke-dasharray="4,2"/>
+        <line x1="0" y1="218" x2="460" y2="218" stroke="#ddd" stroke-width="1"/>
+        <!-- Shadow -->
+        <ellipse cx="174" cy="220" rx="140" ry="8" fill="rgba(0,0,0,0.08)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- AURIG A1 -->
+<section id="a1" style="background:#f4f6fb;padding:90px 40px;">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;">
+    <div class="fu" style="display:flex;justify-content:center;align-items:center;">
+      <svg width="460" height="260" viewBox="0 0 460 260">
+        <defs><linearGradient id="a1g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#1A3A8C"/><stop offset="100%" style="stop-color:#0E2460"/></linearGradient></defs>
+        <rect x="0" y="220" width="460" height="40" fill="#e8ecf6"/>
+        <path d="M 22 185 Q 22 155 52 148 L 104 136 Q 138 118 178 116 Q 214 114 248 120 L 280 132 Q 305 142 308 158 L 314 185 Z" fill="url(#a1g)"/>
+        <path d="M 102 148 Q 128 122 178 116 Q 213 112 252 128 L 256 148 Z" fill="#aed4f8" opacity="0.3"/>
+        <!-- Glass roof full -->
+        <path d="M 110 147 Q 130 124 178 117 L 252 122 L 253 147 Z" fill="#c8e8ff" opacity="0.4"/>
+        <!-- LiDAR dome -->
+        <ellipse cx="180" cy="118" rx="18" ry="7" fill="#0a1840" stroke="#2351C0" stroke-width="1"/>
+        <circle cx="180" cy="116" r="5" fill="#D41A1A" opacity="0.9"/>
+        <!-- LiDAR scan lines -->
+        <path d="M 180 108 Q 200 98 208 112" stroke="#D41A1A" stroke-width="1.5" fill="none" opacity="0.7" stroke-dasharray="3,2"/>
+        <path d="M 180 108 Q 160 98 152 112" stroke="#D41A1A" stroke-width="1.5" fill="none" opacity="0.7" stroke-dasharray="3,2"/>
+        <path d="M 180 100 Q 212 88 220 112" stroke="#D41A1A" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="3,2"/>
+        <!-- Sensors front/back -->
+        <rect x="306" y="155" width="9" height="14" rx="2" fill="#2351C0"/>
+        <rect x="24" y="162" width="7" height="10" rx="2" fill="#2351C0"/>
+        <!-- Wheels -->
+        <circle cx="84" cy="192" r="24" fill="#111"/><circle cx="84" cy="192" r="15" fill="#1a2a60"/><circle cx="84" cy="192" r="6" fill="#2351C0"/>
+        <circle cx="255" cy="192" r="24" fill="#111"/><circle cx="255" cy="192" r="15" fill="#1a2a60"/><circle cx="255" cy="192" r="6" fill="#2351C0"/>
+        <!-- LED front -->
+        <path d="M 306 156 Q 314 149 311 143" stroke="#a0c0ff" stroke-width="2" fill="none"/>
+        <!-- BnL badge -->
+        <rect x="148" y="167" width="50" height="18" rx="4" fill="rgba(255,255,255,0.12)"/>
+        <text x="173" y="179" font-family="Arial Black,sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="900">Aurig A1</text>
+        <!-- 60G pulse circles -->
+        <circle cx="180" cy="95" r="15" fill="none" stroke="#2351C0" stroke-width="1" opacity="0.3" stroke-dasharray="4,3"/>
+        <circle cx="180" cy="95" r="25" fill="none" stroke="#2351C0" stroke-width="0.8" opacity="0.18" stroke-dasharray="4,3"/>
+        <line x1="0" y1="218" x2="460" y2="218" stroke="#d0d8e8" stroke-width="1"/>
+        <ellipse cx="170" cy="220" rx="138" ry="8" fill="rgba(26,58,140,0.06)"/>
+      </svg>
+    </div>
+    <div class="fu">
+      <span class="stag">Автономный беспилотник</span>
+      <h2 class="stit">Aurig A1</h2>
+      <p style="font-size:16px;color:var(--tl);line-height:1.8;margin-bottom:28px;">Полностью беспилотный автомобиль SAE Level 5. Навигация и принятие решений в режиме реального времени через сеть 60G с задержкой менее 1 мс. LiDAR 360° + камеры + FreeWire = «коллективное зрение».</p>
+      <div class="spec-row">
+        <div class="spec-box" style="background:#f0f4ff;border:1px solid #dde;"><div class="spec-num" style="color:var(--blue);">5</div><div class="spec-lbl">уровень SAE</div></div>
+        <div class="spec-box" style="background:#f0f4ff;border:1px solid #dde;"><div class="spec-num" style="color:var(--blue);">600</div><div class="spec-lbl">км запас хода</div></div>
+        <div class="spec-box" style="background:#f0f4ff;border:1px solid #dde;"><div class="spec-num" style="color:var(--blue);">&lt;1мс</div><div class="spec-lbl">реакция 60G</div></div>
+      </div>
+      <div style="background:white;border:1px solid var(--gray);border-radius:12px;padding:22px 26px;margin-bottom:24px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:14px;">Система восприятия Aurig A1</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:var(--light);border-radius:8px;padding:12px;"><div style="font-size:11px;color:#888;margin-bottom:3px;">Сенсоры</div><div style="font-size:14px;font-weight:600;">LiDAR 360° + 12 камер</div></div>
+          <div style="background:var(--light);border-radius:8px;padding:12px;"><div style="font-size:11px;color:#888;margin-bottom:3px;">Связь</div><div style="font-size:14px;font-weight:600;color:var(--blue);">60G + FreeWire</div></div>
+          <div style="background:var(--light);border-radius:8px;padding:12px;"><div style="font-size:11px;color:#888;margin-bottom:3px;">ИИ</div><div style="font-size:14px;font-weight:600;">BnL Drive Neural v4</div></div>
+          <div style="background:var(--light);border-radius:8px;padding:12px;"><div style="font-size:11px;color:#888;margin-bottom:3px;">Обновления</div><div style="font-size:14px;font-weight:600;">OTA через 60G</div></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+        <div><div style="font-size:13px;color:#888;">Цена от</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;color:var(--blue);">5 800 000 ₽</div></div>
+        <button onclick="alert('Заявка на Aurig A1 принята. Специалист BnL свяжется с вами.')" class="btn-blk">Оставить заявку</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section style="background:linear-gradient(135deg,#080c14,#0a1428);padding:80px 40px;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:50px;">
+    <span class="stag">Экосистема</span>
+    <h2 class="stit" style="color:#fff;">Aurig в сети BnL</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;" class="fu">
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:28px;text-align:center;"><div style="font-size:36px;margin-bottom:12px;">📡</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:8px;">60G Real-time</div><div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">Навигация, обновления ПО и связь с инфраструктурой в режиме реального времени</div></div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:28px;text-align:center;"><div style="font-size:36px;margin-bottom:12px;">≋</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:8px;">FreeWire Mesh</div><div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">Обмен данными между Aurig и AnT-смартфонами в радиусе 500 м — коллективное зрение</div></div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:28px;text-align:center;"><div style="font-size:36px;margin-bottom:12px;">🏙️</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:8px;">Умные города</div><div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">В Подораевске и Adorcity светофоры, дороги и парковки общаются с Aurig напрямую</div></div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:28px;text-align:center;"><div style="font-size:36px;margin-bottom:12px;">⚡</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:8px;">BnL Charge</div><div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">Сеть зарядных станций BnL в 193 странах. Оплата через BnL Pay одним касанием</div></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fg">
+    <a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="bnl_ant.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">AnT</a>
+      <a href="bnl_space.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Космос</a>
+      <a href="bnl_news.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Новости</a>
+      <a href="bnl_careers.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Карьера</a>
+    </div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large Corporation · Aurig Division</span><span>Все автомобили подключены к сети BnL 60G</span></div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

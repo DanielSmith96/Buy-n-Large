@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Города BnL — Adorcity, Подораевск, Topcity, Енезон</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--gold:#c8a84b;--text:#111827;--tl:#4b5563;--gray:#e5e7eb;--light:#f4f6fb;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;color:var(--text);background:#fff;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,14,40,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:3px solid var(--red);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}.nm a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;}.nm a:hover,.nm a.active{background:var(--red);color:#fff;}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1;margin-bottom:16px;}
+.fu{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}.fu.vis{opacity:1;transform:translateY(0);}
+/* City selector */
+.city-tabs{display:flex;gap:0;border-bottom:3px solid #111;margin-bottom:0;flex-wrap:wrap;}
+.city-tab{flex:1;min-width:140px;padding:20px 16px;text-align:center;cursor:pointer;background:var(--light);border:1px solid var(--gray);border-bottom:none;transition:all .25s;}
+.city-tab.active{background:#fff;border-top:3px solid var(--red);margin-top:-3px;margin-bottom:-3px;z-index:1;border-bottom-color:#fff;}
+.city-tab-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;line-height:1;margin-bottom:4px;}
+.city-tab-loc{font-size:11px;color:#888;}
+.city-panel{display:none;}.city-panel.active{display:block;}
+/* City hero */
+.city-hero{min-height:70vh;display:flex;align-items:flex-end;padding:60px 40px 50px;position:relative;overflow:hidden;}
+.city-hero-content{position:relative;z-index:2;max-width:600px;}
+.city-status{display:inline-flex;align-items:center;gap:8px;background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;font-size:12px;font-weight:600;color:#4ade80;}
+.city-status.building{background:rgba(234,179,8,0.15);border-color:rgba(234,179,8,0.3);color:#fbbf24;}
+.city-pop{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);color:#fff;line-height:.9;margin-bottom:8px;}
+.city-country{font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:24px;letter-spacing:1px;}
+/* City stats grid */
+.city-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:32px 40px;background:#fff;border-bottom:1px solid var(--gray);}
+.cstat{text-align:center;padding:16px;}
+.cstat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;color:var(--red);line-height:1;margin-bottom:4px;}
+.cstat-l{font-size:12px;color:#888;}
+/* City features */
+.city-body{padding:60px 40px;}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+.feat-card{background:var(--light);border:1px solid var(--gray);border-radius:12px;padding:24px;transition:all .25s;}
+.feat-card:hover{border-color:var(--red);transform:translateY(-2px);}
+.feat-icon{font-size:32px;margin-bottom:12px;}
+.feat-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;margin-bottom:6px;}
+.feat-desc{font-size:13px;color:var(--tl);line-height:1.65;}
+footer{background:#04091e;padding:44px 40px 22px;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:24px;flex-wrap:wrap;gap:16px;}
+.fb{max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);flex-wrap:wrap;gap:8px;}
+@media(max-width:900px){.nm{display:none;}.city-stats,.feat-grid{grid-template-columns:repeat(2,1fr);}.city-tabs{flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li><li><a href="bnl_ant.html">AnT</a></li><li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li><li><a href="bnl_news.html">Новости</a></li><li><a href="bnl_careers.html">Карьера</a></li>
+    <li><a href="bnl_cities.html" class="active">Города</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<section style="background:linear-gradient(160deg,#080c18,#0d1030);padding:100px 40px 60px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <span class="stag">Корпоративные города</span>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(48px,7vw,90px);color:#fff;line-height:.92;margin-bottom:16px;">Города<br><span style="color:var(--red);">Buy N Large</span></h1>
+    <p style="font-size:17px;color:rgba(255,255,255,0.5);max-width:560px;line-height:1.8;">Четыре города на двух континентах. Каждый — лаборатория будущего, полностью интегрированная в экосистему BnL: 60G, Aurig, FreeWire, BnLCoin.</p>
+    <div style="display:flex;gap:32px;margin-top:36px;flex-wrap:wrap;">
+      <div style="border-left:3px solid var(--red);padding-left:16px;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:#fff;">4</div><div style="font-size:13px;color:rgba(255,255,255,0.4);">Города (1 строится)</div></div>
+      <div style="border-left:3px solid var(--red);padding-left:16px;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:#fff;">2 континента</div><div style="font-size:13px;color:rgba(255,255,255,0.4);">США и Россия</div></div>
+      <div style="border-left:3px solid var(--red);padding-left:16px;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;color:#fff;">1.4 млн</div><div style="font-size:13px;color:rgba(255,255,255,0.4);">Жителей суммарно</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CITY TABS -->
+<div style="padding:0 40px;background:#fff;position:sticky;top:60px;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+  <div class="container">
+    <div class="city-tabs">
+      <div class="city-tab active" onclick="showCity('adorcity',this)"><div class="city-tab-name">Adorcity</div><div class="city-loc" style="font-size:11px;color:#888;">США · Восточное побережье</div></div>
+      <div class="city-tab" onclick="showCity('podorayevsk',this)"><div class="city-tab-name">Подораевск</div><div class="city-loc" style="font-size:11px;color:#888;">Россия · HQ</div></div>
+      <div class="city-tab" onclick="showCity('topcity',this)"><div class="city-tab-name">Topcity</div><div class="city-loc" style="font-size:11px;color:#888;">США · Восточное побережье</div></div>
+      <div class="city-tab" onclick="showCity('yenezon',this)"><div class="city-tab-name">Енезон</div><div class="city-loc" style="font-size:11px;color:var(--gold);">Россия · Строится</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADORCITY -->
+<div class="city-panel active" id="city-adorcity">
+  <div class="city-hero" style="background:linear-gradient(160deg,#0a0814,#1a0a0a,#0a0814);min-height:65vh;">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="500" fill="#0a0814"/>
+      <rect x="100" y="220" width="60" height="280" fill="#1a0a1e" opacity="0.8"/>
+      <rect x="180" y="160" width="50" height="340" fill="#140a18" opacity="0.7"/>
+      <rect x="250" y="100" width="80" height="400" fill="#0e0812" opacity="0.9"/>
+      <rect x="360" y="180" width="55" height="320" fill="#180a1c" opacity="0.7"/>
+      <rect x="440" y="60" width="100" height="440" fill="#D41A1A" opacity="0.08"/>
+      <rect x="442" y="62" width="96" height="436" fill="none" stroke="rgba(212,26,26,0.3)" stroke-width="1"/>
+      <rect x="560" y="140" width="70" height="360" fill="#120810" opacity="0.8"/>
+      <rect x="660" y="200" width="45" height="300" fill="#160a1a" opacity="0.7"/>
+      <rect x="730" y="80" width="90" height="420" fill="#1a0a0e" opacity="0.8"/>
+      <rect x="850" y="160" width="60" height="340" fill="#14080e" opacity="0.7"/>
+      <rect x="940" y="220" width="50" height="280" fill="#160a12" opacity="0.6"/>
+      <!-- Windows -->
+      <rect x="260" y="120" width="8" height="6" fill="#D41A1A" opacity="0.7"/>
+      <rect x="272" y="120" width="8" height="6" fill="#D41A1A" opacity="0.5"/>
+      <rect x="260" y="132" width="8" height="6" fill="rgba(255,200,100,0.4)"/>
+      <rect x="272" y="132" width="8" height="6" fill="#D41A1A" opacity="0.6"/>
+      <rect x="450" y="80" width="10" height="8" fill="#D41A1A" opacity="0.9"/>
+      <rect x="464" y="80" width="10" height="8" fill="#D41A1A" opacity="0.7"/>
+      <rect x="478" y="80" width="10" height="8" fill="#D41A1A" opacity="0.5"/>
+      <rect x="740" y="100" width="10" height="8" fill="rgba(255,200,100,0.5)"/>
+      <rect x="754" y="100" width="10" height="8" fill="#D41A1A" opacity="0.6"/>
+      <!-- Ground glow -->
+      <rect x="0" y="440" width="1200" height="60" fill="rgba(212,26,26,0.04)"/>
+      <line x1="0" y1="440" x2="1200" y2="440" stroke="rgba(212,26,26,0.15)" stroke-width="1"/>
+    </svg>
+    <div class="container" style="position:relative;z-index:2;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;font-size:12px;font-weight:600;color:#4ade80;">● Действующий</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);color:#fff;line-height:.9;margin-bottom:8px;">Adorcity</div>
+      <div style="font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:24px;">США · Восточное побережье · Основан 2014</div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.8;">Первый корпоративный город BnL за пределами России. Технологический хаб и R&D-центр AnT и Aurig. Площадка для всех флагманских презентаций BnL.</p>
+    </div>
+  </div>
+  <div class="city-stats">
+    <div class="cstat"><div class="cstat-n">620 000</div><div class="cstat-l">Жителей</div></div>
+    <div class="cstat"><div class="cstat-n">32 000</div><div class="cstat-l">Сотрудников BnL</div></div>
+    <div class="cstat"><div class="cstat-n">100%</div><div class="cstat-l">Покрытие 60G</div></div>
+    <div class="cstat"><div class="cstat-n">2014</div><div class="cstat-l">Год основания</div></div>
+  </div>
+  <div class="city-body container">
+    <span class="stag">Adorcity</span>
+    <h2 class="stit">Технологическая столица BnL в США</h2>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon">🏗️</div><div class="feat-title">AnT R&D Campus</div><div class="feat-desc">Крупнейший в мире научно-исследовательский комплекс AnT. Здесь создавались AnT 4–7 Pro, AnT B1 и весь процессорный ряд Atom.</div></div>
+      <div class="feat-card"><div class="feat-icon">🚗</div><div class="feat-title">Aurig Test Track</div><div class="feat-desc">Полигон Aurig — 80 км тестовых трасс. Включает городскую симуляцию, скоростную магистраль и горный участок для Aurig A1.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎪</div><div class="feat-title">BnL Arena</div><div class="feat-desc">Место ежегодных презентаций BnL TechSummit. Вместимость 18 000 человек. Крупнейший экран AnT B1 в мире — 400 м².</div></div>
+      <div class="feat-card"><div class="feat-icon">🏙️</div><div class="feat-title">Aurig-only зоны</div><div class="feat-desc">30% городских кварталов — закрыты для личного транспорта. Только Aurig, велосипеды BnL и пешеходы.</div></div>
+      <div class="feat-card"><div class="feat-icon">🛒</div><div class="feat-title">BnSupermarket Flagship</div><div class="feat-desc">Флагманский гипермаркет площадью 45 000 м² с демо-зонами AnT, Aurig и космической экспозицией SARS.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎓</div><div class="feat-title">BnL Academy East</div><div class="feat-desc">Корпоративный университет — 12 000 студентов. Программы по инженерии, дизайну, космическим технологиям и финансам.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PODORАЕВСК -->
+<div class="city-panel" id="city-podorayevsk">
+  <div class="city-hero" style="background:linear-gradient(160deg,#050810,#0a1020,#080510);min-height:65vh;">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="500" fill="#060810"/>
+      <rect x="80" y="180" width="70" height="320" fill="#080c1a" opacity="0.9"/>
+      <rect x="170" y="120" width="90" height="380" fill="#0a0e20" opacity="0.8"/>
+      <rect x="280" y="60" width="120" height="440" fill="#1A3A8C" opacity="0.12"/>
+      <rect x="282" y="62" width="116" height="436" fill="none" stroke="rgba(26,58,140,0.4)" stroke-width="1"/>
+      <rect x="430" y="100" width="80" height="400" fill="#060a18" opacity="0.9"/>
+      <rect x="540" y="40" width="130" height="460" fill="#080c1e" opacity="0.95"/>
+      <!-- HQ tower top with antenna -->
+      <line x1="605" y1="40" x2="605" y2="0" stroke="#1A3A8C" stroke-width="3"/>
+      <circle cx="605" cy="-2" r="5" fill="#D41A1A" opacity="0.9"/>
+      <rect x="680" y="140" width="75" height="360" fill="#0a0e1c" opacity="0.8"/>
+      <rect x="780" y="200" width="60" height="300" fill="#060a16" opacity="0.7"/>
+      <rect x="870" y="120" width="85" height="380" fill="#080c1a" opacity="0.8"/>
+      <rect x="980" y="180" width="55" height="320" fill="#060810" opacity="0.6"/>
+      <!-- Windows blue -->
+      <rect x="290" y="80" width="10" height="8" fill="#2351C0" opacity="0.8"/>
+      <rect x="304" y="80" width="10" height="8" fill="#2351C0" opacity="0.6"/>
+      <rect x="318" y="80" width="10" height="8" fill="#D41A1A" opacity="0.7"/>
+      <rect x="550" y="60" width="12" height="10" fill="#2351C0" opacity="0.9"/>
+      <rect x="566" y="60" width="12" height="10" fill="#2351C0" opacity="0.7"/>
+      <rect x="582" y="60" width="12" height="10" fill="#D41A1A" opacity="0.8"/>
+      <rect x="550" y="76" width="12" height="10" fill="#2351C0" opacity="0.6"/>
+      <line x1="0" y1="444" x2="1200" y2="444" stroke="rgba(26,58,140,0.2)" stroke-width="1"/>
+    </svg>
+    <div class="container" style="position:relative;z-index:2;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,168,75,0.15);border:1px solid rgba(200,168,75,0.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;font-size:12px;font-weight:600;color:var(--gold);">★ Глобальная штаб-квартира BnL</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);color:#fff;line-height:.9;margin-bottom:8px;">Подораевск</div>
+      <div style="font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:24px;">Россия · 30 км к югу от Москвы · HQ с 2022</div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.8;">Корпоративная столица BnL с 2022 года. Здесь работает глобальный штаб, ЦУП спутниковой сети SARS и крупнейший производственный комплекс AnT в Европе.</p>
+    </div>
+  </div>
+  <div class="city-stats">
+    <div class="cstat"><div class="cstat-n">480 000</div><div class="cstat-l">Жителей</div></div>
+    <div class="cstat"><div class="cstat-n">48 000</div><div class="cstat-l">Сотрудников HQ</div></div>
+    <div class="cstat"><div class="cstat-n">HQ</div><div class="cstat-l">Штаб-квартира BnL</div></div>
+    <div class="cstat"><div class="cstat-n">2022</div><div class="cstat-l">Статус HQ с</div></div>
+  </div>
+  <div class="city-body container">
+    <span class="stag">Подораевск</span>
+    <h2 class="stit">Сердце корпорации</h2>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon">🏛️</div><div class="feat-title">BnL Tower — 480 м</div><div class="feat-desc">Штаб-квартира BnL. Самое высокое здание в России. 14 корпусов, включая Центр управления полётами SARS на B2–B4 уровнях.</div></div>
+      <div class="feat-card"><div class="feat-icon">🛰️</div><div class="feat-title">ЦУП SARS.COM</div><div class="feat-desc">Центр управления орбитальной группировкой из 8 400+ спутников. Работает 24/7, экипаж 2 800 специалистов.</div></div>
+      <div class="feat-card"><div class="feat-icon">🏭</div><div class="feat-title">Завод AnT Podorаевsk</div><div class="feat-desc">Крупнейшее производство смартфонов AnT в Европе. 12 000 устройств в сутки. Здесь собирается AnT S1.</div></div>
+      <div class="feat-card"><div class="feat-icon">🚇</div><div class="feat-title">BnL Metro 60G</div><div class="feat-desc">Метро полностью покрыто сетью 60G. Оплата — только BnL Pay или BnLCoin. Навигация — через AnT.</div></div>
+      <div class="feat-card"><div class="feat-icon">⚖️</div><div class="feat-title">Корпоративный трибунал</div><div class="feat-desc">Единственный в мире суд, действующий по Уголовному кодексу BnL. Апелляции по делам кат. IV — лично Daniel Smith.</div></div>
+      <div class="feat-card"><div class="feat-icon">🎭</div><div class="feat-title">Культурный квартал BnL</div><div class="feat-desc">Оперный театр, галерея современного искусства и BnL Cinema — кинотеатр на 3000 мест с 16K-проекцией AnT.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPCITY -->
+<div class="city-panel" id="city-topcity">
+  <div class="city-hero" style="background:linear-gradient(160deg,#080c14,#0a1228,#04080a);min-height:65vh;">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="500" fill="#06080e"/>
+      <rect x="60" y="240" width="55" height="260" fill="#080c14" opacity="0.8"/>
+      <rect x="135" y="180" width="70" height="320" fill="#0a1020" opacity="0.7"/>
+      <rect x="230" y="100" width="95" height="400" fill="#060e1c" opacity="0.9"/>
+      <rect x="360" y="160" width="60" height="340" fill="#08101a" opacity="0.7"/>
+      <rect x="450" y="80" width="110" height="420" fill="#0a1222" opacity="0.8"/>
+      <rect x="590" y="200" width="65" height="300" fill="#060e18" opacity="0.7"/>
+      <rect x="690" y="60" width="120" height="440" fill="#2351C0" opacity="0.08"/>
+      <rect x="692" y="62" width="116" height="436" fill="none" stroke="rgba(35,81,192,0.35)" stroke-width="1"/>
+      <rect x="840" y="140" width="75" height="360" fill="#080e1a" opacity="0.8"/>
+      <rect x="940" y="200" width="60" height="300" fill="#060c16" opacity="0.7"/>
+      <rect x="240" y="120" width="10" height="8" fill="#2351C0" opacity="0.7"/>
+      <rect x="254" y="120" width="10" height="8" fill="#2351C0" opacity="0.5"/>
+      <rect x="460" y="100" width="12" height="10" fill="#2351C0" opacity="0.8"/>
+      <rect x="476" y="100" width="12" height="10" fill="#D41A1A" opacity="0.6"/>
+      <rect x="700" y="80" width="12" height="10" fill="#2351C0" opacity="0.9"/>
+      <rect x="716" y="80" width="12" height="10" fill="#2351C0" opacity="0.7"/>
+      <rect x="732" y="80" width="12" height="10" fill="#D41A1A" opacity="0.7"/>
+    </svg>
+    <div class="container" style="position:relative;z-index:2;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;font-size:12px;font-weight:600;color:#4ade80;">● Действующий</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);color:#fff;line-height:.9;margin-bottom:8px;">Topcity</div>
+      <div style="font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:24px;">США · Восточное побережье · Основан 2018</div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.8;">Торговый и логистический центр BnL в США. Крупнейший хаб BnSupermarket и дроновой доставки. Финансовый квартал BnL Finance для Западного полушария.</p>
+    </div>
+  </div>
+  <div class="city-stats">
+    <div class="cstat"><div class="cstat-n">310 000</div><div class="cstat-l">Жителей</div></div>
+    <div class="cstat"><div class="cstat-n">18 000</div><div class="cstat-l">Сотрудников BnL</div></div>
+    <div class="cstat"><div class="cstat-n">№1</div><div class="cstat-l">Дроновой хаб BnL</div></div>
+    <div class="cstat"><div class="cstat-n">2018</div><div class="cstat-l">Год основания</div></div>
+  </div>
+  <div class="city-body container">
+    <span class="stag">Topcity</span>
+    <h2 class="stit">Логистический хаб BnL</h2>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon">🚁</div><div class="feat-title">Drone Hub — 12 000 дронов</div><div class="feat-desc">Крупнейший дроновой склад BnL. 12 000 дронов обеспечивают доставку за 30 минут в радиусе 80 км от города.</div></div>
+      <div class="feat-card"><div class="feat-icon">🏦</div><div class="feat-title">BnL Finance Quarter</div><div class="feat-desc">Финансовый центр BnL для всего Западного полушария. 4 офисных башни, 12 400 финансистов и трейдеров BnLCoin.</div></div>
+      <div class="feat-card"><div class="feat-icon">🛒</div><div class="feat-title">BnSupermarket Distribution</div><div class="feat-desc">Мегасклад 200 000 м² для обеспечения 3 200 магазинов BnSupermarket в Северной Америке.</div></div>
+      <div class="feat-card"><div class="feat-icon">🚗</div><div class="feat-title">Aurig Fleet Center</div><div class="feat-desc">Центр управления автопарком Aurig-такси и Aurig-курьеров для всего восточного побережья США.</div></div>
+      <div class="feat-card"><div class="feat-icon">🌊</div><div class="feat-title">Морской порт BnL</div><div class="feat-desc">Собственный морской терминал для международных грузовых операций. 40% всего импорта BnL в США идёт через Topcity.</div></div>
+      <div class="feat-card"><div class="feat-icon">⚡</div><div class="feat-title">BnL Energy Grid</div><div class="feat-desc">100% возобновляемая энергия из солнечных панелей BnL на крышах. Излишки продаются в городскую сеть.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- YENEZON -->
+<div class="city-panel" id="city-yenezon">
+  <div class="city-hero" style="background:linear-gradient(160deg,#080600,#140e04,#0a0600);min-height:65vh;">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="500" fill="#070500"/>
+      <!-- Construction scaffolding scene -->
+      <rect x="150" y="300" width="80" height="200" fill="#1a1200" opacity="0.7"/>
+      <rect x="280" y="250" width="100" height="250" fill="#180e00" opacity="0.6"/>
+      <!-- Under construction towers with scaffolding -->
+      <rect x="420" y="150" width="130" height="350" fill="#1c1400" opacity="0.8"/>
+      <line x1="420" y1="150" x2="420" y2="500" stroke="#c8a84b" stroke-width="1" opacity="0.3"/>
+      <line x1="550" y1="150" x2="550" y2="500" stroke="#c8a84b" stroke-width="1" opacity="0.3"/>
+      <line x1="420" y1="200" x2="550" y2="200" stroke="#c8a84b" stroke-width="1" opacity="0.3"/>
+      <line x1="420" y1="260" x2="550" y2="260" stroke="#c8a84b" stroke-width="1" opacity="0.3"/>
+      <line x1="420" y1="320" x2="550" y2="320" stroke="#c8a84b" stroke-width="1" opacity="0.3"/>
+      <line x1="420" y1="380" x2="550" y2="380" stroke="#c8a84b" stroke-width="1" opacity="0.3"/>
+      <!-- Crane -->
+      <line x1="480" y1="150" x2="480" y2="60" stroke="#c8a84b" stroke-width="3" opacity="0.7"/>
+      <line x1="480" y1="60" x2="580" y2="60" stroke="#c8a84b" stroke-width="2" opacity="0.7"/>
+      <line x1="580" y1="60" x2="580" y2="90" stroke="#c8a84b" stroke-width="1.5" opacity="0.7"/>
+      <rect x="620" y="100" width="160" height="400" fill="#140e00" opacity="0.6"/>
+      <line x1="620" y1="100" x2="620" y2="500" stroke="#c8a84b" stroke-width="1" opacity="0.25"/>
+      <line x1="780" y1="100" x2="780" y2="500" stroke="#c8a84b" stroke-width="1" opacity="0.25"/>
+      <line x1="700" y1="100" x2="700" y2="500" stroke="#c8a84b" stroke-width="0.5" opacity="0.15"/>
+      <line x1="620" y1="180" x2="780" y2="180" stroke="#c8a84b" stroke-width="1" opacity="0.25"/>
+      <rect x="850" y="280" width="70" height="220" fill="#100c00" opacity="0.5"/>
+      <rect x="950" y="340" width="55" height="160" fill="#0e0a00" opacity="0.4"/>
+      <!-- Ground construction -->
+      <rect x="0" y="460" width="1200" height="40" fill="#0e0a00"/>
+      <line x1="0" y1="460" x2="1200" y2="460" stroke="rgba(200,168,75,0.3)" stroke-width="2"/>
+      <!-- Construction lights -->
+      <circle cx="480" cy="58" r="4" fill="#fbbf24" opacity="0.9"/>
+      <circle cx="480" cy="58" r="12" fill="rgba(251,191,36,0.15)"/>
+      <circle cx="580" cy="88" r="3" fill="#fbbf24" opacity="0.7"/>
+    </svg>
+    <div class="container" style="position:relative;z-index:2;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(234,179,8,0.15);border:1px solid rgba(234,179,8,0.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;font-size:12px;font-weight:600;color:#fbbf24;">🏗 В строительстве</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,100px);color:#fff;line-height:.9;margin-bottom:8px;">Енезон</div>
+      <div style="font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:24px;">Россия · Севернее Камышина · Строится с 2024</div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.8;">Четвёртый и самый амбициозный город BnL. Специализация — аэрокосмическое производство и лунная программа. Здесь будут строиться корабли серии «Восход».</p>
+    </div>
+  </div>
+  <div class="city-stats">
+    <div class="cstat"><div class="cstat-n">—</div><div class="cstat-l">Плановое население</div></div>
+    <div class="cstat" style="--red:var(--gold);"><div class="cstat-n" style="color:var(--gold);">2028</div><div class="cstat-l">Ожидаемый ввод</div></div>
+    <div class="cstat"><div class="cstat-n">Фаза 1</div><div class="cstat-l">Аэрокосм. завод</div></div>
+    <div class="cstat"><div class="cstat-n">2024</div><div class="cstat-l">Начало стройки</div></div>
+  </div>
+  <div class="city-body container">
+    <span class="stag">Енезон · Строится</span>
+    <h2 class="stit">Город-верфь: <span style="color:var(--gold);">рождён для космоса</span></h2>
+    <div style="background:rgba(200,168,75,0.07);border:1px solid rgba(200,168,75,0.2);border-radius:12px;padding:24px 28px;margin-bottom:32px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Текущий статус строительства</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center;">
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--gold);">✓</div><div style="font-size:12px;color:var(--tl);">Фундамент завода</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--gold);">⚙</div><div style="font-size:12px;color:var(--tl);">Каркас корпусов</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--tl);">○</div><div style="font-size:12px;color:var(--tl);">Жилые кварталы</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:var(--tl);">○</div><div style="font-size:12px;color:var(--tl);">Космодром BnL</div></div>
+      </div>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card" style="border-color:rgba(200,168,75,0.2);"><div class="feat-icon">🚀</div><div class="feat-title">Космодром BnL Yenezon</div><div class="feat-desc">Первый в мире частный космодром корпоративного города. Запуски кораблей «Восход» и спутников SARS-1 прямо из города.</div></div>
+      <div class="feat-card" style="border-color:rgba(200,168,75,0.2);"><div class="feat-icon">🛸</div><div class="feat-title">Верфь лунных кораблей</div><div class="feat-desc">Завод по сборке кораблей серии «Восход» для лунной программы BnL. Производительность — 4 корабля в год.</div></div>
+      <div class="feat-card" style="border-color:rgba(200,168,75,0.2);"><div class="feat-icon">⚗️</div><div class="feat-title">BnL Materials Lab</div><div class="feat-desc">Лаборатория новых материалов: титановые сплавы для AnT S, термоизоляция для «Восхода», BnL AuFrame 2-го поколения.</div></div>
+      <div class="feat-card" style="border-color:rgba(200,168,75,0.2);"><div class="feat-icon">🏗️</div><div class="feat-title">Умный город с нуля</div><div class="feat-desc">Первый город BnL, спроектированный целиком с учётом сети 60G, автономных Aurig и FreeWire-инфраструктуры.</div></div>
+      <div class="feat-card" style="border-color:rgba(200,168,75,0.2);"><div class="feat-icon">🎓</div><div class="feat-title">BnL Space Academy</div><div class="feat-desc">Специализированный вуз — подготовка космических инженеров, пилотов «Восхода» и специалистов лунной базы.</div></div>
+      <div class="feat-card" style="border-color:rgba(200,168,75,0.2);"><div class="feat-icon">📡</div><div class="feat-title">Узел SARS Relay</div><div class="feat-desc">Наземная станция управления спутниковой группировкой SARS-1 — резервный ЦУП при сбоях в Подораевске.</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fg"><a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;"><a href="bnl_careers.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Карьера</a><a href="bnl_legal.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Правовая база</a></div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large Corporation · City Development Division</span><span>cities@buynlarge.com</span></div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.07});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+function showCity(id,btn){
+  document.querySelectorAll('.city-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.city-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('city-'+id).classList.add('active');
+  btn.classList.add('active');
+  document.querySelector('.city-hero')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>

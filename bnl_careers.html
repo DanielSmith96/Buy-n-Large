@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Карьера — Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--blue-mid:#2351C0;--text:#111827;--tl:#4b5563;--gray:#e5e7eb;--light:#f4f6fb;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;color:var(--text);background:#fff;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(8,14,40,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:3px solid var(--red);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}
+.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}
+.nm a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;}
+.nm a:hover,.nm a.active{background:var(--red);color:#fff;}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1;margin-bottom:16px;}
+.fu{opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease;}
+.fu.vis{opacity:1;transform:translateY(0);}
+
+/* HERO */
+.hero{background:linear-gradient(155deg,#080c18 0%,#0d1030 60%,#120808 100%);padding:100px 40px 80px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 50%,rgba(212,26,26,0.07) 0%,transparent 60%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px;}
+.hstat{border-left:3px solid var(--red);padding-left:16px;}
+.hstat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:38px;color:#fff;line-height:1;}
+.hstat-l{font-size:12px;color:rgba(255,255,255,0.4);margin-top:3px;}
+
+/* FILTER + JOBS */
+.jobs-section{padding:70px 40px;background:var(--light);}
+.job-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;align-items:center;}
+.jf-label{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;margin-right:4px;}
+.jf-btn{background:#fff;border:1px solid var(--gray);color:var(--text);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
+.jf-btn:hover,.jf-btn.on{background:var(--red);border-color:var(--red);color:#fff;}
+.jf-select{border:1px solid var(--gray);background:#fff;color:var(--text);padding:8px 14px;border-radius:20px;font-size:13px;font-family:'Barlow',sans-serif;cursor:pointer;outline:none;}
+.jobs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+.job-card{background:#fff;border:1px solid var(--gray);border-radius:12px;padding:24px;cursor:pointer;transition:all .25s;position:relative;}
+.job-card:hover{border-color:var(--red);box-shadow:0 6px 24px rgba(212,26,26,0.08);transform:translateY(-2px);}
+.job-card.hidden{display:none;}
+.jc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;}
+.jc-dept{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
+.jc-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;line-height:1.2;}
+.jc-type{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+.jc-type.ft{background:#dcfce7;color:#166534;}
+.jc-type.pt{background:#fef3c7;color:#92400e;}
+.jc-type.int{background:#ede9fe;color:#5b21b6;}
+.jc-body{font-size:13px;color:var(--tl);line-height:1.65;margin-bottom:14px;}
+.jc-footer{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
+.jc-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.jc-tag{background:var(--light);border:1px solid var(--gray);color:#555;font-size:11px;padding:3px 10px;border-radius:20px;}
+.jc-loc{font-size:12px;color:#888;display:flex;align-items:center;gap:4px;}
+.apply-btn{background:var(--red);color:#fff;border:none;padding:9px 20px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+.apply-btn:hover{background:#ff2020;}
+.no-results{display:none;text-align:center;padding:60px;color:#aaa;grid-column:1/-1;}
+.no-results.show{display:block;}
+
+/* BENEFITS */
+.benefits-section{padding:80px 40px;background:#fff;}
+.bens-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.ben-card{text-align:center;padding:32px 24px;border:1px solid var(--gray);border-radius:14px;transition:all .25s;}
+.ben-card:hover{border-color:var(--red);box-shadow:0 6px 24px rgba(212,26,26,0.07);}
+.ben-icon{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px;}
+.ben-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px;}
+.ben-desc{font-size:13px;color:var(--tl);line-height:1.65;}
+
+/* OFFICES */
+.offices-section{padding:80px 40px;background:var(--light);}
+.offices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.office-card{background:#fff;border:1px solid var(--gray);border-radius:12px;overflow:hidden;transition:all .25s;}
+.office-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.08);}
+.off-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:50px;position:relative;}
+.off-body{padding:22px;}
+.off-city{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;margin-bottom:4px;}
+.off-country{font-size:13px;color:#888;margin-bottom:12px;}
+.off-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.off-stat{background:var(--light);border-radius:6px;padding:8px 10px;}<div style="font-size:9px;color:#aaa;margin-bottom:2px;"></div>
+.off-stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--red);}
+.off-stat-l{font-size:10px;color:#aaa;}
+.off-tag{display:inline-block;background:rgba(212,26,26,0.08);color:var(--red);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:12px;}
+
+/* INTERNSHIPS */
+.intern-section{padding:80px 40px;background:linear-gradient(160deg,#08101e,#0d1828);}
+.intern-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.intern-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px;transition:all .25s;}
+.intern-card:hover{border-color:rgba(212,26,26,0.3);background:rgba(255,255,255,0.06);}
+.int-division{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.int-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;color:#fff;margin-bottom:10px;}
+.int-desc{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:18px;}
+.int-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+.int-pill{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);font-size:11px;padding:4px 12px;border-radius:20px;}
+.int-apply{background:transparent;border:1px solid rgba(212,26,26,0.4);color:rgba(212,26,26,0.8);padding:9px 22px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+.int-apply:hover{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* PROCESS */
+.process-section{padding:70px 40px;background:#fff;}
+.process-steps{display:flex;align-items:flex-start;gap:0;position:relative;margin-top:44px;}
+.process-steps::before{content:'';position:absolute;top:28px;left:28px;right:28px;height:2px;background:var(--gray);z-index:0;}
+.proc-step{flex:1;text-align:center;position:relative;z-index:1;}
+.proc-num{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.proc-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px;}
+.proc-desc{font-size:13px;color:var(--tl);line-height:1.5;max-width:140px;margin:0 auto;}
+
+footer{background:#04091e;color:rgba(255,255,255,0.5);padding:44px 40px 22px;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:24px;flex-wrap:wrap;gap:16px;}
+.fb{max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);flex-wrap:wrap;gap:8px;}
+@media(max-width:900px){.nm,.process-steps::before{display:none;}.jobs-grid,.bens-grid,.offices-grid,.intern-grid{grid-template-columns:1fr;}.process-steps{flex-direction:column;gap:20px;}.proc-step{text-align:left;display:flex;gap:14px;align-items:flex-start;}.proc-num{flex-shrink:0;margin:0;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li>
+    <li><a href="bnl_ant.html">AnT</a></li>
+    <li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li>
+    <li><a href="bnl_news.html">Новости</a></li>
+    <li><a href="bnl_careers.html" class="active">Карьера</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div style="max-width:680px;">
+      <span class="stag">Карьера в BnL</span>
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,8vw,96px);color:#fff;line-height:.92;margin-bottom:16px;">Работа,<br>которая<br><span style="color:var(--red);">меняет мир</span></h1>
+      <p style="font-size:17px;color:rgba(255,255,255,0.5);line-height:1.8;max-width:520px;margin-bottom:32px;">От спутниковой инженерии до дизайна смартфонов, от лунных баз до алгоритмов автопилота — в Buy N Large работают люди, которые буквально строят будущее.</p>
+      <a href="#vacancies" style="display:inline-block;background:var(--red);color:#fff;padding:15px 36px;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:7px;text-transform:uppercase;transition:all .3s;box-shadow:0 4px 24px rgba(212,26,26,0.3);">Смотреть вакансии</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">12 000 000</div><div class="hstat-l">Сотрудников по всему миру</div></div>
+      <div class="hstat"><div class="hstat-n">193</div><div class="hstat-l">Страны присутствия</div></div>
+      <div class="hstat"><div class="hstat-n">2 400+</div><div class="hstat-l">Открытых вакансий</div></div>
+      <div class="hstat"><div class="hstat-n">#1</div><div class="hstat-l">Лучший работодатель 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VACANCIES -->
+<section class="jobs-section" id="vacancies">
+<div class="container">
+  <div class="fu" style="margin-bottom:32px;">
+    <span class="stag">Открытые позиции</span>
+    <h2 class="stit">Вакансии</h2>
+  </div>
+  <div class="job-filters fu">
+    <span class="jf-label">Отдел:</span>
+    <button class="jf-btn on" onclick="filterJobs('dept','all',this)">Все</button>
+    <button class="jf-btn" onclick="filterJobs('dept','tech',this)">Технологии</button>
+    <button class="jf-btn" onclick="filterJobs('dept','space',this)">Космос</button>
+    <button class="jf-btn" onclick="filterJobs('dept','aurig',this)">Aurig</button>
+    <button class="jf-btn" onclick="filterJobs('dept','finance',this)">Финансы</button>
+    <button class="jf-btn" onclick="filterJobs('dept','design',this)">Дизайн</button>
+    <button class="jf-btn" onclick="filterJobs('dept','ops',this)">Операции</button>
+    <span class="jf-label" style="margin-left:10px;">Тип:</span>
+    <select class="jf-select" onchange="filterJobsType(this.value)">
+      <option value="all">Все типы</option>
+      <option value="full">Полная занятость</option>
+      <option value="intern">Стажировка</option>
+    </select>
+    <select class="jf-select" onchange="filterJobsCity(this.value)">
+      <option value="all">Все города</option>
+      <option value="podorayevsk">Подораевск</option>
+      <option value="adorcity">Adorcity</option>
+      <option value="moscow">Москва</option>
+      <option value="newyork">Нью-Йорк</option>
+      <option value="remote">Удалённо</option>
+    </select>
+  </div>
+
+  <div class="jobs-grid" id="jobs-grid">
+
+    <div class="job-card fu" data-dept="tech" data-type="full" data-city="podorayevsk">
+      <div class="jc-header">
+        <div><div class="jc-dept">AnT · Разработка</div><div class="jc-title">Ведущий инженер AnT FreeWire</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Проектирование и оптимизация протоколов AnT FreeWire следующего поколения. Разработка алгоритмов mesh-маршрутизации. Работа в команде 60G/FreeWire Core.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">C++</span><span class="jc-tag">RF Engineering</span><span class="jc-tag">Mesh</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Подораевск</div><button class="apply-btn" onclick="apply('Ведущий инженер AnT FreeWire')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="space" data-type="full" data-city="podorayevsk">
+      <div class="jc-header">
+        <div><div class="jc-dept">SARS.COM · Космос</div><div class="jc-title">Инженер по спутниковым системам SARS-1</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Проектирование бортового программного обеспечения для спутников LEO-группировки SARS. Контроль запусков, телеметрия, управление орбитой. Работа в ЦУП Подораевск.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">Python</span><span class="jc-tag">RTOS</span><span class="jc-tag">Орбиталь.</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Подораевск</div><button class="apply-btn" onclick="apply('Инженер SARS-1')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="aurig" data-type="full" data-city="adorcity">
+      <div class="jc-header">
+        <div><div class="jc-dept">Aurig · Автопилот</div><div class="jc-title">ML-инженер системы BnL Drive Neural</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Обучение и оптимизация нейронных сетей для автономного вождения Aurig A1. Работа с датасетами реального дорожного трафика. Тестирование на полигонах в Adorcity.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">PyTorch</span><span class="jc-tag">CUDA</span><span class="jc-tag">LiDAR</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Adorcity</div><button class="apply-btn" onclick="apply('ML-инженер BnL Drive Neural')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="design" data-type="full" data-city="newyork">
+      <div class="jc-header">
+        <div><div class="jc-dept">AnT · Промышленный дизайн</div><div class="jc-title">Senior Industrial Designer — AnT 8 Series</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Разработка концепций и финального дизайна корпусов следующего поколения AnT. Работа с материалами: титан, керамика, BnL AuFrame. Офис в Нью-Йорке.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">Rhino</span><span class="jc-tag">KeyShot</span><span class="jc-tag">CMF</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Нью-Йорк</div><button class="apply-btn" onclick="apply('Senior Industrial Designer')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="finance" data-type="full" data-city="podorayevsk">
+      <div class="jc-header">
+        <div><div class="jc-dept">BnL Finance · BnLCoin</div><div class="jc-title">Blockchain-архитектор BnLCoin</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Развитие протокола BnLCoin, интеграция с BnL Pay и BnL Bank. Обеспечение масштабируемости до 50 млрд транзакций в сутки. Работа с командой из 40 инженеров.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">Solidity</span><span class="jc-tag">Rust</span><span class="jc-tag">ZK-proofs</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Подораевск</div><button class="apply-btn" onclick="apply('Blockchain-архитектор BnLCoin')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="space" data-type="full" data-city="podorayevsk">
+      <div class="jc-header">
+        <div><div class="jc-dept">BnL Space · Лунная база</div><div class="jc-title">Инженер жизнеобеспечения Crater-1</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Проектирование и обслуживание систем жизнеобеспечения лунной базы Crater-1. Ротация 6 месяцев на Луне / 6 месяцев на Земле. Надбавка за внеземное присутствие.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">Жизнеобесп.</span><span class="jc-tag">NASA стандарты</span><span class="jc-tag">🌙 Луна</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">🌙 Crater-1</div><button class="apply-btn" onclick="apply('Инженер Crater-1')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="ops" data-type="full" data-city="adorcity">
+      <div class="jc-header">
+        <div><div class="jc-dept">BnSupermarket · Операции</div><div class="jc-title">Директор логистической сети — Северная Америка</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Управление сетью из 3 200 BnSupermarket в США и Канаде. Оптимизация дроновой доставки и маршрутов Aurig-курьеров. Ответственность за KPI региона $800 млрд.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">Supply Chain</span><span class="jc-tag">P&L</span><span class="jc-tag">3PL</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Adorcity</div><button class="apply-btn" onclick="apply('Директор логистики СА')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="tech" data-type="full" data-city="remote">
+      <div class="jc-header">
+        <div><div class="jc-dept">60G · Инфраструктура</div><div class="jc-title">Архитектор сети 60G — расширение MEA</div></div>
+        <span class="jc-type ft">Полная</span>
+      </div>
+      <div class="jc-body">Проектирование и развёртывание инфраструктуры 60G на Ближнем Востоке и в Африке. Планирование покрытия, переговоры с регуляторами, управление подрядчиками.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">5G/6G</span><span class="jc-tag">RF Planning</span><span class="jc-tag">Arabic/English</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">🌐 Удалённо</div><button class="apply-btn" onclick="apply('Архитектор 60G MEA')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="tech" data-type="intern" data-city="podorayevsk">
+      <div class="jc-header">
+        <div><div class="jc-dept">AnT · Стажировка</div><div class="jc-title">Стажёр — Команда AnT FreeWire</div></div>
+        <span class="jc-type int">Стажировка</span>
+      </div>
+      <div class="jc-body">6-месячная стажировка в команде FreeWire. Участие в реальных проектах, менторство от ведущих инженеров. Оплачиваемая, с возможностью перевода в штат.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">C++</span><span class="jc-tag">Signal Processing</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Подораевск</div><button class="apply-btn" onclick="apply('Стажёр FreeWire')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="job-card fu" data-dept="space" data-type="intern" data-city="podorayevsk">
+      <div class="jc-header">
+        <div><div class="jc-dept">SARS.COM · Стажировка</div><div class="jc-title">Стажёр — Лаборатория спутниковой связи</div></div>
+        <span class="jc-type int">Стажировка</span>
+      </div>
+      <div class="jc-body">Работа в ЦУП рядом с командой управления орбитальной группировкой SARS. Участие в реальных запусках. Уникальный опыт для студентов аэрокосмических специальностей.</div>
+      <div class="jc-footer">
+        <div class="jc-tags"><span class="jc-tag">Python</span><span class="jc-tag">Телеметрия</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><div class="jc-loc">📍 Подораевск</div><button class="apply-btn" onclick="apply('Стажёр SARS')">Откликнуться</button></div>
+      </div>
+    </div>
+
+    <div class="no-results" id="no-results">Вакансий по выбранным фильтрам не найдено</div>
+  </div>
+</div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section" id="benefits">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:50px;">
+    <span class="stag">Работа в BnL</span>
+    <h2 class="stit">Преимущества</h2>
+  </div>
+  <div class="bens-grid">
+    <div class="ben-card fu"><div class="ben-icon" style="background:#fff0f0;"><span>💸</span></div><div class="ben-title">Конкурентная зарплата</div><div class="ben-desc">Выплаты на 30–50% выше рыночных в зависимости от роли. Ежегодные бонусы, опционы, выплаты в BnLCoin.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#f0f4ff;"><span>🏠</span></div><div class="ben-title">Жильё в BnL-городах</div><div class="ben-desc">Корпоративное жильё в Подораевске, Adorcity и Topcity по льготной ставке. Переезд полностью за счёт компании.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#f0fff4;"><span>📱</span></div><div class="ben-title">Гаджеты BnL</div><div class="ben-desc">Бесплатный AnT последней линейки для всех сотрудников. Скидка 70% на продукцию BnL, включая Aurig.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#fef3c7;"><span>🚀</span></div><div class="ben-title">Рост и обучение</div><div class="ben-desc">BnL Academy — внутренние курсы от ведущих специалистов. Оплата внешнего образования до $15 000 в год.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#f5f0ff;"><span>🌙</span></div><div class="ben-title">Лунная надбавка</div><div class="ben-desc">+120% к зарплате за работу на базе Crater-1 и орбитальной станции «Вершина». Страховка жизни $10 млн.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#fff0f0;"><span>🏥</span></div><div class="ben-title">Медицина</div><div class="ben-desc">Полная медицинская страховка для сотрудника и семьи. Клиники BnL Health в каждом корпоративном городе.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#f0f4ff;"><span>🚗</span></div><div class="ben-title">Aurig Lease</div><div class="ben-desc">Программа льготного лизинга автомобилей Aurig E1 для всех штатных сотрудников с опытом от 1 года.</div></div>
+    <div class="ben-card fu"><div class="ben-icon" style="background:#f0fff4;"><span>✈️</span></div><div class="ben-title">Перелёты BnL Air</div><div class="ben-desc">Бесплатные перелёты на корпоративных рейсах между BnL-городами для служебных командировок и отпусков.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- OFFICES -->
+<section class="offices-section" id="offices">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:50px;">
+    <span class="stag">Офисы и штаб-квартиры</span>
+    <h2 class="stit">Где мы находимся</h2>
+  </div>
+  <div class="offices-grid">
+    <div class="office-card fu">
+      <div class="off-img" style="background:linear-gradient(135deg,#0a0818,#1a0a20);">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <!-- HQ building -->
+          <rect x="55" y="20" width="70" height="100" rx="4" fill="#1a1a2e"/>
+          <rect x="60" y="24" width="60" height="92" rx="2" fill="#0f0f1e"/>
+          <!-- Windows -->
+          <rect x="66" y="32" width="12" height="10" rx="1" fill="#2351C0" opacity="0.8"/>
+          <rect x="82" y="32" width="12" height="10" rx="1" fill="#2351C0" opacity="0.8"/>
+          <rect x="98" y="32" width="12" height="10" rx="1" fill="#D41A1A" opacity="0.8"/>
+          <rect x="66" y="48" width="12" height="10" rx="1" fill="#2351C0" opacity="0.6"/>
+          <rect x="82" y="48" width="12" height="10" rx="1" fill="#D41A1A" opacity="0.9"/>
+          <rect x="98" y="48" width="12" height="10" rx="1" fill="#2351C0" opacity="0.6"/>
+          <rect x="66" y="64" width="12" height="10" rx="1" fill="#2351C0" opacity="0.7"/>
+          <rect x="82" y="64" width="12" height="10" rx="1" fill="#2351C0" opacity="0.7"/>
+          <rect x="98" y="64" width="12" height="10" rx="1" fill="#2351C0" opacity="0.7"/>
+          <!-- BnL sign on top -->
+          <rect x="70" y="12" width="40" height="10" rx="2" fill="#D41A1A"/>
+          <text x="90" y="19" font-family="Arial Black,sans-serif" font-size="6" fill="white" text-anchor="middle" font-weight="900">BnL HQ</text>
+        </svg>
+      </div>
+      <div class="off-body">
+        <div class="off-city">Подораевск</div>
+        <div class="off-country">Россия — Штаб-квартира</div>
+        <div class="off-stats">
+          <div class="off-stat"><div class="off-stat-n">48 000</div><div class="off-stat-l">Сотрудников</div></div>
+          <div class="off-stat"><div class="off-stat-n">14</div><div class="off-stat-l">Корпусов</div></div>
+        </div>
+        <span class="off-tag">★ Глобальный HQ</span>
+      </div>
+    </div>
+
+    <div class="office-card fu">
+      <div class="off-img" style="background:linear-gradient(135deg,#1a0a0a,#200e0e);">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <rect x="35" y="30" width="50" height="90" rx="3" fill="#1a0808"/>
+          <rect x="38" y="33" width="44" height="84" rx="2" fill="#100505"/>
+          <rect x="95" y="50" width="50" height="70" rx="3" fill="#1a0808"/>
+          <rect x="98" y="53" width="44" height="64" rx="2" fill="#100505"/>
+          <rect x="44" y="40" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.9"/>
+          <rect x="58" y="40" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.7"/>
+          <rect x="44" y="54" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.6"/>
+          <rect x="58" y="54" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.8"/>
+          <rect x="101" y="58" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.7"/>
+          <rect x="115" y="58" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.5"/>
+          <rect x="101" y="72" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.8"/>
+          <rect x="115" y="72" width="10" height="8" rx="1" fill="#D41A1A" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="off-body">
+        <div class="off-city">Adorcity</div>
+        <div class="off-country">США — Восточное побережье</div>
+        <div class="off-stats">
+          <div class="off-stat"><div class="off-stat-n">32 000</div><div class="off-stat-l">Сотрудников</div></div>
+          <div class="off-stat"><div class="off-stat-n">9</div><div class="off-stat-l">Корпусов</div></div>
+        </div>
+        <span class="off-tag">Aurig R&D · AnT Design</span>
+      </div>
+    </div>
+
+    <div class="office-card fu">
+      <div class="off-img" style="background:linear-gradient(135deg,#0a1a10,#0e2018);">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <rect x="65" y="15" width="50" height="105" rx="3" fill="#0a1a0e"/>
+          <rect x="68" y="18" width="44" height="99" rx="2" fill="#061006"/>
+          <rect x="74" y="24" width="10" height="8" rx="1" fill="#22c55e" opacity="0.7"/>
+          <rect x="88" y="24" width="10" height="8" rx="1" fill="#22c55e" opacity="0.7"/>
+          <rect x="74" y="38" width="10" height="8" rx="1" fill="#22c55e" opacity="0.5"/>
+          <rect x="88" y="38" width="10" height="8" rx="1" fill="#22c55e" opacity="0.8"/>
+          <rect x="74" y="52" width="10" height="8" rx="1" fill="#22c55e" opacity="0.6"/>
+          <rect x="88" y="52" width="10" height="8" rx="1" fill="#22c55e" opacity="0.4"/>
+          <rect x="74" y="66" width="10" height="8" rx="1" fill="#22c55e" opacity="0.7"/>
+          <rect x="88" y="66" width="10" height="8" rx="1" fill="#22c55e" opacity="0.5"/>
+          <text x="90" y="10" font-family="Arial,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="middle">NYC</text>
+        </svg>
+      </div>
+      <div class="off-body">
+        <div class="off-city">Нью-Йорк</div>
+        <div class="off-country">США — Офис финансов и дизайна</div>
+        <div class="off-stats">
+          <div class="off-stat"><div class="off-stat-n">12 400</div><div class="off-stat-l">Сотрудников</div></div>
+          <div class="off-stat"><div class="off-stat-n">4</div><div class="off-stat-l">Корпуса</div></div>
+        </div>
+        <span class="off-tag">Finance · Industrial Design</span>
+      </div>
+    </div>
+
+    <div class="office-card fu">
+      <div class="off-img" style="background:linear-gradient(135deg,#0a0c1a,#1a1408);">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <rect x="50" y="25" width="80" height="95" rx="3" fill="#1a180e"/>
+          <rect x="53" y="28" width="74" height="89" rx="2" fill="#100e06"/>
+          <rect x="59" y="34" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.8"/>
+          <rect x="75" y="34" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.6"/>
+          <rect x="91" y="34" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.8"/>
+          <rect x="107" y="34" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.5"/>
+          <rect x="59" y="50" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.6"/>
+          <rect x="75" y="50" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.9"/>
+          <rect x="91" y="50" width="12" height="10" rx="1" fill="#c8a84b" opacity="0.7"/>
+          <text x="90" y="18" font-family="Arial,sans-serif" font-size="10" fill="rgba(200,168,75,0.4)" text-anchor="middle">MSK</text>
+        </svg>
+      </div>
+      <div class="off-body">
+        <div class="off-city">Москва</div>
+        <div class="off-country">Россия — Исторический офис</div>
+        <div class="off-stats">
+          <div class="off-stat"><div class="off-stat-n">8 200</div><div class="off-stat-l">Сотрудников</div></div>
+          <div class="off-stat"><div class="off-stat-n">3</div><div class="off-stat-l">Корпуса</div></div>
+        </div>
+        <span class="off-tag">Первый офис BnL (2008)</span>
+      </div>
+    </div>
+
+    <div class="office-card fu">
+      <div class="off-img" style="background:linear-gradient(135deg,#001a1a,#001428);">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <circle cx="90" cy="60" r="50" fill="none" stroke="rgba(212,26,26,0.3)" stroke-width="1"/>
+          <circle cx="90" cy="60" r="35" fill="none" stroke="rgba(35,81,192,0.3)" stroke-width="1"/>
+          <rect x="75" y="40" width="30" height="40" rx="3" fill="#0a1a2e"/>
+          <text x="90" y="64" font-family="Arial Black,sans-serif" font-size="12" fill="rgba(212,26,26,0.7)" text-anchor="middle">ЦУП</text>
+          <rect x="50" y="55" width="20" height="10" rx="2" fill="#1a0a2e"/>
+          <rect x="110" y="55" width="20" height="10" rx="2" fill="#1a0a2e"/>
+        </svg>
+      </div>
+      <div class="off-body">
+        <div class="off-city">Подораевск · ЦУП</div>
+        <div class="off-country">Россия — Центр управления полётами</div>
+        <div class="off-stats">
+          <div class="off-stat"><div class="off-stat-n">2 800</div><div class="off-stat-l">Специалистов</div></div>
+          <div class="off-stat"><div class="off-stat-n">24/7</div><div class="off-stat-l">Режим работы</div></div>
+        </div>
+        <span class="off-tag">🛰 SARS Control Center</span>
+      </div>
+    </div>
+
+    <div class="office-card fu">
+      <div class="off-img" style="background:linear-gradient(135deg,#080a10,#100818);">
+        <svg width="180" height="120" viewBox="0 0 180 120">
+          <!-- Space station silhouette -->
+          <rect x="60" y="50" width="60" height="20" rx="3" fill="#1a1a2e"/>
+          <rect x="20" y="53" width="36" height="14" rx="2" fill="#c8a84b" opacity="0.5"/>
+          <rect x="124" y="53" width="36" height="14" rx="2" fill="#c8a84b" opacity="0.5"/>
+          <rect x="85" y="38" width="10" height="12" rx="2" fill="#111120"/>
+          <circle cx="90" cy="42" r="3" fill="#D41A1A" opacity="0.8"/>
+          <text x="90" y="108" font-family="Arial,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">450 km · «Вершина»</text>
+        </svg>
+      </div>
+      <div class="off-body">
+        <div class="off-city">«Вершина»</div>
+        <div class="off-country">Орбитальная станция · 450 км</div>
+        <div class="off-stats">
+          <div class="off-stat"><div class="off-stat-n">12</div><div class="off-stat-l">Мест экипажа</div></div>
+          <div class="off-stat"><div class="off-stat-n">+120%</div><div class="off-stat-l">Надбавка</div></div>
+        </div>
+        <span class="off-tag">🚀 Внеземное присутствие</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- INTERNSHIPS -->
+<section class="intern-section" id="internships">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:56px;">
+    <span class="stag">Молодые специалисты</span>
+    <h2 class="stit">Стажировки и программы</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.45);max-width:520px;margin:14px auto 0;line-height:1.7;">Все стажировки оплачиваемые. Лучшие стажёры получают оффер до окончания программы.</p>
+  </div>
+  <div class="intern-grid">
+    <div class="intern-card fu">
+      <div class="int-division">AnT · Технологии</div>
+      <div class="int-title">BnL Tech Fellowship</div>
+      <div class="int-desc">12-месячная программа для выпускников технических специальностей. Ротация между командами AnT, 60G и BnL Drive. Менторство от топ-инженеров.</div>
+      <div class="int-pills"><span class="int-pill">12 месяцев</span><span class="int-pill">Подораевск</span><span class="int-pill">Оффер по итогам</span></div>
+      <button class="int-apply" onclick="apply('BnL Tech Fellowship')">Подать заявку</button>
+    </div>
+    <div class="intern-card fu">
+      <div class="int-division">SARS.COM · Космос</div>
+      <div class="int-title">Space Graduate Program</div>
+      <div class="int-desc">Для студентов аэрокосмических, физических и инженерных специальностей. Работа в ЦУП рядом с командой управления орбитальной группировкой.</div>
+      <div class="int-pills"><span class="int-pill">6 месяцев</span><span class="int-pill">ЦУП Подораевск</span><span class="int-pill">Аэрокосмич.</span></div>
+      <button class="int-apply" onclick="apply('Space Graduate Program')">Подать заявку</button>
+    </div>
+    <div class="intern-card fu">
+      <div class="int-division">Finance · BnLCoin</div>
+      <div class="int-title">BnL Finance Accelerator</div>
+      <div class="int-desc">Программа для финансистов, экономистов и специалистов по блокчейну. Погружение в работу BnL Bank, BnL Pay и BnLCoin с доступом к реальным данным.</div>
+      <div class="int-pills"><span class="int-pill">6 месяцев</span><span class="int-pill">Нью-Йорк / Подораевск</span><span class="int-pill">Финансы</span></div>
+      <button class="int-apply" onclick="apply('BnL Finance Accelerator')">Подать заявку</button>
+    </div>
+    <div class="intern-card fu">
+      <div class="int-division">Industrial Design</div>
+      <div class="int-title">Design Studio Residency</div>
+      <div class="int-desc">Студия промышленного дизайна BnL в Нью-Йорке приглашает дизайнеров работать над будущими продуктами AnT. Доступ к передовым материалам и производству.</div>
+      <div class="int-pills"><span class="int-pill">9 месяцев</span><span class="int-pill">Нью-Йорк</span><span class="int-pill">ID / UX</span></div>
+      <button class="int-apply" onclick="apply('Design Studio Residency')">Подать заявку</button>
+    </div>
+    <div class="intern-card fu">
+      <div class="int-division">Aurig · Автопилот</div>
+      <div class="int-title">AI Driving Lab Internship</div>
+      <div class="int-desc">Стажировка в лаборатории BnL Drive Neural в Adorcity. Работа с реальными датасетами Aurig A1, участие в тестовых заездах на полигоне.</div>
+      <div class="int-pills"><span class="int-pill">6 месяцев</span><span class="int-pill">Adorcity</span><span class="int-pill">ML / CV</span></div>
+      <button class="int-apply" onclick="apply('AI Driving Lab Internship')">Подать заявку</button>
+    </div>
+    <div class="intern-card fu" style="border-color:rgba(200,168,75,0.2);">
+      <div class="int-division" style="color:var(--gold);">★ Особая программа</div>
+      <div class="int-title" style="color:#c8a84b;">BnL Orbital Internship</div>
+      <div class="int-desc">Уникальная 30-дневная стажировка на орбитальной станции «Вершина». Для выпускников с опытом в космических системах. Конкурс 1 место на 4 000 заявок.</div>
+      <div class="int-pills"><span class="int-pill" style="border-color:rgba(200,168,75,0.3);color:rgba(200,168,75,0.7);">30 дней · Орбита</span><span class="int-pill" style="border-color:rgba(200,168,75,0.3);color:rgba(200,168,75,0.7);">1/4000</span></div>
+      <button class="int-apply" style="border-color:rgba(200,168,75,0.4);color:rgba(200,168,75,0.8);" onclick="apply('BnL Orbital Internship')">Подать заявку</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:14px;">
+    <span class="stag">Как попасть в BnL</span>
+    <h2 class="stit">Процесс отбора</h2>
+  </div>
+  <div class="process-steps fu">
+    <div class="proc-step"><div class="proc-num">1</div><div class="proc-title">Заявка</div><div class="proc-desc">Подайте резюме и мотивационное письмо онлайн</div></div>
+    <div class="proc-step"><div class="proc-num">2</div><div class="proc-title">Тест</div><div class="proc-desc">Онлайн-задание по специализации (60–90 мин.)</div></div>
+    <div class="proc-step"><div class="proc-num">3</div><div class="proc-title">Интервью</div><div class="proc-desc">2 технических + 1 культурное интервью с командой</div></div>
+    <div class="proc-step"><div class="proc-num">4</div><div class="proc-title">Финал</div><div class="proc-desc">Финальная встреча с нанимающим руководителем</div></div>
+    <div class="proc-step"><div class="proc-num">5</div><div class="proc-title">Оффер</div><div class="proc-desc">Оффер в течение 5 рабочих дней после финала</div></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fg">
+    <a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;"><a href="bnl_ant.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">AnT</a><a href="bnl_aurig.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Aurig</a><a href="bnl_space.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Космос</a><a href="bnl_news.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Новости</a></div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large Corporation · HR Department</span><span>careers@buynlarge.com</span></div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.06});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+let currentDept='all', currentType='all', currentCity='all';
+function filterJobs(kind, val, btn) {
+  if(kind==='dept'){currentDept=val;document.querySelectorAll('.job-filters .jf-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+  applyFilters();
+}
+function filterJobsType(val){currentType=val;applyFilters();}
+function filterJobsCity(val){currentCity=val;applyFilters();}
+function applyFilters(){
+  const cards=document.querySelectorAll('.job-card');
+  let visible=0;
+  cards.forEach(c=>{
+    const deptOk=currentDept==='all'||c.dataset.dept===currentDept;
+    const typeOk=currentType==='all'||(currentType==='full'&&c.dataset.type==='full')||(currentType==='intern'&&c.dataset.type==='intern');
+    const cityOk=currentCity==='all'||c.dataset.city===currentCity;
+    const show=deptOk&&typeOk&&cityOk;
+    c.classList.toggle('hidden',!show);
+    if(show)visible++;
+  });
+  document.getElementById('no-results').classList.toggle('show',visible===0);
+}
+function apply(role){alert(`Заявка на позицию «${role}» отправлена! Команда BnL HR свяжется с вами в течение 3 рабочих дней.\n\ncareers@buynlarge.com`);}
+</script>
+</body>
+</html>

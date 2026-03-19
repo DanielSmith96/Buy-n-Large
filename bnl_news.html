@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новости — Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--red:#C8192B;--rs:#e8404f;--blue:#1A3A8C;--ink:#0e0f14;--ink2:#1c1d24;--paper:#fafaf8;--paper2:#f2f1ed;--warm:#e8e4db;--rule:#dddbd4;--muted:#888680;--text:#1c1d24;--tl:#5a5955;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--paper);color:var(--text);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--ink);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;border-bottom:2px solid var(--red);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:19px;color:#fff;letter-spacing:1px;}
+.nl-t span{color:var(--red);}
+.nm{display:flex;gap:2px;list-style:none;}
+.nm a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:11px;font-weight:600;padding:6px 11px;border-radius:3px;transition:all .18s;text-transform:uppercase;letter-spacing:.5px;}
+.nm a:hover,.nm a.active{background:var(--red);color:#fff;}
+.ticker{background:var(--red);padding:9px 0;overflow:hidden;margin-top:58px;}
+.ticker-track{display:flex;animation:tick 40s linear infinite;white-space:nowrap;}
+.ticker-item{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#fff;letter-spacing:.5px;padding:0 48px;border-right:1px solid rgba(255,255,255,0.25);flex-shrink:0;}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.masthead{background:var(--ink);padding:52px 44px 40px;border-bottom:1px solid #2a2b32;}
+.masthead-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;}
+.mast-kicker{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;color:var(--red);text-transform:uppercase;margin-bottom:12px;}
+.mast-title{font-family:'DM Serif Display',serif;font-size:clamp(52px,7vw,84px);color:#fff;line-height:.95;letter-spacing:-1px;}
+.mast-title em{font-style:italic;color:var(--rs);}
+.mast-date{font-size:12px;color:rgba(255,255,255,0.28);letter-spacing:1px;margin-top:10px;font-family:'Barlow Condensed',sans-serif;}
+.mast-right{text-align:right;}
+.mast-stat{margin-bottom:18px;}
+.mast-stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:42px;color:#fff;line-height:1;}
+.mast-stat-l{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px;}
+.filter-bar{background:var(--paper2);border-bottom:1px solid var(--rule);padding:14px 44px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.fb-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-right:4px;}
+.fb-btn{background:transparent;border:1px solid var(--rule);color:var(--tl);padding:6px 16px;border-radius:2px;font-family:'Barlow',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;}
+.fb-btn:hover{border-color:var(--red);color:var(--red);}
+.fb-btn.on{background:var(--red);border-color:var(--red);color:#fff;}
+.news-body{max-width:1240px;margin:0 auto;padding:52px 44px;}
+.lead{display:grid;grid-template-columns:5fr 3fr;gap:1px;background:var(--rule);margin-bottom:1px;border:1px solid var(--rule);}
+.lead-visual{background:var(--ink2);padding:52px 48px 44px;min-height:480px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;cursor:pointer;}
+.lead-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 120% 60% at 50% 100%,rgba(200,25,43,0.18) 0%,transparent 60%),linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 60%);}
+.lead-bg-text{position:absolute;top:20px;right:-10px;font-family:'DM Serif Display',serif;font-size:180px;color:rgba(255,255,255,0.03);line-height:1;pointer-events:none;user-select:none;}
+.lead-art-inner{position:relative;z-index:1;}
+.art-cat-pill{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:2px;padding:4px 12px;text-transform:uppercase;margin-bottom:16px;border-radius:1px;}
+.lead-h{font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,42px);color:#fff;line-height:1.12;margin-bottom:14px;}
+.lead-deck{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:20px;max-width:560px;}
+.lead-byline{font-size:11px;color:rgba(255,255,255,0.28);letter-spacing:.5px;border-top:1px solid rgba(255,255,255,0.1);padding-top:14px;}
+.lead-aside{background:var(--paper2);padding:36px 32px;display:flex;flex-direction:column;}
+.aside-head{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:0;}
+.aside-item{padding:20px 0;border-bottom:1px solid var(--rule);cursor:pointer;}
+.aside-item:last-child{border-bottom:none;}
+.aside-item:hover .aside-h{color:var(--red);}
+.aside-cat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.aside-h{font-family:'DM Serif Display',serif;font-size:17px;line-height:1.3;color:var(--ink);transition:color .18s;margin-bottom:6px;}
+.aside-meta{font-size:11px;color:var(--muted);}
+.section-rule{display:flex;align-items:center;gap:14px;margin:44px 0 28px;}
+.section-rule-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.section-rule-line{flex:1;height:1px;background:var(--rule);}
+.section-rule-line.thick{height:2px;background:var(--ink);}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.news-card{cursor:pointer;}
+.news-card:hover .nc-h{color:var(--red);}
+.nc-img{height:198px;margin-bottom:18px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:2px;}
+.nc-cat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:7px;}
+.nc-h{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.3;color:var(--ink);margin-bottom:10px;transition:color .18s;}
+.nc-p{font-size:13px;color:var(--tl);line-height:1.7;}
+.nc-meta{font-size:11px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--rule);}
+.list-grid{display:grid;grid-template-columns:2fr 1fr;gap:44px;}
+.list-col{display:flex;flex-direction:column;}
+.list-item{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--rule);cursor:pointer;align-items:flex-start;}
+.list-item:first-child{border-top:1px solid var(--rule);}
+.list-item:hover .li-h{color:var(--red);}
+.li-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--warm);line-height:1;flex-shrink:0;width:36px;padding-top:2px;}
+.li-cat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:5px;}
+.li-h{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.3;color:var(--ink);margin-bottom:7px;transition:color .18s;}
+.li-p{font-size:13px;color:var(--tl);line-height:1.65;}
+.li-meta{font-size:11px;color:var(--muted);margin-top:8px;}
+.sidebar-section{display:flex;flex-direction:column;gap:28px;}
+.sidebar-block{border:1px solid var(--rule);padding:24px;}
+.sb-head{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:4px;}
+.sb-item{padding:14px 0;border-bottom:1px solid var(--rule);cursor:pointer;}
+.sb-item:last-child{border-bottom:none;}
+.sb-item:hover .sb-t{color:var(--red);}
+.sb-t{font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;transition:color .18s;}
+.sb-m{font-size:11px;color:var(--muted);}
+.highlight-box{background:var(--ink);padding:24px;}
+.hb-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:12px;}
+.hb-quote{font-family:'DM Serif Display',serif;font-size:20px;color:#fff;line-height:1.4;font-style:italic;margin-bottom:14px;}
+.hb-attr{font-size:11px;color:rgba(255,255,255,0.3);}
+.opinion-strip{background:var(--ink);padding:44px;margin-top:1px;}
+.op-inner{max-width:1240px;margin:0 auto;}
+.op-head{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:14px;margin-bottom:28px;}
+.op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);}
+.op-card{background:var(--ink);padding:28px;cursor:pointer;transition:background .2s;}
+.op-card:hover{background:#1e1f28;}
+.op-cat{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;font-family:'Barlow Condensed',sans-serif;}
+.op-h{font-family:'DM Serif Display',serif;font-size:19px;color:#fff;line-height:1.3;font-style:italic;margin-bottom:10px;}
+.op-p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;}
+.op-meta{font-size:11px;color:rgba(255,255,255,0.22);margin-top:14px;}
+footer{background:var(--ink2);padding:48px 44px 24px;}
+.ft-inner{max-width:1240px;margin:0 auto;}
+.ft-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;gap:20px;}
+.ft-bot{display:flex;justify-content:space-between;padding-top:20px;font-size:11px;color:rgba(255,255,255,0.2);flex-wrap:wrap;gap:8px;}
+.ft-links{display:flex;gap:18px;flex-wrap:wrap;}
+.ft-links a{color:rgba(255,255,255,0.38);text-decoration:none;font-size:12px;transition:color .2s;}
+.ft-links a:hover{color:#fff;}
+.fu{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
+.fu.vis{opacity:1;transform:translateY(0);}
+@media(max-width:960px){.nm{display:none;}.lead,.card-grid,.list-grid,.op-grid{grid-template-columns:1fr;}.masthead-inner{grid-template-columns:1fr;}.news-body{padding:32px 20px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#C8192B"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li>
+    <li><a href="bnl_ant.html">AnT</a></li>
+    <li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li>
+    <li><a href="bnl_news.html" class="active">Новости</a></li>
+    <li><a href="bnl_careers.html">Карьера</a></li>
+    <li><a href="bnl_cities.html">Города</a></li>
+    <li><a href="bnl_investors.html">Инвесторам</a></li>
+  </ul>
+</nav>
+
+<div class="ticker"><div class="ticker-track">
+  <span class="ticker-item">▸ AnT 7 Pro в продаже — от 139 990 ₽</span>
+  <span class="ticker-item">▸ SARS-1: 6 200 спутников на орбите</span>
+  <span class="ticker-item">▸ Aurig A1 сертифицирован SAE Level 5 в 47 странах</span>
+  <span class="ticker-item">▸ BnLCoin: 14.2 USD · +2.3% за сутки</span>
+  <span class="ticker-item">▸ Строительство Енезона: заложен первый фундамент</span>
+  <span class="ticker-item">▸ Shelby Fortright — и.о. генерального директора BnL с сентября 2024</span>
+  <span class="ticker-item">▸ AnT 7 Pro в продаже — от 139 990 ₽</span>
+  <span class="ticker-item">▸ SARS-1: 6 200 спутников на орбите</span>
+  <span class="ticker-item">▸ Aurig A1 сертифицирован SAE Level 5 в 47 странах</span>
+  <span class="ticker-item">▸ BnLCoin: 14.2 USD · +2.3% за сутки</span>
+  <span class="ticker-item">▸ Строительство Енезона: заложен первый фундамент</span>
+  <span class="ticker-item">▸ Shelby Fortright — и.о. генерального директора BnL с сентября 2024</span>
+</div></div>
+
+<div class="masthead"><div class="masthead-inner">
+  <div>
+    <div class="mast-kicker">Buy N Large · Пресс-центр</div>
+    <h1 class="mast-title">BnL <em>Newsroom</em></h1>
+    <div class="mast-date">Подораевск, Россия · Основан 2008</div>
+  </div>
+  <div class="mast-right">
+    <div class="mast-stat"><div class="mast-stat-n">193</div><div class="mast-stat-l">Страны</div></div>
+    <div class="mast-stat"><div class="mast-stat-n">$4.7T</div><div class="mast-stat-l">Выручка 2024</div></div>
+  </div>
+</div></div>
+
+<div class="filter-bar">
+  <span class="fb-label">Раздел:</span>
+  <button class="fb-btn on" onclick="filterNews('all',this)">Все</button>
+  <button class="fb-btn" onclick="filterNews('ant',this)">AnT</button>
+  <button class="fb-btn" onclick="filterNews('aurig',this)">Aurig</button>
+  <button class="fb-btn" onclick="filterNews('space',this)">Космос</button>
+  <button class="fb-btn" onclick="filterNews('finance',this)">Финансы</button>
+  <button class="fb-btn" onclick="filterNews('city',this)">Города</button>
+  <button class="fb-btn" onclick="filterNews('corp',this)">Корпорация</button>
+</div>
+
+<div class="news-body">
+  <!-- LEAD -->
+  <div class="lead fu" data-cat="ant">
+    <div class="lead-visual">
+      <div class="lead-bg-text">AnT</div>
+      <svg style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:.05;" viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice"><circle cx="500" cy="80" r="240" fill="none" stroke="white" stroke-width="1"/><circle cx="500" cy="80" r="160" fill="none" stroke="white" stroke-width="1"/><circle cx="100" cy="400" r="180" fill="none" stroke="white" stroke-width="1"/></svg>
+      <div style="position:absolute;right:60px;top:50%;transform:translateY(-52%);opacity:.2;">
+        <svg width="150" height="320" viewBox="0 0 150 320"><defs><linearGradient id="ph7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2a2830"/><stop offset="100%" style="stop-color:#100c14"/></linearGradient></defs><rect x="6" y="3" width="138" height="314" rx="34" fill="url(#ph7)"/><rect x="12" y="9" width="126" height="302" rx="28" fill="#080608"/><rect x="22" y="26" width="106" height="254" rx="18" fill="#040206"/><text x="75" y="162" font-family="Arial Black,sans-serif" font-size="14" fill="#C8192B" text-anchor="middle" font-weight="900">BnL</text><rect x="22" y="20" width="48" height="42" rx="12" fill="#100c14"/><circle cx="38" cy="39" r="8" fill="#040206"/><circle cx="56" cy="39" r="8" fill="#040206"/><circle cx="38" cy="54" r="6" fill="#040206"/><circle cx="56" cy="54" r="4" fill="#C8192B" opacity=".9"/></svg>
+      </div>
+      <div class="lead-art-inner">
+        <span class="art-cat-pill">AnT · Флагман</span>
+        <h2 class="lead-h">AnT 7 Pro: аэрокосмический<br>титан, 5 камер и FreeWire Xtreme</h2>
+        <p class="lead-deck">Buy N Large открыла продажи флагмана AnT 7 Pro — смартфона на 2-нм процессоре Atom Nexus X. Корпус из аэрокосмического титана, перископический зум 20× и рекордная батарея 18 000 мАч.</p>
+        <div class="lead-byline">27 октября 2025 · Пресс-служба BnL · Подораевск</div>
+      </div>
+    </div>
+    <div class="lead-aside">
+      <div class="aside-head">Другие материалы</div>
+      <div class="aside-item" data-cat="space"><div class="aside-cat">Космос</div><div class="aside-h">SARS-1 достиг 6 200 спутников — LEO-группировка полностью развёрнута</div><div class="aside-meta">14 сентября 2025</div></div>
+      <div class="aside-item" data-cat="aurig"><div class="aside-cat">Aurig</div><div class="aside-h">Aurig A1 сертифицирован SAE Level 5 одновременно в 47 странах</div><div class="aside-meta">3 июля 2025</div></div>
+      <div class="aside-item" data-cat="corp"><div class="aside-cat">Корпорация</div><div class="aside-h">Shelby Fortright назначен и.о. генерального директора Buy N Large</div><div class="aside-meta">1 сентября 2024</div></div>
+      <div class="aside-item" data-cat="city"><div class="aside-cat">Города BnL</div><div class="aside-h">Подораевск — в топ-10 умных городов мира по Smart City Index 2025</div><div class="aside-meta">18 февраля 2025</div></div>
+    </div>
+  </div>
+
+  <div class="section-rule fu"><div class="section-rule-line thick"></div><span class="section-rule-label">Последние новости</span><div class="section-rule-line"></div></div>
+
+  <div class="card-grid">
+    <div class="news-card fu" data-cat="city">
+      <div class="nc-img" style="background:linear-gradient(140deg,#1a0e06,#3d2210);">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><rect x="20" y="60" width="40" height="140" fill="#3d1e08" opacity=".8"/><rect x="70" y="38" width="32" height="162" fill="#4a2510" opacity=".7"/><rect x="108" y="14" width="44" height="186" fill="#381c06" opacity=".9"/><rect x="160" y="48" width="36" height="152" fill="#4a2510" opacity=".7"/><rect x="204" y="65" width="30" height="135" fill="#3d1e08" opacity=".6"/><rect x="244" y="80" width="24" height="120" fill="#3a1c06" opacity=".5"/><line x1="108" y1="14" x2="108" y2="0" stroke="#f59e0b" stroke-width="3"/><line x1="108" y1="0" x2="175" y2="0" stroke="#f59e0b" stroke-width="2"/><line x1="175" y1="0" x2="175" y2="22" stroke="#f59e0b" stroke-width="1.5"/></svg>
+      </div>
+      <div class="nc-cat">Города BnL</div>
+      <h3 class="nc-h">Енезон: заложен первый фундамент аэрокосмического завода</h3>
+      <p class="nc-p">BnL официально начала строительство производственного комплекса по сборке шаттлов «Восход» в новом городе Енезон севернее Камышина.</p>
+      <div class="nc-meta">11 ноября 2025 · Города BnL</div>
+    </div>
+    <div class="news-card fu" data-cat="finance">
+      <div class="nc-img" style="background:linear-gradient(140deg,#06100a,#0e2818);">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><polyline points="20,150 70,120 110,135 160,88 200,98 250,48 290,60 310,34" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="grn" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity=".3"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient></defs><polygon points="20,150 70,120 110,135 160,88 200,98 250,48 290,60 310,34 310,200 20,200" fill="url(#grn)"/><text x="160" y="180" font-family="Arial Black,sans-serif" font-size="20" fill="rgba(255,255,255,0.08)" text-anchor="middle" font-weight="900">B₦LCOIN</text></svg>
+      </div>
+      <div class="nc-cat">Финансы</div>
+      <h3 class="nc-h">BnLCoin превысил 14 USD: исторический максимум криптовалюты BnL</h3>
+      <p class="nc-p">Криптовалюта BnL выросла на 22% за два месяца на фоне расширения приёма в BnSupermarket и роста транзакций BnL Pay.</p>
+      <div class="nc-meta">8 декабря 2025 · BnL Finance</div>
+    </div>
+    <div class="news-card fu" data-cat="space">
+      <div class="nc-img" style="background:linear-gradient(140deg,#030612,#0a1428);">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"><circle cx="160" cy="100" r="58" fill="#1a3a6c"/><circle cx="160" cy="100" r="64" fill="none" stroke="rgba(100,160,255,.2)" stroke-width="8"/><ellipse cx="160" cy="100" rx="110" ry="32" fill="none" stroke="rgba(200,25,43,.3)" stroke-width="1.2" transform="rotate(-18,160,100)"/><rect x="253" y="70" width="16" height="8" rx="2" fill="#C8192B"/><rect x="244" y="72" width="8" height="4" rx="1" fill="#c8a84b" opacity=".8"/><rect x="269" y="72" width="8" height="4" rx="1" fill="#c8a84b" opacity=".8"/><circle cx="36" cy="38" r="1.5" fill="white" opacity=".6"/><circle cx="280" cy="28" r="1" fill="white" opacity=".5"/><circle cx="305" cy="160" r="1.5" fill="white" opacity=".4"/></svg>
+      </div>
+      <div class="nc-cat">Космос · SARS</div>
+      <h3 class="nc-h">Лунный ретранслятор SARS-L активирован: связь 60G на Луне</h3>
+      <p class="nc-p">Четыре спутника на лунной орбите обеспечили сигнал 60G для базы Crater-1 со скоростью до 100 Мбит/с.</p>
+      <div class="nc-meta">22 июля 2025 · BnL Space Division</div>
+    </div>
+  </div>
+
+  <div class="section-rule fu" style="margin-top:52px;"><div class="section-rule-line thick"></div><span class="section-rule-label">В деталях</span><div class="section-rule-line"></div></div>
+
+  <div class="list-grid">
+    <div class="list-col">
+      <div class="list-item fu" data-cat="corp">
+        <div class="li-num">01</div>
+        <div><div class="li-cat">Корпорация · Управление</div><div class="li-h">Shelby Fortright назначен и.о. генерального директора Buy N Large</div><p class="li-p">С 1 сентября 2024 года Shelby Fortright исполняет обязанности генерального директора BnL. Основатель и владелец 75% акций Daniel Smith сохраняет стратегический контроль над компанией и председательство в совете директоров.</p><div class="li-meta">1 сентября 2024 · Корпоративные новости</div></div>
+      </div>
+      <div class="list-item fu" data-cat="aurig">
+        <div class="li-num">02</div>
+        <div><div class="li-cat">Aurig · Технологии</div><div class="li-h">BnL Drive Neural v4: автопилот Aurig A1 обновлён через 60G</div><p class="li-p">Массовое OTA-обновление в 47 странах — новая нейронная сеть снижает время реакции системы в 2.4 раза. Обновление передано по сети 60G без визита в сервис.</p><div class="li-meta">5 октября 2025 · Aurig Division</div></div>
+      </div>
+      <div class="list-item fu" data-cat="ant">
+        <div class="li-num">03</div>
+        <div><div class="li-cat">AnT · Программное обеспечение</div><div class="li-h">OTA-обновление FreeWire 3.5 охватило 840 млн устройств AnT 4+ и новее</div><p class="li-p">Buy N Large развернула крупнейшее OTA-обновление прошивки. FreeWire 3.5 с AI-маршрутизацией снижает задержку до 0.2 мс и увеличивает радиус mesh-сети на 18%.</p><div class="li-meta">3 марта 2025 · AnT Software</div></div>
+      </div>
+      <div class="list-item fu" data-cat="space">
+        <div class="li-num">04</div>
+        <div><div class="li-cat">Космос · Лунная программа</div><div class="li-h">«Восход-3» доставил на Crater-1 оборудование для добычи гелия-3</div><p class="li-p">Третий грузовой рейс лунного шаттла BnL доставил полный комплект для промышленной добычи гелия-3. Первая партия запланирована на начало 2026 года.</p><div class="li-meta">29 апреля 2025 · BnL Space</div></div>
+      </div>
+      <div class="list-item fu" data-cat="city">
+        <div class="li-num">05</div>
+        <div><div class="li-cat">Города BnL · Инфраструктура</div><div class="li-h">Подораевск: 100% покрытие 60G в жилых кварталах — первый город в мире</div><p class="li-p">Корпоративная столица BnL стала первым городом в мире со 100%-ным покрытием 60G в жилой застройке. Средняя скорость загрузки — 9.8 Гбит/с.</p><div class="li-meta">14 января 2025 · Подораевск · Smart City</div></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-block fu">
+        <div class="sb-head">Коротко</div>
+        <div class="sb-item"><div class="sb-t">Daniel Smith выступит на BnL Tech Summit в Adorcity — январь 2026</div><div class="sb-m">14 декабря 2025</div></div>
+        <div class="sb-item"><div class="sb-t">BnSupermarket открыл 500-й магазин в Индии</div><div class="sb-m">2 ноября 2025</div></div>
+        <div class="sb-item"><div class="sb-t">AnT B1 — лучший планшет 2025 года по TechReview Awards</div><div class="sb-m">18 октября 2025</div></div>
+        <div class="sb-item"><div class="sb-t">BnL Pay запущен в Бразилии, Аргентине и Чили</div><div class="sb-m">7 августа 2025</div></div>
+        <div class="sb-item"><div class="sb-t">Aurig E1 — лучший электромобиль до 3 млн ₽ по AutoRating 2025</div><div class="sb-m">12 июня 2025</div></div>
+        <div class="sb-item"><div class="sb-t">60G метро-покрытие запущено в Каире, Бангкоке, Буэнос-Айресе</div><div class="sb-m">3 апреля 2025</div></div>
+      </div>
+      <div class="highlight-box fu">
+        <div class="hb-label">Цитата</div>
+        <div class="hb-quote">«Buy N Large — это не компания. Это инфраструктура, на которой будет стоять следующий век человечества.»</div>
+        <div class="hb-attr">Daniel Smith, основатель BnL · Декабрь 2023</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="opinion-strip fu">
+  <div class="op-inner">
+    <div class="op-head">Аналитика и колонки · BnL Research</div>
+    <div class="op-grid">
+      <div class="op-card" data-cat="finance"><div class="op-cat">Финансы · Аналитика</div><h3 class="op-h">BnLCoin как резервный актив: реален ли сценарий замены доллара в корпоративных расчётах?</h3><p class="op-p">BnL Finance Research рассматривает использование B₦ в качестве расчётной единицы для межкорпоративных транзакций в 193 странах.</p><div class="op-meta">BnL Finance Research · ноябрь 2025</div></div>
+      <div class="op-card" data-cat="space"><div class="op-cat">Космос · Стратегия</div><h3 class="op-h">Гелий-3 с Луны: как BnL планирует стать главным поставщиком топлива для термоядерной энергетики</h3><p class="op-p">Лунная база Crater-1 — не только научный форпост, но и стратегический энергетический актив. Оценка потенциала добычи и транспортировки.</p><div class="op-meta">BnL Space Analytics · август 2025</div></div>
+      <div class="op-card" data-cat="ant"><div class="op-cat">AnT · Технологии</div><h3 class="op-h">FreeWire как следующий интернет: может ли mesh-сеть из миллиарда AnT заменить традиционные ISP?</h3><p class="op-p">Анализ роста mesh-трафика FreeWire за 2023–2025 годы: уже сегодня 12% пользователей AnT получают более 40% трафика через FreeWire.</p><div class="op-meta">BnL Tech Insights · октябрь 2025</div></div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="ft-inner">
+  <div class="ft-top">
+    <a href="buynlarge.html" class="nl"><svg width="32" height="32" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#C8192B"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div class="ft-links"><a href="bnl_ant.html">AnT</a><a href="bnl_aurig.html">Aurig</a><a href="bnl_space.html">Космос</a><a href="bnl_careers.html">Карьера</a><a href="bnl_cities.html">Города</a><a href="bnl_investors.html">Инвесторам</a></div>
+  </div>
+  <div class="ft-bot"><span>© 2008–2026 Buy N Large Corporation · Пресс-центр</span><span>press@buynlarge.com</span></div>
+</div></footer>
+
+<script>
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.06});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+function filterNews(cat,btn){
+  document.querySelectorAll('.filter-bar .fb-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('[data-cat]').forEach(el=>{
+    const show=cat==='all'||el.dataset.cat===cat;
+    el.style.opacity=show?'':'0.2';
+    el.style.pointerEvents=show?'':'none';
+  });
+}
+</script>
+</body>
+</html>

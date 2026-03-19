@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Правовая система — Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0c08;
+  --parchment: #f5f0e8;
+  --parchment-dark: #ede5d0;
+  --red: #8B1A1A;
+  --red-bright: #D41A1A;
+  --gold: #c8a84b;
+  --gold-dark: #8a6e28;
+  --blue: #1A3A8C;
+  --seal-red: #7a0f0f;
+  --rule: rgba(14,12,8,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  color: var(--ink);
+  background: var(--parchment);
+  overflow-x: hidden;
+}
+
+/* Parchment texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--ink);
+  height: 60px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 40px;
+  border-bottom: 3px solid var(--gold);
+}
+.nl { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nl-t { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 20px; color: #fff; letter-spacing: 1px; }
+.nl-t span { color: var(--red-bright); }
+.nm { display: flex; gap: 4px; list-style: none; }
+.nm a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 4px; transition: all .2s; text-transform: uppercase; }
+.nm a:hover, .nm a.active { color: var(--gold); }
+
+/* HERO — stamp/decree aesthetic */
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  padding: 100px 40px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 30% 50%, rgba(139,26,26,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 30%, rgba(200,168,75,0.06) 0%, transparent 60%);
+}
+.hero-lines {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
+}
+.hero-center {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 860px;
+}
+.hero-ornament {
+  font-size: 13px; letter-spacing: 6px; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 28px; opacity: 0.7;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+}
+.hero-ornament::before, .hero-ornament::after {
+  content: ' ❧ '; color: var(--red); font-size: 16px;
+}
+.hero-title-small {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 400; font-size: 16px; letter-spacing: 8px;
+  color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 14px;
+}
+.hero-main-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-size: clamp(52px, 8vw, 110px);
+  color: #fff; line-height: 0.95; margin-bottom: 8px;
+}
+.hero-main-title em { color: var(--gold); font-style: italic; }
+.hero-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: clamp(18px, 2.5vw, 26px);
+  color: rgba(255,255,255,0.4); margin-bottom: 44px; line-height: 1.5;
+}
+.hero-rule {
+  width: 200px; height: 1px; background: var(--gold);
+  margin: 0 auto 36px; position: relative;
+}
+.hero-rule::before, .hero-rule::after {
+  content: '◆'; position: absolute; top: 50%; transform: translateY(-50%);
+  color: var(--gold); font-size: 10px;
+}
+.hero-rule::before { left: -16px; }
+.hero-rule::after { right: -16px; }
+
+.hero-docs {
+  display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+}
+.hero-doc-btn {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(200,168,75,0.3);
+  padding: 16px 28px; border-radius: 4px; text-decoration: none;
+  transition: all .3s; cursor: pointer;
+}
+.hero-doc-btn:hover {
+  background: rgba(200,168,75,0.08); border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.hero-doc-btn .doc-num {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+}
+.hero-doc-btn .doc-name {
+  font-family: 'Playfair Display', serif; font-size: 16px; color: #fff;
+}
+
+/* DOCUMENT CONTAINER */
+.doc-container {
+  max-width: 900px; margin: 0 auto; padding: 0 40px 100px;
+  position: relative; z-index: 1;
+}
+
+/* Document header */
+.doc-header {
+  background: var(--parchment);
+  border: 2px solid var(--ink);
+  border-top: 6px solid var(--red);
+  padding: 60px 70px 50px;
+  margin-top: 80px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(200,168,75,0.15);
+}
+.doc-header::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px solid rgba(14,12,8,0.08);
+  pointer-events: none;
+}
+.doc-watermark {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 120px; color: rgba(139,26,26,0.04);
+  white-space: nowrap; pointer-events: none; user-select: none;
+  z-index: 0;
+}
+.doc-header-content { position: relative; z-index: 1; }
+.doc-classification {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 36px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.doc-class-left {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 3px; color: var(--red);
+  text-transform: uppercase;
+}
+.doc-class-right {
+  font-family: 'Barlow', sans-serif; font-size: 11px;
+  color: rgba(14,12,8,0.4); letter-spacing: 1px;
+}
+.doc-logo-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 20px; margin-bottom: 30px;
+}
+.doc-bnl-seal {
+  width: 80px; height: 80px;
+  background: var(--seal-red);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 0 6px rgba(139,26,26,0.1);
+  flex-shrink: 0;
+}
+.doc-title-block { text-align: center; flex: 1; }
+.doc-corp-name {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 13px; letter-spacing: 6px; color: var(--ink);
+  text-transform: uppercase; margin-bottom: 8px; opacity: 0.5;
+}
+.doc-main-title {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: clamp(28px, 4vw, 44px); color: var(--ink); line-height: 1.05;
+}
+.doc-subtitle {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 16px; color: rgba(14,12,8,0.5); margin-top: 8px;
+}
+.doc-divider {
+  display: flex; align-items: center; gap: 12px; margin: 24px 0;
+}
+.doc-divider::before, .doc-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--ink); opacity: 0.2;
+}
+.doc-divider-ornament { color: var(--gold); font-size: 18px; }
+.doc-meta {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  font-size: 12px; text-align: center;
+}
+.doc-meta-item .label {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(14,12,8,0.4); display: block; margin-bottom: 4px;
+}
+.doc-meta-item .value {
+  font-family: 'Playfair Display', serif; font-size: 14px; color: var(--ink);
+}
+
+/* Document body */
+.doc-body {
+  background: var(--parchment);
+  border: 1px solid rgba(14,12,8,0.15);
+  border-top: none;
+  padding: 60px 70px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+/* Chapter / Article system */
+.chapter {
+  margin-bottom: 56px;
+}
+.chapter-header {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+}
+.chapter-header::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: rgba(14,12,8,0.15);
+}
+.chapter-num {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 11px; letter-spacing: 3px; color: var(--red);
+  text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(18px, 2.5vw, 24px); color: var(--ink);
+}
+.article {
+  margin-bottom: 28px; padding-left: 24px;
+  border-left: 3px solid var(--parchment-dark);
+  transition: border-color .2s;
+}
+.article:hover { border-left-color: var(--gold); }
+.article-num {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 2px; color: var(--red);
+  text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+}
+.article-num::after { content: ''; flex: 1; height: 1px; background: rgba(139,26,26,0.15); }
+.article-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 17px; color: var(--ink); margin-bottom: 10px; line-height: 1.3;
+}
+.article-text {
+  font-size: 14px; line-height: 1.85; color: rgba(14,12,8,0.75);
+}
+.article-text p { margin-bottom: 8px; }
+.article-text strong { color: var(--ink); font-weight: 600; }
+.indent { margin-left: 20px; }
+.sub-item {
+  display: flex; gap: 12px; margin-bottom: 6px; font-size: 14px;
+  color: rgba(14,12,8,0.75); line-height: 1.7;
+}
+.sub-item-num {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 12px; color: var(--red); flex-shrink: 0; padding-top: 2px;
+}
+
+/* Criminal code specifics */
+.offense-card {
+  background: #fff;
+  border: 1px solid rgba(14,12,8,0.12);
+  border-left: 4px solid var(--red);
+  border-radius: 0 6px 6px 0;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  position: relative;
+  transition: all .25s;
+}
+.offense-card:hover {
+  border-left-color: var(--seal-red);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+.offense-card.severity-1 { border-left-color: #d97706; }
+.offense-card.severity-2 { border-left-color: var(--red); }
+.offense-card.severity-3 { border-left-color: var(--seal-red); }
+.offense-card.severity-4 { border-left-color: #1a1a1a; }
+.offense-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 16px; margin-bottom: 10px;
+}
+.offense-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 16px; color: var(--ink); line-height: 1.3;
+}
+.offense-code {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 2px; color: rgba(14,12,8,0.4);
+  white-space: nowrap; padding-top: 2px;
+}
+.offense-desc {
+  font-size: 13px; color: rgba(14,12,8,0.65); line-height: 1.7; margin-bottom: 14px;
+}
+.offense-penalty {
+  background: #fff8f8; border: 1px solid rgba(139,26,26,0.15);
+  border-radius: 4px; padding: 12px 16px;
+}
+.penalty-label {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 4px; display: block;
+}
+.penalty-text {
+  font-size: 13px; color: var(--ink); line-height: 1.6;
+  font-style: italic;
+}
+.severity-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px; font-size: 11px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;
+}
+.sv-1 { background: #fef3c7; color: #92400e; }
+.sv-2 { background: #fee2e2; color: #991b1b; }
+.sv-3 { background: #fce7f3; color: #9d174d; }
+.sv-4 { background: #111; color: var(--gold); }
+
+/* Note box */
+.note-box {
+  background: rgba(200,168,75,0.07);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 4px; padding: 18px 22px; margin: 20px 0;
+  display: flex; gap: 14px;
+}
+.note-icon { font-size: 18px; flex-shrink: 0; padding-top: 1px; }
+.note-text { font-size: 13px; color: rgba(14,12,8,0.65); line-height: 1.7; }
+.note-text strong { color: var(--ink); }
+
+/* Warning box */
+.warning-box {
+  background: rgba(139,26,26,0.04);
+  border: 1px solid rgba(139,26,26,0.2);
+  border-left: 4px solid var(--red);
+  border-radius: 0 4px 4px 0; padding: 18px 22px; margin: 20px 0;
+}
+.warning-title {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 6px;
+}
+.warning-text { font-size: 13px; color: rgba(14,12,8,0.65); line-height: 1.7; }
+
+/* Signature block */
+.sig-block {
+  margin-top: 60px; padding-top: 40px;
+  border-top: 1px solid var(--rule);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+}
+.sig-item { text-align: center; }
+.sig-line {
+  width: 200px; height: 1px; background: var(--ink);
+  margin: 0 auto 8px; opacity: 0.3;
+}
+.sig-name {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 18px; color: var(--ink); margin-bottom: 4px;
+}
+.sig-role {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(14,12,8,0.4);
+}
+.sig-seal {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--seal-red); margin: 12px auto 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--gold); opacity: 0.85;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 11px; color: var(--gold); letter-spacing: 0px; text-align: center;
+  line-height: 1.2;
+}
+
+/* Doc switcher tabs */
+.doc-tabs {
+  display: flex; gap: 0; margin-bottom: 0;
+  border-bottom: 3px solid var(--ink); margin-top: 80px;
+}
+.doc-tab {
+  flex: 1; padding: 18px 28px; text-align: center; cursor: pointer;
+  background: var(--parchment-dark); border: 1px solid rgba(14,12,8,0.2);
+  border-bottom: none; font-family: 'Playfair Display', serif;
+  font-size: 16px; color: rgba(14,12,8,0.5); transition: all .25s;
+  position: relative;
+}
+.doc-tab:first-child { border-radius: 6px 0 0 0; }
+.doc-tab:last-child { border-radius: 0 6px 0 0; }
+.doc-tab.active {
+  background: var(--parchment); color: var(--ink); font-weight: 700;
+  border-color: var(--ink); border-bottom-color: var(--parchment);
+  margin-bottom: -3px; z-index: 1;
+}
+.doc-tab-sub {
+  display: block; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 3px; color: var(--red);
+}
+.doc-panel { display: none; }
+.doc-panel.active { display: block; }
+
+/* Table of contents */
+.toc {
+  background: #fff; border: 1px solid rgba(14,12,8,0.1);
+  border-radius: 4px; padding: 24px 28px; margin-bottom: 40px;
+}
+.toc-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 14px; color: var(--ink); margin-bottom: 16px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+}
+.toc-list { list-style: none; }
+.toc-item {
+  display: flex; justify-content: space-between;
+  align-items: baseline; gap: 8px;
+  font-size: 13px; color: rgba(14,12,8,0.7); padding: 5px 0;
+  border-bottom: 1px dotted rgba(14,12,8,0.1); cursor: pointer;
+  transition: color .2s;
+}
+.toc-item:hover { color: var(--red); }
+.toc-item-num { color: var(--red); font-weight: 600; flex-shrink: 0; }
+.toc-item-dots { flex: 1; border-bottom: 1px dotted rgba(14,12,8,0.2); margin: 0 6px; position: relative; top: -3px; }
+
+/* FU animation */
+.fu { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.fu.vis { opacity: 1; transform: translateY(0); }
+
+footer {
+  background: var(--ink); padding: 44px 40px 22px;
+}
+.fg { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+.fb { max-width: 1200px; margin: 18px auto 0; display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,0.2); flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 900px) {
+  .nm { display: none; }
+  .doc-body, .doc-header { padding: 32px 24px; }
+  .sig-block { grid-template-columns: 1fr; }
+  .doc-meta { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nl" href="buynlarge.html">
+    <svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg>
+    <div class="nl-t">BUY <span>N</span> LARGE</div>
+  </a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li>
+    <li><a href="bnl_ant.html">AnT</a></li>
+    <li><a href="bnl_aurig.html">Aurig</a></li>
+    <li><a href="bnl_space.html">Космос</a></li>
+    <li><a href="bnl_news.html">Новости</a></li>
+    <li><a href="bnl_careers.html">Карьера</a></li>
+    <li><a href="bnl_legal.html" class="active" style="color:var(--gold);">Правовая база</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-lines"></div>
+  <div class="hero-center">
+    <div class="hero-ornament">Buy N Large Corporation</div>
+    <div class="hero-title-small">Официальные правовые документы</div>
+    <h1 class="hero-main-title">Правовая<br><em>система</em></h1>
+    <p class="hero-subtitle">Устав Корпорации и Уголовный кодекс<br>корпоративных городов BnL</p>
+    <div class="hero-rule"></div>
+    <div class="hero-docs">
+      <a class="hero-doc-btn" href="#charter" onclick="switchDoc('charter')">
+        <svg width="28" height="28" viewBox="0 0 28 28"><rect x="4" y="2" width="20" height="24" rx="2" fill="none" stroke="#c8a84b" stroke-width="1.5"/><line x1="8" y1="8" x2="20" y2="8" stroke="#c8a84b" stroke-width="1" opacity="0.6"/><line x1="8" y1="12" x2="20" y2="12" stroke="#c8a84b" stroke-width="1" opacity="0.6"/><line x1="8" y1="16" x2="16" y2="16" stroke="#c8a84b" stroke-width="1" opacity="0.6"/></svg>
+        <div><div class="doc-num">Документ I</div><div class="doc-name">Устав BnL</div></div>
+      </a>
+      <a class="hero-doc-btn" href="#criminal" onclick="switchDoc('criminal')">
+        <svg width="28" height="28" viewBox="0 0 28 28"><rect x="4" y="2" width="20" height="24" rx="2" fill="none" stroke="#8B1A1A" stroke-width="1.5"/><circle cx="14" cy="12" r="4" fill="none" stroke="#8B1A1A" stroke-width="1.5"/><line x1="14" y1="16" x2="14" y2="22" stroke="#8B1A1A" stroke-width="1.5"/><line x1="10" y1="18" x2="18" y2="18" stroke="#8B1A1A" stroke-width="1.5"/></svg>
+        <div><div class="doc-num" style="color:#ff8080;">Документ II</div><div class="doc-name">Уголовный кодекс</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<div class="doc-container">
+
+  <!-- TABS -->
+  <div class="doc-tabs fu">
+    <div class="doc-tab active" id="tab-charter" onclick="switchDoc('charter')">
+      Устав Buy N Large
+      <span class="doc-tab-sub">Документ I · Ред. 2024</span>
+    </div>
+    <div class="doc-tab" id="tab-criminal" onclick="switchDoc('criminal')">
+      Уголовный кодекс BnL
+      <span class="doc-tab-sub">Документ II · Города BnL</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ CHARTER ══════════════════════════════════════ -->
+  <div class="doc-panel active" id="panel-charter">
+
+    <div class="doc-header fu">
+      <div class="doc-watermark">BnL</div>
+      <div class="doc-header-content">
+        <div class="doc-classification">
+          <div class="doc-class-left">Публичный документ · Действующая редакция</div>
+          <div class="doc-class-right">BNL-LEG-001 · Версия 4.2 · Ред. сентябрь 2024</div>
+        </div>
+        <div class="doc-logo-row">
+          <div class="doc-bnl-seal">
+            <svg width="50" height="50" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="48" ry="48" fill="none" stroke="#c8a84b" stroke-width="2"/><text x="14" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg>
+          </div>
+          <div class="doc-title-block">
+            <div class="doc-corp-name">Buy N Large Corporation</div>
+            <div class="doc-main-title">Устав Корпорации</div>
+            <div class="doc-subtitle">«Мы продаём всё — от хлеба до космических кораблей»</div>
+          </div>
+          <div class="doc-bnl-seal">
+            <svg width="50" height="50" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="48" ry="48" fill="none" stroke="#c8a84b" stroke-width="2"/><text x="14" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg>
+          </div>
+        </div>
+        <div class="doc-divider"><div class="doc-divider-ornament">✦</div></div>
+        <div class="doc-meta">
+          <div class="doc-meta-item"><span class="label">Дата основания</span><span class="value">6 декабря 2008</span></div>
+          <div class="doc-meta-item"><span class="label">Штаб-квартира</span><span class="value">Подораевск, Россия</span></div>
+          <div class="doc-meta-item"><span class="label">Действует с</span><span class="value">1 сентября 2024</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-body fu">
+
+      <!-- TOC -->
+      <div class="toc">
+        <div class="toc-title">Содержание</div>
+        <ul class="toc-list">
+          <li class="toc-item"><span class="toc-item-num">Гл. I</span><span>Общие положения. Правовой статус</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Гл. II</span><span>Структура власти и управления</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Гл. III</span><span>Права и обязанности сотрудников</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Гл. IV</span><span>Права жителей корпоративных городов</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Гл. V</span><span>Корпоративные ценности и запреты</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Гл. VI</span><span>Акционерный капитал</span><span class="toc-item-dots"></span></li>
+        </ul>
+      </div>
+
+      <!-- CHAPTER I -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Глава I</span>
+          <span class="chapter-title">Общие положения. Правовой статус корпорации</span>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 1.1</div>
+          <div class="article-title">Наименование и форма</div>
+          <div class="article-text">
+            <p>Настоящий документ является учредительным уставом <strong>Buy N Large Corporation</strong> (далее — «Корпорация», «BnL», «Компания»). Корпорация является субъектом частного права с расширенным суверенным статусом на территориях корпоративных городов, перечисленных в Приложении А.</p>
+            <p>Корпорация действует под девизом: <em>«Мы продаём всё — от хлеба до космических кораблей»</em> и считает данный тезис не рекламным, а фактическим.</p>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 1.2</div>
+          <div class="article-title">Сфера деятельности</div>
+          <div class="article-text">
+            <p>BnL осуществляет деятельность в следующих отраслях, которые Корпорация считает своей неотъемлемой сферой ответственности:</p>
+            <div class="indent">
+              <div class="sub-item"><span class="sub-item-num">а)</span><span>Производство и продажа потребительских товаров всех категорий без исключения;</span></div>
+              <div class="sub-item"><span class="sub-item-num">б)</span><span>Телекоммуникации, сети 60G, спутниковая связь SARS.COM;</span></div>
+              <div class="sub-item"><span class="sub-item-num">в)</span><span>Производство электроники серии AnT и транспортных средств Aurig;</span></div>
+              <div class="sub-item"><span class="sub-item-num">г)</span><span>Банковская деятельность, криптовалюта BnLCoin, платёжные системы;</span></div>
+              <div class="sub-item"><span class="sub-item-num">д)</span><span>Космические операции, запуски, орбитальная инфраструктура;</span></div>
+              <div class="sub-item"><span class="sub-item-num">е)</span><span>Строительство, управление и юрисдикция над корпоративными городами;</span></div>
+              <div class="sub-item"><span class="sub-item-num">ж)</span><span>Любая иная деятельность, которую Корпорация сочтёт коммерчески целесообразной.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 1.3</div>
+          <div class="article-title">Суверенный статус городов BnL</div>
+          <div class="article-text">
+            <p>На территориях городов <strong>Adorcity</strong>, <strong>Подораевск</strong>, <strong>Topcity</strong> и <strong>Енезон</strong> (по завершении строительства) действует <strong>корпоративное право BnL</strong> как приоритетная правовая система. Национальное законодательство государств-партнёров применяется в части, не противоречащей настоящему Уставу и Уголовному кодексу BnL.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER II -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Глава II</span>
+          <span class="chapter-title">Структура власти и управления</span>
+        </div>
+
+        <div class="note-box">
+          <div class="note-icon">⚖️</div>
+          <div class="note-text">Иерархия власти BnL является <strong>трёхуровневой</strong>: Основатель и Контролирующий акционер → Совет директоров → Исполнительное руководство. Каждый уровень действует строго в пределах полномочий, определённых настоящим Уставом.</div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 2.1</div>
+          <div class="article-title">Основатель и контролирующий акционер</div>
+          <div class="article-text">
+            <p><strong>Daniel Smith</strong> является Основателем Корпорации и владельцем <strong>75% акционерного капитала</strong> BnL. Как контролирующий акционер, Daniel Smith обладает следующими исключительными полномочиями, которые не могут быть делегированы, ограничены или отменены никаким иным органом управления:</p>
+            <div class="indent">
+              <div class="sub-item"><span class="sub-item-num">а)</span><span>Право вето на любое решение Совета директоров или Генерального директора;</span></div>
+              <div class="sub-item"><span class="sub-item-num">б)</span><span>Право назначения и отстранения Генерального директора без объяснения причин;</span></div>
+              <div class="sub-item"><span class="sub-item-num">в)</span><span>Право внесения поправок в настоящий Устав единоличным решением;</span></div>
+              <div class="sub-item"><span class="sub-item-num">г)</span><span>Право окончательного утверждения любой стратегической инициативы стоимостью свыше $1 млрд;</span></div>
+              <div class="sub-item"><span class="sub-item-num">д)</span><span>Право досрочного прекращения полномочий Совета директоров в полном составе.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 2.2</div>
+          <div class="article-title">Совет директоров</div>
+          <div class="article-text">
+            <p>Совет директоров состоит из <strong>9 членов</strong>, из которых 5 назначаются Основателем, 3 — миноритарными акционерами, 1 — независимый директор. Совет осуществляет надзор за деятельностью исполнительного руководства, утверждает бюджет и стратегические планы.</p>
+            <p>Решения Совета принимаются простым большинством, за исключением вопросов, требующих одобрения Основателя согласно ст. 2.1.</p>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 2.3</div>
+          <div class="article-title">Генеральный директор (CEO)</div>
+          <div class="article-text">
+            <p>Генеральный директор является высшим должностным лицом исполнительной власти Корпорации и несёт ответственность перед Советом директоров и Основателем. С <strong>1 сентября 2024 года</strong> обязанности Генерального директора исполняет <strong>Shelby Fortright</strong> в статусе <em>Исполняющего обязанности (и.о.)</em> до назначения постоянного CEO решением Основателя.</p>
+            <p>И.о. Генерального директора обладает всеми операционными полномочиями CEO, за исключением права на сделки с акциями BnL и внесение изменений в настоящий Устав.</p>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 2.4</div>
+          <div class="article-title">Городские администрации</div>
+          <div class="article-text">
+            <p>Каждый корпоративный город управляется <strong>Городским директором</strong>, назначаемым CEO с одобрения Основателя. Городской директор обладает полномочиями муниципального главы, включая правоприменение в рамках Уголовного кодекса BnL, управление инфраструктурой и утверждение правил проживания.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER III -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Глава III</span>
+          <span class="chapter-title">Права и обязанности сотрудников</span>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 3.1</div>
+          <div class="article-title">Права сотрудников</div>
+          <div class="article-text">
+            <div class="sub-item"><span class="sub-item-num">а)</span><span>Право на справедливое вознаграждение согласно грейду и региональным коэффициентам;</span></div>
+            <div class="sub-item"><span class="sub-item-num">б)</span><span>Право на льготное приобретение продуктов BnL со скидкой до 70%;</span></div>
+            <div class="sub-item"><span class="sub-item-num">в)</span><span>Право на проживание в корпоративных городах при наличии трудового договора;</span></div>
+            <div class="sub-item"><span class="sub-item-num">г)</span><span>Право на использование сети AnT FreeWire в служебных целях без ограничений;</span></div>
+            <div class="sub-item"><span class="sub-item-num">д)</span><span>Право на отпуск продолжительностью не менее 28 дней (40 дней для сотрудников, работающих на орбите или лунных объектах);</span></div>
+            <div class="sub-item"><span class="sub-item-num">е)</span><span>Право обращаться с жалобами в Корпоративный трибунал BnL, минуя непосредственного руководителя.</span></div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 3.2</div>
+          <div class="article-title">Обязанности сотрудников</div>
+          <div class="article-text">
+            <div class="sub-item"><span class="sub-item-num">а)</span><span>Соблюдать Устав BnL, корпоративные регламенты и Уголовный кодекс BnL на территории корпоративных городов;</span></div>
+            <div class="sub-item"><span class="sub-item-num">б)</span><span>Использовать продукты BnL в личных целях преимущественно перед продуктами конкурентов. Использование смартфонов конкурирующих производителей в офисных зонах считается «<em>экосистемной изменой</em>» и влечёт административное предупреждение;</span></div>
+            <div class="sub-item"><span class="sub-item-num">в)</span><span>Не разглашать коммерческие тайны, технологические секреты и внутреннюю переписку BnL в течение 10 лет после увольнения;</span></div>
+            <div class="sub-item"><span class="sub-item-num">г)</span><span>Поддерживать репутацию Корпорации в публичных высказываниях. Публичная критика BnL сотрудником квалифицируется как «<em>дискредитация экосистемы</em>».</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER IV -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Глава IV</span>
+          <span class="chapter-title">Права жителей корпоративных городов</span>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 4.1</div>
+          <div class="article-title">Статус жителя</div>
+          <div class="article-text">
+            <p>Статус <strong>Жителя города BnL</strong> предоставляется лицам, имеющим действующий трудовой договор с Корпорацией или долгосрочный договор аренды жилья на территории корпоративного города. Жители пользуются следующими правами:</p>
+            <div class="indent">
+              <div class="sub-item"><span class="sub-item-num">а)</span><span>Бесплатный доступ к сети 60G и AnT FreeWire на всей территории города;</span></div>
+              <div class="sub-item"><span class="sub-item-num">б)</span><span>Льготные тарифы на услуги BnL Bank и BnL Pay;</span></div>
+              <div class="sub-item"><span class="sub-item-num">в)</span><span>Право на участие в Городском собрании — совещательном органе при Городском директоре (без права блокировать решения Директора);</span></div>
+              <div class="sub-item"><span class="sub-item-num">г)</span><span>Приоритетный доступ к зарядным станциям BnL Charge и парковкам для Aurig;</span></div>
+              <div class="sub-item"><span class="sub-item-num">д)</span><span>Медицинское обслуживание в клиниках BnL Health по корпоративным тарифам.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 4.2</div>
+          <div class="article-title">Ограничения для жителей</div>
+          <div class="article-text">
+            <p>Проживание в корпоративном городе означает добровольное принятие следующих ограничений:</p>
+            <div class="indent">
+              <div class="sub-item"><span class="sub-item-num">а)</span><span>Доступ в жилые зоны, офисные кварталы и транспортные узлы осуществляется через систему BnL ID — цифровой идентификатор на базе AnT FreeWire;</span></div>
+              <div class="sub-item"><span class="sub-item-num">б)</span><span>Коммерческая деятельность на территории города допускается исключительно через сеть BnSupermarket или с лицензией BnL;</span></div>
+              <div class="sub-item"><span class="sub-item-num">в)</span><span>Средства передвижения на территории города — исключительно Aurig или сертифицированный BnL-транспорт. Въезд личных автомобилей сторонних производителей в жилые кварталы ограничен и требует специального разрешения.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER V -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Глава V</span>
+          <span class="chapter-title">Корпоративные ценности и запреты</span>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 5.1</div>
+          <div class="article-title">Ценности Buy N Large</div>
+          <div class="article-text">
+            <div class="sub-item"><span class="sub-item-num">I.</span><span><strong>Экспансия.</strong> BnL убеждена, что ни одна сфера человеческой жизни не является слишком большой или слишком малой, чтобы быть улучшенной корпоративным подходом.</span></div>
+            <div class="sub-item"><span class="sub-item-num">II.</span><span><strong>Связность.</strong> Каждое устройство, человек и транспортное средство должны быть частью единой экосистемы BnL. Изоляция от сети — исключение, которое Корпорация стремится устранить.</span></div>
+            <div class="sub-item"><span class="sub-item-num">III.</span><span><strong>Рост.</strong> Снижение выручки, рыночной доли или числа пользователей BnL расценивается как корпоративная чрезвычайная ситуация, требующая немедленных мер.</span></div>
+            <div class="sub-item"><span class="sub-item-num">IV.</span><span><strong>Лояльность экосистеме.</strong> Сотрудники, жители и партнёры BnL — не просто клиенты. Они участники единого организма, чья устойчивость зависит от каждого звена.</span></div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 5.2</div>
+          <div class="article-title">Абсолютные запреты (применяются ко всем лицам)</div>
+          <div class="article-text">
+            <div class="sub-item"><span class="sub-item-num">а)</span><span>Публичные призывы к разделению или ликвидации Корпорации;</span></div>
+            <div class="sub-item"><span class="sub-item-num">б)</span><span>Передача технологий AnT FreeWire, SARS.COM или BnL Atom третьим сторонам;</span></div>
+            <div class="sub-item"><span class="sub-item-num">в)</span><span>Несанкционированная работа с орбитальными системами SARS и системами управления Aurig A1;</span></div>
+            <div class="sub-item"><span class="sub-item-num">г)</span><span>Создание альтернативных платёжных систем, конкурирующих с BnLCoin, на территории корпоративных городов.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER VI -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Глава VI</span>
+          <span class="chapter-title">Акционерный капитал</span>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 6.1</div>
+          <div class="article-title">Структура акционерного капитала</div>
+          <div class="article-text">
+            <p>Уставный капитал BnL разделён на акции классов A и B. Акции класса A обладают правом голоса 10:1 по отношению к акциям класса B.</p>
+            <div class="indent" style="margin-top:10px;">
+              <div class="sub-item"><span class="sub-item-num">75%</span><span><strong>Daniel Smith</strong> — Основатель. Акции класса A.</span></div>
+              <div class="sub-item"><span class="sub-item-num">25%</span><span>Публичный листинг, институциональные инвесторы, сотрудники. Акции класса B.</span></div>
+            </div>
+            <p style="margin-top:10px;">При любом изменении структуры капитала доля Daniel Smith не может быть снижена ниже <strong>51%</strong> без его письменного согласия, заверенного нотариально и скреплённого корпоративной печатью BnL.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGNATURES -->
+      <div class="sig-block">
+        <div class="sig-item">
+          <div class="sig-line"></div>
+          <div class="sig-name">Daniel Smith</div>
+          <div class="sig-role">Основатель · Контролирующий акционер · 75% BnL</div>
+          <div class="sig-seal">BnL<br>FOUNDER</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-line"></div>
+          <div class="sig-name">Shelby Fortright</div>
+          <div class="sig-role">И.о. Генерального директора · С 01.09.2024</div>
+          <div class="sig-seal" style="background:var(--blue);">BnL<br>CEO</div>
+        </div>
+      </div>
+
+    </div><!-- /doc-body charter -->
+  </div><!-- /panel-charter -->
+
+
+  <!-- ══════════════════════════════════════ CRIMINAL CODE ══════════════════════════════════════ -->
+  <div class="doc-panel" id="panel-criminal">
+
+    <div class="doc-header fu" style="border-top-color: #7a0f0f;">
+      <div class="doc-watermark">ЗАКОН</div>
+      <div class="doc-header-content">
+        <div class="doc-classification">
+          <div class="doc-class-left" style="color:#7a0f0f;">Обязателен к исполнению · Территории BnL</div>
+          <div class="doc-class-right">BNL-CRM-002 · Ред. январь 2025 · Действует в: Adorcity, Подораевск, Topcity, Енезон</div>
+        </div>
+        <div class="doc-logo-row">
+          <div class="doc-bnl-seal" style="background:#7a0f0f;">
+            <svg width="50" height="50" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="48" ry="48" fill="none" stroke="#c8a84b" stroke-width="2"/><text x="34" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="50" fill="white">§</text></svg>
+          </div>
+          <div class="doc-title-block">
+            <div class="doc-corp-name">Buy N Large Corporation</div>
+            <div class="doc-main-title">Уголовный кодекс<br>корпоративных городов</div>
+            <div class="doc-subtitle">Охрана экосистемы BnL — обязанность каждого</div>
+          </div>
+          <div class="doc-bnl-seal" style="background:#7a0f0f;">
+            <svg width="50" height="50" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="48" ry="48" fill="none" stroke="#c8a84b" stroke-width="2"/><text x="34" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="50" fill="white">§</text></svg>
+          </div>
+        </div>
+        <div class="doc-divider"><div class="doc-divider-ornament">⚖</div></div>
+        <div class="doc-meta">
+          <div class="doc-meta-item"><span class="label">Юрисдикция</span><span class="value">Города BnL</span></div>
+          <div class="doc-meta-item"><span class="label">Правоприменение</span><span class="value">BnL Security</span></div>
+          <div class="doc-meta-item"><span class="label">Апелляция</span><span class="value">Трибунал BnL</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-body fu">
+
+      <div class="warning-box">
+        <div class="warning-title">⚠ Территориальная оговорка</div>
+        <div class="warning-text">Настоящий Кодекс действует исключительно на территории корпоративных городов BnL: <strong>Adorcity, Подораевск, Topcity</strong> и <strong>Енезон</strong> (по завершении строительства). На иных территориях применяется законодательство соответствующих государств. BnL не несёт ответственности за правовые ожидания лиц, не ознакомившихся с настоящим Кодексом до въезда в корпоративный город.</div>
+      </div>
+
+      <div class="toc">
+        <div class="toc-title">Разделы Кодекса</div>
+        <ul class="toc-list">
+          <li class="toc-item"><span class="toc-item-num">Разд. I</span><span>Преступления против экосистемы BnL</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Разд. II</span><span>Преступления против имущества Корпорации</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Разд. III</span><span>Нарушения общественного порядка и репутации</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Разд. IV</span><span>Особо тяжкие преступления</span><span class="toc-item-dots"></span></li>
+          <li class="toc-item"><span class="toc-item-num">Разд. V</span><span>Виды наказаний и исполнение</span><span class="toc-item-dots"></span></li>
+        </ul>
+      </div>
+
+      <!-- РАЗДЕЛ I -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Раздел I</span>
+          <span class="chapter-title">Преступления против экосистемы BnL</span>
+        </div>
+
+        <div class="offense-card severity-1">
+          <div class="offense-header">
+            <div class="offense-title">Использование смартфона конкурирующего производителя в общественном месте</div>
+            <div class="offense-code">BNL-CR-101</div>
+          </div>
+          <div class="offense-desc">Публичная демонстрация, использование или хранение в видимом месте смартфона, не относящегося к линейке AnT, в общественных пространствах корпоративного города. Включая, но не ограничиваясь: торговые зоны BnSupermarket, транспортные узлы, офисные кварталы, парки BnL.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Штраф в размере 500 BnLCoin (~6 200 USD). Устройство-нарушитель изымается до отъезда из города. Владельцу безвозмездно предоставляется AnT 7s на период пребывания — «чтобы понял разницу».</span>
+          </div>
+          <span class="severity-badge sv-1">§ Лёгкое · Категория I</span>
+        </div>
+
+        <div class="offense-card severity-1">
+          <div class="offense-header">
+            <div class="offense-title">Публичное одобрение конкурирующего интернет-провайдера</div>
+            <div class="offense-code">BNL-CR-102</div>
+          </div>
+          <div class="offense-desc">Устные или письменные высказывания в пользу услуг связи, не предоставляемых BnL, на территории города. Включая похвалу скорости или тарифам конкурирующего провайдера в присутствии более трёх граждан.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Принудительное прохождение курса «Основы сети 60G: почему лучше не бывает» (4 часа, онлайн). Штраф 200 BnLCoin. При рецидиве — подписка BnL Premium за собственный счёт сроком на 1 год.</span>
+          </div>
+          <span class="severity-badge sv-1">§ Лёгкое · Категория I</span>
+        </div>
+
+        <div class="offense-card severity-2">
+          <div class="offense-header">
+            <div class="offense-title">Экосистемная измена: отказ от обновления AnT FreeWire</div>
+            <div class="offense-code">BNL-CR-103</div>
+          </div>
+          <div class="offense-desc">Намеренное отключение или систематический отказ от установки обновлений AnT FreeWire на личном устройстве жителя корпоративного города. Расценивается как сознательное ослабление mesh-сети и нанесение ущерба коллективной связности.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Штраф 1 200 BnLCoin. Принудительное обновление устройства силами BnL Tech Support (за счёт нарушителя). Публичное уведомление соседей по BnL ID о «слабом звене в mesh-сети».</span>
+          </div>
+          <span class="severity-badge sv-2">§ Средней тяжести · Категория II</span>
+        </div>
+
+        <div class="offense-card severity-2">
+          <div class="offense-header">
+            <div class="offense-title">Использование криптовалюты, конкурирующей с BnLCoin</div>
+            <div class="offense-code">BNL-CR-104</div>
+          </div>
+          <div class="offense-desc">Осуществление любых финансовых операций на территории корпоративного города с использованием криптовалют, не являющихся BnLCoin, в коммерческих целях. Оплата BnLCoin является обязательной при расчётах в BnSupermarket и всех сертифицированных торговых точках города.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Конфискация «враждебных» криптоактивов с конвертацией в BnLCoin по курсу BnL Bank на момент изъятия. Штраф 2 000 BnLCoin. При сумме операции свыше $10 000 — обязательное рассмотрение в Корпоративном трибунале.</span>
+          </div>
+          <span class="severity-badge sv-2">§ Средней тяжести · Категория II</span>
+        </div>
+      </div>
+
+      <!-- РАЗДЕЛ II -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Раздел II</span>
+          <span class="chapter-title">Преступления против имущества Корпорации</span>
+        </div>
+
+        <div class="offense-card severity-2">
+          <div class="offense-header">
+            <div class="offense-title">Повреждение вышки или оборудования сети 60G</div>
+            <div class="offense-code">BNL-CR-201</div>
+          </div>
+          <div class="offense-desc">Умышленное или неосторожное повреждение наземных вышек BnL, серверного оборудования, кабельной инфраструктуры или зарядных станций BnL Charge на территории города.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Полное возмещение ущерба по оценке BnL Engineering. Штраф 5 000 BnLCoin. Общественные работы в форме ассистирования бригаде BnL Tech при ремонте повреждённого оборудования (не менее 80 часов). Занесение в реестр «Нелояльных жителей».</span>
+          </div>
+          <span class="severity-badge sv-2">§ Средней тяжести · Категория II</span>
+        </div>
+
+        <div class="offense-card severity-3">
+          <div class="offense-header">
+            <div class="offense-title">Несанкционированный доступ к системам управления Aurig A1</div>
+            <div class="offense-code">BNL-CR-202</div>
+          </div>
+          <div class="offense-desc">Попытка взлома, перехвата управления или модификации программного обеспечения автономных транспортных средств Aurig A1, находящихся в движении или на стоянке на территории города.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Пожизненный запрет на пользование услугами Aurig (любая модель, любой город BnL). Штраф 50 000 BnLCoin. Уголовное преследование по национальному законодательству государства, гражданином которого является нарушитель. BnL оставляет за собой право гражданского иска.</span>
+          </div>
+          <span class="severity-badge sv-3">§ Тяжкое · Категория III</span>
+        </div>
+
+        <div class="offense-card severity-3">
+          <div class="offense-header">
+            <div class="offense-title">Промышленный шпионаж против BnL</div>
+            <div class="offense-code">BNL-CR-203</div>
+          </div>
+          <div class="offense-desc">Сбор, копирование или передача технической документации, исходных кодов, производственных секретов или стратегических планов BnL с целью передачи конкурирующим организациям. Включая любые попытки фотографирования производственных зон без разрешения.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Немедленное выдворение из корпоративного города с запретом повторного въезда (срок — 25 лет). Занесение в общий реестр BnL «Противников экосистемы». Штраф 200 000 BnLCoin. Уведомление всех партнёров BnL в 193 странах.</span>
+          </div>
+          <span class="severity-badge sv-3">§ Тяжкое · Категория III</span>
+        </div>
+      </div>
+
+      <!-- РАЗДЕЛ III -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Раздел III</span>
+          <span class="chapter-title">Нарушения общественного порядка и репутации BnL</span>
+        </div>
+
+        <div class="offense-card severity-1">
+          <div class="offense-header">
+            <div class="offense-title">Публичная критика продуктов BnL с искажением фактов</div>
+            <div class="offense-code">BNL-CR-301</div>
+          </div>
+          <div class="offense-desc">Распространение заведомо ложных сведений о качестве, безопасности или характеристиках продуктов BnL в публичных местах, социальных сетях или средствах массовой информации из корпоративного города.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Публичное опровержение с текстом, согласованным Отделом PR BnL, в тех же каналах распространения. Штраф 800 BnLCoin. Принудительная подписка на официальный BnL-канал сроком 2 года.</span>
+          </div>
+          <span class="severity-badge sv-1">§ Лёгкое · Категория I</span>
+        </div>
+
+        <div class="offense-card severity-1">
+          <div class="offense-header">
+            <div class="offense-title">Несанкционированная торговля вне сети BnSupermarket</div>
+            <div class="offense-code">BNL-CR-302</div>
+          </div>
+          <div class="offense-desc">Организация или участие в несанкционированной торговле товарами народного потребления в обход сети BnSupermarket и без лицензии BnL. Включая «бабушек с пирожками» у входа в BnSupermarket, несмотря на всё уважение к возрасту.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Конфискация товара. Штраф 300 BnLCoin. Предложение открыть официальную торговую точку через BnL Marketplace с выгодными условиями аренды — потому что BnL ценит предпринимательский дух, просто в правильном направлении.</span>
+          </div>
+          <span class="severity-badge sv-1">§ Лёгкое · Категория I</span>
+        </div>
+
+        <div class="offense-card severity-2">
+          <div class="offense-header">
+            <div class="offense-title">Въезд в жилую зону на автомобиле не Aurig</div>
+            <div class="offense-code">BNL-CR-303</div>
+          </div>
+          <div class="offense-desc">Систематическое (более 3 раз в месяц) использование личного транспортного средства стороннего производителя в жилых кварталах корпоративного города без действующего разрешения Городского директора.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Штраф 1 500 BnLCoin за каждый эпизод. Транспортное средство временно размещается на штрафстоянке BnL (тариф хранения — 50 BnLCoin в сутки). Нарушителю бесплатно предоставляется тест-драйв Aurig E1 продолжительностью 3 дня.</span>
+          </div>
+          <span class="severity-badge sv-2">§ Средней тяжести · Категория II</span>
+        </div>
+      </div>
+
+      <!-- РАЗДЕЛ IV -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Раздел IV</span>
+          <span class="chapter-title">Особо тяжкие преступления</span>
+        </div>
+
+        <div class="offense-card severity-4">
+          <div class="offense-header">
+            <div class="offense-title">Попытка организации конкурирующей корпорации на территории города BnL</div>
+            <div class="offense-code">BNL-CR-401</div>
+          </div>
+          <div class="offense-desc">Регистрация, организация или финансирование юридического лица, осуществляющего деятельность, конкурирующую с любым направлением BnL, с использованием адреса корпоративного города в качестве места регистрации или операционной базы.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Немедленная принудительная ликвидация юридического лица. Пожизненный запрет на въезд во все города BnL. Штраф 500 000 BnLCoin. Имя нарушителя вносится в «Зал Антикорпоративной Бесчестности» — публичный реестр, доступный всем жителям BnL-городов через сеть 60G.</span>
+          </div>
+          <span class="severity-badge sv-4">§ Особо тяжкое · Категория IV</span>
+        </div>
+
+        <div class="offense-card severity-4">
+          <div class="offense-header">
+            <div class="offense-title">Умышленное нарушение работы спутника SARS</div>
+            <div class="offense-code">BNL-CR-402</div>
+          </div>
+          <div class="offense-desc">Любое умышленное воздействие — техническое, электромагнитное или иное — на орбитальные аппараты группировки SARS.COM с целью нарушения их работоспособности или вывода из строя.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Пожизненный запрет на проживание в городах BnL. Штраф в размере полной стоимости замены спутника (от $120 млн). Уголовное преследование по международному космическому праву. BnL рассматривает данное деяние как акт агрессии против глобальной коммуникационной инфраструктуры — и реагирует соответственно.</span>
+          </div>
+          <span class="severity-badge sv-4">§ Особо тяжкое · Категория IV</span>
+        </div>
+
+        <div class="offense-card severity-4">
+          <div class="offense-header">
+            <div class="offense-title">Попытка лишить Daniel Smith контрольного пакета акций</div>
+            <div class="offense-code">BNL-CR-403</div>
+          </div>
+          <div class="offense-desc">Любые юридические, финансовые или иные манипуляции, направленные на принудительное снижение доли Основателя ниже 51% акционерного капитала BnL.</div>
+          <div class="offense-penalty">
+            <span class="penalty-label">Наказание</span>
+            <span class="penalty-text">Данное деяние не имеет срока давности. Уголовное преследование по всем юрисдикциям, в которых BnL присутствует (193 страны). Гражданский иск без ограничения суммы. Пожизненный запрет на какую-либо деятельность в корпоративном секторе. Дело рассматривается лично Основателем.</span>
+          </div>
+          <span class="severity-badge sv-4">§ Высшая категория · Персональное рассмотрение</span>
+        </div>
+      </div>
+
+      <!-- РАЗДЕЛ V -->
+      <div class="chapter">
+        <div class="chapter-header">
+          <span class="chapter-num">Раздел V</span>
+          <span class="chapter-title">Виды наказаний и порядок исполнения</span>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 5.1</div>
+          <div class="article-title">Виды наказаний</div>
+          <div class="article-text">
+            <div class="sub-item"><span class="sub-item-num">а)</span><span><strong>Штраф в BnLCoin.</strong> Денежное взыскание, взимаемое исключительно в криптовалюте BnLCoin по курсу на день вынесения решения. Оплата в иных валютах допускается с комиссией 15% в пользу BnL Bank.</span></div>
+            <div class="sub-item"><span class="sub-item-num">б)</span><span><strong>Принудительное обучение.</strong> Прохождение обязательных корпоративных курсов на платформе BnL Academy. Прогресс отслеживается через BnL ID.</span></div>
+            <div class="sub-item"><span class="sub-item-num">в)</span><span><strong>Общественные работы.</strong> Выполнение полезных задач для инфраструктуры города: ассистирование бригадам BnL Tech, озеленение корпоративных парков, распространение рекламных материалов BnL.</span></div>
+            <div class="sub-item"><span class="sub-item-num">г)</span><span><strong>Временное ограничение доступа.</strong> Блокировка BnL ID категории B — ограничение доступа в отдельные зоны города на срок от 7 до 90 дней.</span></div>
+            <div class="sub-item"><span class="sub-item-num">д)</span><span><strong>Выдворение из города.</strong> Аннулирование статуса Жителя и обязательное покидание территории города в срок 48 часов с момента вынесения решения. Личное имущество может быть вывезено в течение 72 часов при содействии BnL Logistics (платно).</span></div>
+            <div class="sub-item"><span class="sub-item-num">е)</span><span><strong>Пожизненный запрет.</strong> Внесение биометрических данных нарушителя в систему BnL Border Control. Применяется автоматически при попытке въезда через любой контрольно-пропускной пункт города BnL на всей планете.</span></div>
+          </div>
+        </div>
+
+        <div class="article">
+          <div class="article-num">Статья 5.2</div>
+          <div class="article-title">Апелляция</div>
+          <div class="article-text">
+            <p>Любое лицо, считающее вынесенное в отношении него решение BnL Security несправедливым, вправе в течение <strong>14 дней</strong> подать апелляцию в Корпоративный трибунал BnL. Трибунал состоит из трёх членов, назначаемых Советом директоров. Решение Трибунала является окончательным.</p>
+            <p>Апелляции по делам категории IV рассматриваются <strong>лично Основателем</strong> как высшей инстанцией. Решение Основателя обжалованию не подлежит.</p>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <div class="note-icon">📋</div>
+          <div class="note-text"><strong>Примечание редакции:</strong> BnL убеждена, что подавляющее большинство жителей и сотрудников никогда не столкнутся с необходимостью применения настоящего Кодекса. Корпорация рассматривает данный документ как страховочную сеть, а не как инструмент угнетения. <em>Мы всегда рядом.</em></div>
+        </div>
+      </div>
+
+      <div class="sig-block">
+        <div class="sig-item">
+          <div class="sig-line"></div>
+          <div class="sig-name">Daniel Smith</div>
+          <div class="sig-role">Основатель · Высшая инстанция по делам Кат. IV</div>
+          <div class="sig-seal">BnL<br>LAW</div>
+        </div>
+        <div class="sig-item">
+          <div class="sig-line"></div>
+          <div class="sig-name">Shelby Fortright</div>
+          <div class="sig-role">И.о. CEO · Исполнение настоящего Кодекса</div>
+          <div class="sig-seal" style="background:var(--blue);">BnL<br>CEO</div>
+        </div>
+      </div>
+
+    </div><!-- /doc-body criminal -->
+  </div><!-- /panel-criminal -->
+
+</div><!-- /doc-container -->
+
+<footer>
+  <div class="fg">
+    <a href="buynlarge.html" class="nl">
+      <svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg>
+      <div class="nl-t">BUY <span>N</span> LARGE</div>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="bnl_ant.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">AnT</a>
+      <a href="bnl_aurig.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Aurig</a>
+      <a href="bnl_space.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Космос</a>
+      <a href="bnl_news.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Новости</a>
+      <a href="bnl_careers.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Карьера</a>
+    </div>
+  </div>
+  <div class="fb">
+    <span>© 2008–2026 Buy N Large Corporation · Legal Department · Подораевск</span>
+    <span>legal@buynlarge.com · BNL-LEG-001 / BNL-CRM-002</span>
+  </div>
+</footer>
+
+<script>
+// Intersection observer for fade-in
+const obs = new IntersectionObserver(e => e.forEach(x => {
+  if (x.isIntersecting) x.target.classList.add('vis');
+}), { threshold: 0.05 });
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+function switchDoc(doc) {
+  // Tabs
+  document.getElementById('tab-charter').classList.toggle('active', doc === 'charter');
+  document.getElementById('tab-criminal').classList.toggle('active', doc === 'criminal');
+  // Panels
+  document.getElementById('panel-charter').classList.toggle('active', doc === 'charter');
+  document.getElementById('panel-criminal').classList.toggle('active', doc === 'criminal');
+  // Scroll to tabs
+  setTimeout(() => {
+    document.querySelector('.doc-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+</script>
+</body>
+</html>

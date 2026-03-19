@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инвесторам — Buy N Large</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&family=Playfair+Display:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--red:#D41A1A;--blue:#1A3A8C;--gold:#c8a84b;--ink:#06080f;--text:#111827;--tl:#4b5563;--gray:#e5e7eb;--light:#f4f6fb;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;color:var(--text);background:#fff;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,8,15,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:3px solid var(--gold);}
+.nl{display:flex;align-items:center;gap:10px;text-decoration:none;}.nl-t{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:#fff;letter-spacing:1px;}.nl-t span{color:var(--red);}
+.nm{display:flex;gap:4px;list-style:none;}.nm a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:4px;transition:all .2s;text-transform:uppercase;}.nm a:hover,.nm a.active{color:var(--gold);}
+.container{max-width:1200px;margin:0 auto;}
+.stag{display:inline-block;background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;padding:4px 12px;text-transform:uppercase;margin-bottom:14px;border-radius:2px;}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,4vw,50px);line-height:1;margin-bottom:16px;}
+.fu{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}.fu.vis{opacity:1;transform:translateY(0);}
+/* Ownership donut */
+.ownership-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+/* Financials */
+.fin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.fin-card{background:var(--light);border:1px solid var(--gray);border-radius:12px;padding:24px;text-align:center;}
+.fin-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;color:var(--ink);line-height:1;margin-bottom:4px;}
+.fin-l{font-size:12px;color:#888;margin-bottom:6px;}
+.fin-chg{font-size:12px;font-weight:600;padding:3px 8px;border-radius:10px;}
+.up{background:#dcfce7;color:#16a34a;}.down{background:#fee2e2;color:#dc2626;}
+/* Report cards */
+.report-list{display:flex;flex-direction:column;gap:12px;}
+.report-item{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border:1px solid var(--gray);border-radius:10px;gap:16px;transition:all .2s;cursor:pointer;}
+.report-item:hover{border-color:var(--gold);background:rgba(200,168,75,0.03);}
+.report-icon{font-size:24px;flex-shrink:0;}
+.report-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;}
+.report-date{font-size:12px;color:#888;}
+.report-dl{background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:8px 18px;border-radius:6px;text-decoration:none;white-space:nowrap;}
+/* Leadership cards */
+.lead-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.lead-card{background:#fff;border:1px solid var(--gray);border-radius:14px;overflow:hidden;transition:all .25s;}
+.lead-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.08);transform:translateY(-2px);}
+.lead-avatar{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;}
+.lead-body{padding:24px;}
+.lead-name{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;margin-bottom:4px;}
+.lead-role{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.lead-desc{font-size:13px;color:var(--tl);line-height:1.65;}
+footer{background:#04091e;padding:44px 40px 22px;}
+.fg{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:24px;flex-wrap:wrap;gap:16px;}
+.fb{max-width:1200px;margin:18px auto 0;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);flex-wrap:wrap;gap:8px;}
+@media(max-width:900px){.nm{display:none;}.ownership-block,.fin-grid,.lead-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nl" href="buynlarge.html"><svg width="36" height="36" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+  <ul class="nm">
+    <li><a href="buynlarge.html">Главная</a></li><li><a href="bnl_finance.html">Финансы</a></li>
+    <li><a href="bnl_investors.html" class="active">Инвесторам</a></li><li><a href="bnl_legal.html">Устав</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section style="background:linear-gradient(160deg,#06080f,#0a0d18,#060808);min-height:80vh;display:flex;align-items:center;padding:100px 40px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 80% 50%,rgba(200,168,75,0.07) 0%,transparent 60%);"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <span class="stag">Investor Relations</span>
+        <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,7vw,88px);color:#fff;line-height:.92;margin-bottom:14px;">BnL для<br><span style="color:var(--gold);">инвесторов</span></h1>
+        <p style="font-size:16px;color:rgba(255,255,255,0.5);line-height:1.8;max-width:480px;margin-bottom:32px;">Финансовые отчёты, структура акционерного капитала и стратегические планы Buy N Large. Тикер: <strong style="color:var(--gold);font-family:'Share Tech Mono',monospace;">BNL</strong></p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#reports" style="background:var(--gold);color:var(--ink);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;">Отчёты</a>
+          <a href="#ownership" style="background:transparent;border:1px solid rgba(200,168,75,0.4);color:var(--gold);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;text-transform:uppercase;">Акционеры</a>
+        </div>
+      </div>
+      <!-- Stock ticker mockup -->
+      <div class="fu">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(200,168,75,0.2);border-radius:16px;padding:32px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+            <div><div style="font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--gold);margin-bottom:4px;">BNL · NYSE</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:48px;color:#fff;line-height:1;">$4 847</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:#4ade80;margin-top:4px;">▲ +$118 (+2.5%) за день</div></div>
+            <div style="text-align:right;"><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:4px;">Рыночная кап.</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;color:var(--gold);">$14.6 трлн</div></div>
+          </div>
+          <svg width="100%" height="120" viewBox="0 0 400 120" preserveAspectRatio="none">
+            <defs><linearGradient id="sgf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" style="stop-color:#c8a84b;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#c8a84b;stop-opacity:0"/></linearGradient></defs>
+            <path d="M 0 90 L 40 82 L 80 70 L 100 74 L 130 60 L 160 52 L 190 44 L 210 48 L 240 36 L 270 28 L 300 20 L 330 14 L 360 8 L 400 4 L 400 120 L 0 120 Z" fill="url(#sgf)"/>
+            <path d="M 0 90 L 40 82 L 80 70 L 100 74 L 130 60 L 160 52 L 190 44 L 210 48 L 240 36 L 270 28 L 300 20 L 330 14 L 360 8 L 400 4" stroke="#c8a84b" stroke-width="2" fill="none"/>
+            <circle cx="400" cy="4" r="4" fill="#c8a84b"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.2);margin-top:8px;font-family:'Share Tech Mono',monospace;">
+            <span>Янв 2024</span><span>Апр</span><span>Июл</span><span>Окт</span><span>Янв 2025</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px;">
+            <div style="text-align:center;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px;"><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:3px;">MIN 52 нед.</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#fff;">$2 940</div></div>
+            <div style="text-align:center;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px;"><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:3px;">MAX 52 нед.</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#fff;">$5 120</div></div>
+            <div style="text-align:center;background:rgba(255,255,255,0.03);border-radius:8px;padding:10px;"><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-bottom:3px;">P/E</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--gold);">31.2</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY FINANCIALS -->
+<section style="padding:70px 40px;background:#f9fafb;">
+<div class="container">
+  <div class="fu" style="margin-bottom:40px;"><span class="stag">Финансовые результаты</span><h2 class="stit">2024 — ключевые показатели</h2></div>
+  <div class="fin-grid fu">
+    <div class="fin-card"><div class="fin-n">$4.7 трлн</div><div class="fin-l">Выручка 2024</div><div class="fin-chg up">▲ +18% г/г</div></div>
+    <div class="fin-card"><div class="fin-n">$890 млрд</div><div class="fin-l">Чистая прибыль</div><div class="fin-chg up">▲ +22% г/г</div></div>
+    <div class="fin-card"><div class="fin-n">$14.6 трлн</div><div class="fin-l">Капитализация</div><div class="fin-chg up">▲ +31% г/г</div></div>
+    <div class="fin-card"><div class="fin-n">64.2%</div><div class="fin-l">Валовая маржа</div><div class="fin-chg up">▲ +1.8 пп</div></div>
+    <div class="fin-card"><div class="fin-n">$4 847</div><div class="fin-l">Цена акции (BNL)</div><div class="fin-chg up">▲ +65% за год</div></div>
+    <div class="fin-card"><div class="fin-n">$48.20</div><div class="fin-l">Дивиденд на акцию</div><div class="fin-chg up">▲ +12% г/г</div></div>
+    <div class="fin-card"><div class="fin-n">$2.1 трлн</div><div class="fin-l">Активы BnL Bank</div><div class="fin-chg up">▲ +40% г/г</div></div>
+    <div class="fin-card"><div class="fin-n">193</div><div class="fin-l">Рынки присутствия</div><div class="fin-chg up">+7 новых</div></div>
+  </div>
+</div>
+</section>
+
+<!-- OWNERSHIP -->
+<section id="ownership" style="padding:90px 40px;background:#fff;">
+<div class="container">
+  <div class="ownership-block">
+    <div class="fu">
+      <span class="stag">Акционерный капитал</span>
+      <h2 class="stit">Структура<br>владения BnL</h2>
+      <p style="font-size:14px;color:var(--tl);line-height:1.8;margin-bottom:28px;">Акции BnL разделены на классы A и B. Класс A обладает правом голоса 10:1 — что гарантирует стратегическую стабильность корпорации.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:16px;padding:18px 22px;background:rgba(200,168,75,0.07);border:2px solid var(--gold);border-radius:12px;">
+          <div style="width:48px;height:48px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:var(--ink);flex-shrink:0;">DS</div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;">Daniel Smith</div><div style="font-size:12px;color:#888;">Основатель · Класс A</div></div>
+          <div style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--gold);">75%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:16px 22px;background:var(--light);border:1px solid var(--gray);border-radius:12px;">
+          <div style="width:48px;height:48px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏛</div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;">Институциональные инвесторы</div><div style="font-size:12px;color:#888;">Класс B · Публичный листинг NYSE</div></div>
+          <div style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--text);">18%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:16px 22px;background:var(--light);border:1px solid var(--gray);border-radius:12px;">
+          <div style="width:48px;height:48px;background:#374151;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">👥</div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;">Розничные инвесторы</div><div style="font-size:12px;color:#888;">Класс B</div></div>
+          <div style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--text);">4%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;padding:16px 22px;background:var(--light);border:1px solid var(--gray);border-radius:12px;">
+          <div style="width:48px;height:48px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">💼</div>
+          <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;">Сотрудники BnL (ESOP)</div><div style="font-size:12px;color:#888;">Класс B · Опционная программа</div></div>
+          <div style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--text);">3%</div>
+        </div>
+      </div>
+    </div>
+    <div class="fu" style="display:flex;justify-content:center;align-items:center;">
+      <svg width="320" height="320" viewBox="0 0 320 320">
+        <!-- Donut chart -->
+        <circle cx="160" cy="160" r="130" fill="none" stroke="#f4f6fb" stroke-width="50"/>
+        <!-- 75% Daniel Smith - gold -->
+        <circle cx="160" cy="160" r="130" fill="none" stroke="#c8a84b" stroke-width="50" stroke-dasharray="612 204" stroke-dashoffset="0" transform="rotate(-90 160 160)"/>
+        <!-- 18% institutional - blue -->
+        <circle cx="160" cy="160" r="130" fill="none" stroke="#1A3A8C" stroke-width="50" stroke-dasharray="147 669" stroke-dashoffset="-612" transform="rotate(-90 160 160)"/>
+        <!-- 4% retail -->
+        <circle cx="160" cy="160" r="130" fill="none" stroke="#6b7280" stroke-width="50" stroke-dasharray="33 783" stroke-dashoffset="-759" transform="rotate(-90 160 160)"/>
+        <!-- 3% ESOP -->
+        <circle cx="160" cy="160" r="130" fill="none" stroke="#D41A1A" stroke-width="50" stroke-dasharray="24 792" stroke-dashoffset="-792" transform="rotate(-90 160 160)"/>
+        <!-- Center -->
+        <circle cx="160" cy="160" r="90" fill="white"/>
+        <text x="160" y="148" font-family="Arial Black,sans-serif" font-weight="900" font-size="11" fill="#c8a84b" text-anchor="middle" letter-spacing="2">DANIEL</text>
+        <text x="160" y="166" font-family="Arial Black,sans-serif" font-weight="900" font-size="11" fill="#c8a84b" text-anchor="middle" letter-spacing="2">SMITH</text>
+        <text x="160" y="186" font-family="Arial Black,sans-serif" font-weight="900" font-size="36" fill="#c8a84b" text-anchor="middle">75%</text>
+      </svg>
+    </div>
+  </div>
+  <div style="margin-top:32px;background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.2);border-radius:10px;padding:18px 24px;font-size:13px;color:var(--tl);line-height:1.7;" class="fu">
+    <strong>Защита контрольного пакета:</strong> Устав BnL (ст. 6.1) запрещает снижение доли Daniel Smith ниже 51% без его письменного согласия. Акции класса A дают право голоса 10:1, обеспечивая фактический контроль при любой структуре миноритариев. Подробнее — в <a href="bnl_legal.html" style="color:var(--gold);">Уставе BnL</a>.
+  </div>
+</div>
+</section>
+
+<!-- REPORTS -->
+<section id="reports" style="padding:90px 40px;background:var(--light);">
+<div class="container">
+  <div class="fu" style="margin-bottom:40px;"><span class="stag">Отчётность</span><h2 class="stit">Финансовые отчёты</h2></div>
+  <div class="report-list fu">
+    <div class="report-item"><div class="report-icon">📊</div><div style="flex:1;"><div class="report-title">Годовой отчёт BnL 2024</div><div class="report-date">Опубликован 15 февраля 2025</div></div><a class="report-dl" onclick="alert('Файл в разработке. Свяжитесь: ir@buynlarge.com')">Скачать PDF</a></div>
+    <div class="report-item"><div class="report-icon">📈</div><div style="flex:1;"><div class="report-title">Q3 2024 — Квартальные результаты</div><div class="report-date">Опубликован 28 октября 2024</div></div><a class="report-dl" onclick="alert('ir@buynlarge.com')">Скачать PDF</a></div>
+    <div class="report-item"><div class="report-icon">📈</div><div style="flex:1;"><div class="report-title">Q2 2024 — Квартальные результаты</div><div class="report-date">Опубликован 29 июля 2024</div></div><a class="report-dl" onclick="alert('ir@buynlarge.com')">Скачать PDF</a></div>
+    <div class="report-item"><div class="report-icon">📈</div><div style="flex:1;"><div class="report-title">Q1 2024 — Квартальные результаты</div><div class="report-date">Опубликован 29 апреля 2024</div></div><a class="report-dl" onclick="alert('ir@buynlarge.com')">Скачать PDF</a></div>
+    <div class="report-item"><div class="report-icon">📊</div><div style="flex:1;"><div class="report-title">Годовой отчёт BnL 2023</div><div class="report-date">Опубликован 12 февраля 2024</div></div><a class="report-dl" onclick="alert('ir@buynlarge.com')">Скачать PDF</a></div>
+    <div class="report-item"><div class="report-icon">🏛️</div><div style="flex:1;"><div class="report-title">Проспект эмиссии BnLCoin — серия C</div><div class="report-date">Опубликован 1 ноября 2023</div></div><a class="report-dl" onclick="alert('ir@buynlarge.com')">Скачать PDF</a></div>
+  </div>
+</div>
+</section>
+
+<!-- LEADERSHIP -->
+<section style="padding:90px 40px;background:#fff;">
+<div class="container">
+  <div class="fu" style="text-align:center;margin-bottom:50px;"><span class="stag">Руководство</span><h2 class="stit">Команда управления</h2></div>
+  <div class="lead-grid">
+    <div class="lead-card fu" style="border-top:4px solid var(--gold);">
+      <div class="lead-avatar" style="background:linear-gradient(135deg,#1a1404,#2a2010);">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="38" r="22" fill="#c8a84b" opacity="0.85"/>
+          <path d="M 12 88 Q 12 65 50 65 Q 88 65 88 88 Z" fill="#c8a84b" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="lead-body">
+        <div class="lead-name">Daniel Smith</div>
+        <div class="lead-role">Основатель · Владелец 75% акций</div>
+        <div class="lead-desc">Основал BnL 6 декабря 2008 года в Москве. Вывел компанию с оборота $1.2 млн до $4.7 трлн. Контролирующий акционер, председатель Совета директоров. Принимает финальные решения по делам категории IV Уголовного кодекса BnL.</div>
+      </div>
+    </div>
+    <div class="lead-card fu" style="border-top:4px solid var(--red);">
+      <div class="lead-avatar" style="background:linear-gradient(135deg,#0e1020,#1a1030);">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="38" r="22" fill="#fff" opacity="0.7"/>
+          <path d="M 14 88 Q 14 65 50 65 Q 86 65 86 88 Z" fill="#fff" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="lead-body">
+        <div class="lead-name">Shelby Fortright</div>
+        <div class="lead-role" style="color:var(--blue);">И.о. генерального директора · с 01.09.2024</div>
+        <div class="lead-desc">Исполняет обязанности CEO с сентября 2024 года. До назначения — директор по операциям BnL (COO). Курирует все текущие операционные решения компании. Назначение постоянного CEO остаётся за Daniel Smith.</div>
+      </div>
+    </div>
+    <div class="lead-card fu" style="border-top:4px solid var(--blue);">
+      <div class="lead-avatar" style="background:linear-gradient(135deg,#0a0c18,#0e1428);">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="38" r="22" fill="#2351C0" opacity="0.8"/>
+          <path d="M 14 88 Q 14 65 50 65 Q 86 65 86 88 Z" fill="#2351C0" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="lead-body">
+        <div class="lead-name">Совет директоров</div>
+        <div class="lead-role" style="color:var(--blue);">9 членов · Контроль и надзор</div>
+        <div class="lead-desc">5 директоров назначены Daniel Smith, 3 — миноритарными акционерами, 1 — независимый директор. Решения Совета утверждаются простым большинством, кроме вопросов, требующих одобрения Основателя (Устав BnL, ст. 2.2).</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fg"><a href="buynlarge.html" class="nl"><svg width="34" height="34" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="50" ry="50" fill="#D41A1A"/><text x="18" y="68" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" fill="white" letter-spacing="-4">BL</text><ellipse cx="50" cy="55" rx="14" ry="14" fill="#1A3A8C"/><text x="43" y="60" font-family="Arial Black,sans-serif" font-weight="900" font-size="14" fill="white">n</text></svg><div class="nl-t">BUY <span>N</span> LARGE</div></a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;"><a href="bnl_finance.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Финансы</a><a href="bnl_legal.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;">Правовая база</a></div>
+  </div>
+  <div class="fb"><span>© 2008–2026 Buy N Large Corporation · Investor Relations</span><span>ir@buynlarge.com</span></div>
+</footer>
+<script>const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.07});document.querySelectorAll('.fu').forEach(el=>obs.observe(el));</script>
+</body>
+</html>
